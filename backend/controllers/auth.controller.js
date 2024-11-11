@@ -42,6 +42,24 @@ const authController = {
         .json({ error: 'Access denied. User not active' });
     }
 
+    if (!user.password) {
+      if (user.isSignUpFromGoogle) {
+        console.warn('Access denied. User registered via Google');
+
+        return res
+          .status(httpStatus.UNAUTHORIZED)
+          .json({ error: 'Access denied. User registered via Google' });
+      }
+
+      if (user.isSignUpFromFacebook) {
+        console.warn('Access denied. User registered via Facebook');
+
+        return res
+          .status(httpStatus.UNAUTHORIZED)
+          .json({ error: 'Access denied. User registered via Facebook' });
+      }
+    }
+
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
@@ -58,6 +76,40 @@ const authController = {
     res.status(httpStatus.OK).json({
       message: 'Login Successful!',
       user: user.toSafeObject(),
+    });
+  },
+
+  registerOrLoginUser: async (req, res) => {
+    const { user } = req;
+    const { firstName, lastName, email, provider } = req.body;
+
+    let existingUser = await User.findOne({ where: { email } });
+
+    if (!existingUser) {
+      const newUser = await User.create({
+        firstName,
+        lastName,
+        username: email,
+        email,
+        isSignUpFromGoogle: provider === 'google',
+        isSignUpFromFacebook: provider === 'facebook',
+      });
+
+      responseToken.setAccessToken(newUser, res);
+      await responseToken.setRefreshToken(newUser, res);
+
+      return res.status(201).json({
+        message: 'User registered successfully!',
+        user: newUser.toSafeObject(),
+      });
+    }
+
+    responseToken.setAccessToken(existingUser, res);
+    await responseToken.setRefreshToken(existingUser, res);
+
+    res.status(200).json({
+      message: 'User logged in successfully!',
+      user: existingUser.toSafeObject(),
     });
   },
 

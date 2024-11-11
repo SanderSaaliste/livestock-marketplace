@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { BiMenu, BiHeart, BiBell, BiEnvelope, BiSearch } from 'react-icons/bi';
+import React, { useEffect, useState } from 'react';
+import {
+  BiUser,
+  BiLogOut,
+  BiMenu,
+  BiHeart,
+  BiBell,
+  BiEnvelope,
+  BiSearch,
+} from 'react-icons/bi';
 import { FaTimes } from 'react-icons/fa';
 
 import logo from '../assets/farmifylogo.png';
@@ -7,6 +15,7 @@ import headerImage from '../assets/header.png';
 import CustomDropdown from './CustomDropdown';
 import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
+import authService from '../services/auth-service';
 
 const categories = [
   {
@@ -222,11 +231,25 @@ const NavbarHero = () => {
   const [isSignupOpen, setSignupOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
   const handleSignupClick = () => setSignupOpen(true);
   const handleSignupClose = () => setSignupOpen(false);
 
   const handleLoginClick = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
+
+  const handleLogout = () => {
+    authService.logout();
+    setUser(null);
+  };
 
   return (
     <div
@@ -261,34 +284,60 @@ const NavbarHero = () => {
             <BiBell className='text-black text-xl lg:text-2xl' />
             <BiEnvelope className='text-black text-xl lg:text-2xl' />
           </div>
-          <button
-            onClick={handleLoginClick}
-            className='text-black font-semibold px-3 py-1 lg:py-1 lg:px-4 hover:bg-[#FE7051] hover:text-white rounded-full transition duration-200 ease-in-out'
-          >
-            Login
-          </button>
-          <button
-            onClick={handleSignupClick}
-            className='bg-black text-white py-1 px-3 lg:py-1 lg:px-4 rounded-full font-semibold text-sm lg:text-base hover:bg-[#FE7051] hover:transition duration-200 ease-in-out'
-          >
-            Sign up
-          </button>
+          {user ? (
+            <div className='flex items-center space-x-3'>
+              <BiUser className='text-black text-xl lg:text-2xl' />
+              <span className='text-black font-semibold'>{`${user.firstName} ${user.lastName}`}</span>
+              <BiLogOut
+                onClick={handleLogout}
+                className='text-black text-xl lg:text-2xl'
+              />
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={handleLoginClick}
+                className='text-black font-semibold px-3 py-1 lg:py-1 lg:px-4 hover:bg-[#FE7051] hover:text-white rounded-full transition duration-200 ease-in-out'
+              >
+                Login
+              </button>
+              <button
+                onClick={handleSignupClick}
+                className='bg-black text-white py-1 px-3 lg:py-1 lg:px-4 rounded-full font-semibold text-sm lg:text-base hover:bg-[#FE7051] hover:transition duration-200 ease-in-out'
+              >
+                Sign up
+              </button>
+            </>
+          )}
         </div>
 
         <div className='lg:hidden flex items-center'>
           <div className='flex items-center space-x-4 lg:space-x-12'>
-            <button
-              onClick={handleLoginClick}
-              className='text-black font-semibold px-3 py-1 lg:py-1 lg:px-4 hover:bg-[#FE7051] hover:text-white rounded-full transition duration-200 ease-in-out'
-            >
-              Login
-            </button>
-            <button
-              onClick={handleSignupClick}
-              className='bg-black text-white py-1 px-3 lg:py-1 lg:px-4 rounded-full font-semibold text-sm lg:text-base hover:bg-[#FE7051] hover:transition duration-200 ease-in-out'
-            >
-              Sign up
-            </button>
+            {user ? (
+              <div className='flex items-center space-x-2 lg:space-x-3'>
+                <BiUser className='text-black text-lg lg:text-2xl' />
+                <span className='text-black font-semibold text-sm lg:text-lg'>{`${user.firstName} ${user.lastName}`}</span>
+                <BiLogOut
+                  onClick={handleLogout}
+                  className='text-black text-lg lg:text-2xl'
+                />
+              </div>
+            ) : (
+              <>
+                <button
+                  onClick={handleLoginClick}
+                  className='text-black font-semibold px-3 py-1 lg:py-1 lg:px-4 hover:bg-[#FE7051] hover:text-white rounded-full transition duration-200 ease-in-out'
+                >
+                  Login
+                </button>
+                <button
+                  onClick={handleSignupClick}
+                  className='bg-black text-white py-1 px-3 lg:py-1 lg:px-4 rounded-full font-semibold text-sm lg:text-base hover:bg-[#FE7051] hover:transition duration-200 ease-in-out'
+                >
+                  Sign up
+                </button>
+              </>
+            )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className='text-2xl'
@@ -365,8 +414,16 @@ const NavbarHero = () => {
         <div className='hidden lg:block'></div>
       </div>
 
-      <SignUpDialog isOpen={isSignupOpen} onClose={handleSignupClose} />
-      <LoginDialog isOpen={isLoginOpen} onClose={handleLoginClose} />
+      <SignUpDialog
+        isOpen={isSignupOpen}
+        onClose={handleSignupClose}
+        setUser={setUser}
+      />
+      <LoginDialog
+        isOpen={isLoginOpen}
+        onClose={handleLoginClose}
+        setUser={setUser}
+      />
     </div>
   );
 };
