@@ -2,22 +2,25 @@ const fs = require('fs');
 
 const transporter = require('./emailConfig');
 
-const sendResetPasswordEmail = async (email, token) => {
-  const emailSubect = 'Reset Your Password – Resolut Technologies';
+const sendVerifyEmail = async (email, token) => {
+  const emailSubect = 'Verify Your Email – Farmify';
   const emailRecipient = email;
 
   let emailTemplate;
 
   const template = fs.readFileSync(
-    './emailTemplates/resetPassword.html',
+    './emailTemplates/verifyEmail.html',
     'utf-8'
   );
 
   emailTemplate = template
-    .replace('{{Logo URL}}', `${process.env.BACKEND_URL}/assets/logo.png`)
     .replace(
-      '{{Reset Password Link}}',
-      `${process.env.FRONTEND_URL}/reset-password?token=${token}`
+      '{{Logo URL}}',
+      `${process.env.BACKEND_URL}/assets/farmifyLogo.png`
+    )
+    .replace(
+      '{{Verification Link}}',
+      `${process.env.FRONTEND_URL}/emailVerified?token=${token}`
     );
 
   const mailOptions = {
@@ -36,5 +39,5 @@ const sendResetPasswordEmail = async (email, token) => {
 };
 
 module.exports = {
-  sendResetPasswordEmail,
+  sendVerifyEmail,
 };

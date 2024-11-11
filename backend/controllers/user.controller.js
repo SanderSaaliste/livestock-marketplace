@@ -1,8 +1,12 @@
 const httpStatus = require('http-status-codes').StatusCodes;
 const { Op } = require('sequelize');
 
-const { User, validateUser } = require('../models/user.model');
-const responseToken = require('../helpers/responseToken');
+const {
+  User,
+  validateUser,
+  generateAccessToken,
+} = require('../models/user.model');
+const { sendVerifyEmail } = require('../helpers/email');
 
 const userController = {
   register: async (req, res) => {
@@ -42,8 +46,7 @@ const userController = {
       address,
     });
 
-    responseToken.setAccessToken(newUser, res);
-    await responseToken.setRefreshToken(newUser, res);
+    sendVerifyEmail(newUser.email, generateAccessToken(newUser));
 
     res.status(httpStatus.CREATED).json({
       message: 'User registered successfully!',

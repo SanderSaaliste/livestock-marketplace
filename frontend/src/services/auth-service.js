@@ -29,6 +29,26 @@ const registerOrLogin = async (data) => {
   }
 };
 
+const resendVerificationEmail = async (data) => {
+  try {
+    const response = await axios.post(`/auth/resendVerificationEmail`, data);
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+const verifyEmail = async (data) => {
+  try {
+    const response = await axios.post(`/auth/verifyEmail`, data);
+
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 const logout = async () => {
   try {
     const response = await axios.post(`/auth/logout`, {});
@@ -46,6 +66,8 @@ const logout = async () => {
 const authService = {
   login,
   registerOrLogin,
+  resendVerificationEmail,
+  verifyEmail,
   logout,
 };
 

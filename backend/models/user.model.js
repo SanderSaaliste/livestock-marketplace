@@ -14,6 +14,7 @@ class User extends Model {
       username,
       email,
       address,
+      isEmailVerified,
       isSignUpFromGoogle,
       isSignUpFromFacebook,
       isActive,
@@ -27,6 +28,7 @@ class User extends Model {
       username,
       email,
       address,
+      isEmailVerified,
       isSignUpFromGoogle,
       isSignUpFromFacebook,
       isActive,
@@ -72,6 +74,11 @@ User.init(
     address: {
       type: DataTypes.TEXT,
       allowNull: true,
+    },
+    isEmailVerified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     isSignUpFromGoogle: {
       type: DataTypes.BOOLEAN,

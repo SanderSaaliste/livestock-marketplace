@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Mochiy+Pop+One&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      table,
+      td,
+      a {
+        text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        border: 0;
+        height: auto;
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+      }
+      body {
+        width: 100% !important;
+        height: 100% !important;
+        font-family: 'Inter', sans-serif;
+        background-color: #f9ffe2;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .logo-container {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .logo-container img {
+        max-width: 150px;
+      }
+      .header-title {
+        font-family: 'Mochiy Pop One', sans-serif;
+        font-size: 24px;
+        color: #333333;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .content {
+        color: #555555;
+        font-size: 16px;
+        line-height: 1.6;
+        padding: 0 20px;
+        text-align: center;
+      }
+      .highlight {
+        font-weight: bold;
+        color: #5ea91e;
+      }
+      .verify-button {
+        display: inline-block;
+        padding: 12px 24px;
+        margin: 20px auto;
+        background-color: #5ea91e;
+        color: #ffffff !important;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      .footer {
+        text-align: center;
+        color: #888888;
+        font-size: 14px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+          <div class="email-container">
+            <div class="logo-container">
+              <img src="{{Logo URL}}" alt="Farmify Logo" />
+            </div>
+
+            <h1 class="header-title">Verify Your Email Address</h1>
+
+            <div class="content">
+              <p>Welcome to Farmify! We’re excited to have you on board.</p>
+              <p class="highlight">
+                Please confirm your email address by clicking the button below.
+              </p>
+              <p>
+                Once verified, you’ll gain full access to all our amazing
+                features.
+              </p>
+
+              <a href="{{Verification Link}}" class="verify-button"
+                >Verify Email</a
+              >
+
+              <p>If you did not request this email, please ignore it.</p>
+            </div>
+
+            <div class="footer">
+              <p>Thank you for joining us!</p>
+              <p>Farmify Team</p>
+              <p>&copy; 2024 Farmify. All rights reserved.</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

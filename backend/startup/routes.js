@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+
 const auth = require('../routers/auth.route');
 const user = require('../routers/user.route');
 const error = require('../middlewares/error');
@@ -16,6 +18,7 @@ const corsOptions = {
 module.exports = (app) => {
   app.use(cors(corsOptions));
   app.use(express.json());
+  app.use('/api/assets', express.static(path.join(__dirname, '..', 'assets')));
   app.use('/api/auth', auth);
   app.use('/api/user', user);
   app.use(error);

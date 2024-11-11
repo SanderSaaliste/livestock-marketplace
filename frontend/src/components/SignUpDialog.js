@@ -9,8 +9,11 @@ import { auth, googleProvider, facebookProvider } from '../firebase/config';
 import logo from '../assets/farmifylogo.png';
 import userService from '../services/user-service';
 import authService from '../services/auth-service';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpDialog = ({ isOpen, onClose, setUser }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -75,6 +78,8 @@ const SignUpDialog = ({ isOpen, onClose, setUser }) => {
       }
 
       toast.success('Registration successful!');
+
+      navigate(`/verifyEmail?email=${formData.email}`);
       onClose();
     } catch (err) {
       console.error('Registration error:', err);
