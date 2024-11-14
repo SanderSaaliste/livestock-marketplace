@@ -1,6 +1,7 @@
 const httpStatus = require('http-status-codes').StatusCodes;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { Op } = require('sequelize');
 
 const { User, generateAccessToken } = require('../models/user.model');
 const Auth = require('../models/auth.model');
@@ -100,10 +101,8 @@ const authController = {
 
     let existingUser = await User.findOne({
       where: {
-        email,
+        [Op.or]: [{ email }, { username: email }],
         password: null,
-        isSignUpFromFacebook: provider === 'facebook',
-        isSignUpFromGoogle: provider === 'google',
       },
     });
 
