@@ -407,7 +407,7 @@ const NavbarHero = () => {
         )}
       </nav>
 
-      <div className='container mx-auto px-4 lg:px-40 py-20 grid grid-cols-1 lg:grid-cols-2 items-center'>
+      <div className='container mx-auto px-4 lg:px-40 py-10 grid grid-cols-1 lg:grid-cols-2 items-center'>
         <div className='col-span-1'>
           <h1 className='text-black text-2xl lg:text-5xl font-bold mb-4 font-mochiy leading-snug lg:leading-normal'>
             Connecting Pig Farmers with Buyers
@@ -442,16 +442,18 @@ const NavbarHero = () => {
             </button>
           </div>
 
-          <div className='container mx-auto py-10 grid grid-cols-4 lg:grid-cols-7 gap-6'>
+          <div className='container w-[85%] pt-10 grid grid-cols-4 lg:grid-cols-7 items-start'>
             {groups.map((group, index) => (
               <div
                 key={index}
-                className='flex flex-col items-center text-center space-y-1'
+                className='flex flex-col items-center text-center group'
               >
-                <div className='p-3 border-2 border-[#b5dd8f] rounded-xl bg-[#FEFFF9] transition-transform transform hover:scale-105'>
+                <div className='p-2 border-2 border-[#b5dd8f] rounded-xl bg-[#FEFFF9] transition-transform transform shadow-lg hover:scale-105'>
                   <img src={group.icon} alt={group.title} />
                 </div>
-                <span className='text-[#7D8A81] text-sm'>{group.title}</span>
+                <span className='text-[#7D8A81] text-sm opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+                  {group.title}
+                </span>
               </div>
             ))}
           </div>
