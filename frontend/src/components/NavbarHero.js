@@ -17,6 +17,21 @@ import SignUpDialog from './SignUpDialog';
 import LoginDialog from './LoginDialog';
 import authService from '../services/auth-service';
 
+import image23 from '../assets/image 23.png';
+import image24 from '../assets/image 24.png';
+import image25 from '../assets/image 25.png';
+import image26 from '../assets/image 26.png';
+import image27 from '../assets/image 27.png';
+import image28 from '../assets/image 28.png';
+import image29 from '../assets/image 29.png';
+import image30 from '../assets/image 30.png';
+import image32 from '../assets/image 32.png';
+import image35 from '../assets/image 35.png';
+import image36 from '../assets/image 36.png';
+import image38 from '../assets/image 38.png';
+import image39 from '../assets/image 39.png';
+import image40 from '../assets/image 40.png';
+
 const categories = [
   {
     group: 'Livestock',
@@ -226,6 +241,23 @@ const categories = [
   },
 ];
 
+const groups = [
+  { title: 'Livestock', icon: image23 },
+  { title: 'Vehicles', icon: image24 },
+  { title: 'Services / Jobs', icon: image25 },
+  { title: 'Real Estate', icon: image26 },
+  { title: 'Heavy Equipment', icon: image27 },
+  { title: 'Aquaculture', icon: image28 },
+  { title: 'Tools', icon: image29 },
+  { title: 'Home & Garden', icon: image30 },
+  { title: 'Animal Feed', icon: image40 },
+  { title: 'Fertilizers', icon: image32 },
+  { title: 'Fruits, Vegetables & Growable', icon: image39 },
+  { title: 'Building Materials', icon: image38 },
+  { title: 'Seeds', icon: image35 },
+  { title: 'Other', icon: image36 },
+];
+
 const NavbarHero = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSignupOpen, setSignupOpen] = useState(false);
@@ -264,10 +296,10 @@ const NavbarHero = () => {
               Home
             </a>
             <a href='#' className='text-green-900 font-semibold'>
-              Pigs for Sale
+              Listings
             </a>
             <a href='#' className='text-green-900 font-semibold'>
-              Sell your Pig
+              Add Listing
             </a>
             <a href='#' className='text-green-900 font-semibold'>
               About us
@@ -354,10 +386,10 @@ const NavbarHero = () => {
                 Home
               </a>
               <a href='#' className='text-green-900 font-semibold'>
-                Pigs for Sale
+                Listings
               </a>
               <a href='#' className='text-green-900 font-semibold'>
-                Sell your Pig
+                Add Listing
               </a>
               <a href='#' className='text-green-900 font-semibold'>
                 About us
@@ -408,6 +440,20 @@ const NavbarHero = () => {
             <button className='bg-[#FE7051] hover:bg-[#e66051] text-white font-bold px-6 py-2 rounded-lg shadow-lg w-full lg:w-auto'>
               SEARCH
             </button>
+          </div>
+
+          <div className='container mx-auto py-10 grid grid-cols-4 lg:grid-cols-7 gap-6'>
+            {groups.map((group, index) => (
+              <div
+                key={index}
+                className='flex flex-col items-center text-center space-y-1'
+              >
+                <div className='p-3 border-2 border-[#b5dd8f] rounded-xl bg-[#FEFFF9] transition-transform transform hover:scale-105'>
+                  <img src={group.icon} alt={group.title} />
+                </div>
+                <span className='text-[#7D8A81] text-sm'>{group.title}</span>
+              </div>
+            ))}
           </div>
         </div>
 

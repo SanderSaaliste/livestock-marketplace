@@ -40,13 +40,13 @@ const Footer = () => (
               href='#'
               className='text-gray-300 font-semibold hover:text-gray-100 block'
             >
-              Pigs for Sale
+              Listings
             </a>
             <a
               href='#'
               className='text-gray-300 font-semibold hover:text-gray-100 block'
             >
-              Sell your Pig
+              Add Listing
             </a>
             <a
               href='#'
