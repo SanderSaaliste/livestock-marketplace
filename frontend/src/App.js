@@ -5,6 +5,11 @@ import Home from './pages/Home';
 import EmailVerification from './pages/EmailVerification';
 import EmailVerified from './pages/EmailVerified';
 import AddListing from './pages/AddListing';
+import FillInForm from './pages/FillForm';
+import ListingConfirmation from './pages/ListingConfirmation';
+import Listings from './pages/Listings';
+import SingleListing from './pages/SingleListing';
+import LeaveReview from './pages/LeaveReview';
 
 function App() {
   return (
@@ -15,6 +20,14 @@ function App() {
           <Route path='/verifyEmail' element={<EmailVerification />} />
           <Route path='/emailVerified' element={<EmailVerified />} />
           <Route path='/addListing' element={<AddListing />} />
+          <Route path='/fillForm' element={<FillInForm />} />
+          <Route
+            path='/listingConfirmation'
+            element={<ListingConfirmation />}
+          />
+          <Route path='/listings' element={<Listings />} />
+          <Route path='/listing/:id' element={<SingleListing />} />
+          <Route path='/listing/:id/leaveReview' element={<LeaveReview />} />
         </Routes>
       </div>
     </Router>

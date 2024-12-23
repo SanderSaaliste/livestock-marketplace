@@ -132,3 +132,6 @@ dist
 
 # Firebase configurations
 credentials.js
+
+# Uploaded Media
+listingMedia/

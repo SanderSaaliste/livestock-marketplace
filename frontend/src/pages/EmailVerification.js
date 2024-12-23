@@ -74,7 +74,7 @@ const EmailVerification = () => {
         <div className='flex space-x-8 mt-2'>
           <button
             onClick={handleResend}
-            className='px-10 py-3 bg-[#5EA91E] text-white font-bold rounded-full hover:bg-green-600 transition duration-200'
+            className='px-10 py-3 bg-[#5EA91E] text-white font-bold rounded-full hover:bg-[#4E911B] transition duration-200'
           >
             Resend
           </button>

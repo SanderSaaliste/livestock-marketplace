@@ -31,18 +31,18 @@ const Footer = () => (
         <div className='md:w-1/4 text-center md:text-left'>
           <h4 className='text-lg md:text-2xl font-bold mb-4'>Navigation</h4>
           <nav className='space-y-2'>
-            <a
-              href='#'
+            <Link
+              to='/'
               className='text-gray-300 font-semibold hover:text-gray-100 block'
             >
               Home
-            </a>
-            <a
-              href='#'
+            </Link>
+            <Link
+              to='/listings'
               className='text-gray-300 font-semibold hover:text-gray-100 block'
             >
               Listings
-            </a>
+            </Link>
             <Link
               to='/addListing'
               className='text-gray-300 font-semibold hover:text-gray-100 block'

@@ -1,10 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import group242 from '../../assets/Group 242.png';
 import group243 from '../../assets/Group 243.png';
 import group244 from '../../assets/Group 244.png';
 
 const GetStartedSteps = () => {
+  const navigate = useNavigate();
+
   return (
     <section className='py-16 md:py-24 lg:py-32'>
       <div className='container mx-auto flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12 px-6 md:px-10 lg:px-20 xl:px-40'>
@@ -25,7 +28,10 @@ const GetStartedSteps = () => {
             description='Add a few details about your pig. Providing more information increases the chances of a sale. Make your listing informative and appealing. And voila, your listing is ready!'
           />
           <div className='text-center'>
-            <button className='bg-[#5EA91E] hover:bg-[#4CAF50] text-white py-2 px-14 md:py-3 md:px-24 rounded-full font-bold transition-colors duration-200'>
+            <button
+              className='bg-[#5EA91E] hover:bg-[#4CAF50] text-white py-2 px-14 md:py-3 md:px-24 rounded-full font-bold transition-colors duration-200'
+              onClick={() => navigate('/fillForm')}
+            >
               Get Started
             </button>
           </div>

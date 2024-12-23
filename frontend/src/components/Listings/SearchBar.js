@@ -1,0 +1,45 @@
+import React from 'react';
+import { BiSearch, BiMap } from 'react-icons/bi';
+import { categories } from '../../constants';
+import CustomDropdown from './CustomDropdown';
+
+const SearchBar = () => {
+  return (
+    <section className='py-4 md:py-8 lg:py-12'>
+      <div className='bg-[#D0DED1] p-4 shadow-md max-w-7xl mx-auto'>
+        <div className='flex flex-col lg:flex-row items-center justify-between bg-white shadow-sm'>
+          <div className='flex items-center w-full lg:w-[40%] px-4 py-2 border-b lg:border-b-0 lg:border-r'>
+            <CustomDropdown options={categories} placeholder='All categories' />
+          </div>
+
+          {/* Search Input Section */}
+          <div className='flex items-center w-full lg:flex-grow px-4 py-2 lg:py-6 border-b lg:border-b-0 lg:border-r'>
+            <BiSearch className='mr-4 text-xl text-gray-500' />
+            <input
+              type='text'
+              placeholder="I'm looking for..."
+              className='w-full outline-none text-gray-600 font-semibold'
+            />
+          </div>
+
+          {/* Location Section */}
+          <div className='flex items-center w-full lg:w-[40%] px-4 py-2 lg:py-6 border-b lg:border-b-0 lg:border-r'>
+            <BiMap className='text-gray-500 text-xl mr-2' />
+            <input
+              type='text'
+              placeholder='Location'
+              className='w-full outline-none text-gray-600 font-semibold'
+            />
+          </div>
+
+          {/* Search Button */}
+          <button className='w-full lg:w-auto bg-[#53AE66] text-white font-semibold px-10 py-4 lg:py-6 hover:bg-[#4D955B] transition'>
+            SEARCH
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SearchBar;
