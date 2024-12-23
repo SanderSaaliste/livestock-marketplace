@@ -7,7 +7,6 @@ import {
 import { FaCalendarCheck } from 'react-icons/fa';
 import { BsChatDots } from 'react-icons/bs';
 
-import rectangle22 from '../../assets/Rectangle 22.png';
 import { apiHost } from '../../constants';
 
 const Description = ({ listing }) => {
