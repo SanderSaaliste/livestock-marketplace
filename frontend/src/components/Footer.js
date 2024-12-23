@@ -3,6 +3,7 @@ import logo from '../assets/Group 193.png';
 import instagramLogo from '../assets/Group 147.png';
 import twitterLogo from '../assets/Group 148.png';
 import facebookLogo from '../assets/Group 149.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => (
   <footer className='bg-[#43662E] text-white pt-10 pb-4 px-4 md:px-8 lg:px-32'>
@@ -42,12 +43,12 @@ const Footer = () => (
             >
               Listings
             </a>
-            <a
-              href='#'
+            <Link
+              to='/addListing'
               className='text-gray-300 font-semibold hover:text-gray-100 block'
             >
               Add Listing
-            </a>
+            </Link>
             <a
               href='#'
               className='text-gray-300 font-semibold hover:text-gray-100 block'

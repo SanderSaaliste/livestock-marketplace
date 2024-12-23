@@ -1,7 +1,7 @@
 import React from 'react';
-import freeListingImg from '../assets/Group 39.png';
-import buildClientImg from '../assets/Group 38.png';
-import farmerImg from '../assets/Group 45.png';
+import freeListingImg from '../../assets/Group 39.png';
+import buildClientImg from '../../assets/Group 38.png';
+import farmerImg from '../../assets/Group 45.png';
 
 const SellWithUs = () => (
   <section className='py-16 md:py-24 lg:py-32'>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   BiUser,
   BiLogOut,
@@ -292,15 +293,15 @@ const NavbarHero = () => {
         <div className='flex items-center space-x-4 lg:space-x-10'>
           <img src={logo} alt='Farmify Logo' className='h-10 lg:h-12' />
           <div className='hidden lg:flex space-x-6'>
-            <a href='#' className='text-green-900 font-semibold'>
+            <Link to='/' className='text-green-900 font-semibold'>
               Home
-            </a>
+            </Link>
             <a href='#' className='text-green-900 font-semibold'>
               Listings
             </a>
-            <a href='#' className='text-green-900 font-semibold'>
+            <Link to='/addListing' className='text-green-900 font-semibold'>
               Add Listing
-            </a>
+            </Link>
             <a href='#' className='text-green-900 font-semibold'>
               About us
             </a>
@@ -382,15 +383,15 @@ const NavbarHero = () => {
         {mobileMenuOpen && (
           <div className='lg:hidden absolute top-16 left-0 w-full bg-white shadow-lg z-20'>
             <div className='flex flex-col items-start p-4 space-y-3'>
-              <a href='#' className='text-green-900 font-semibold'>
+              <Link to='/' className='text-green-900 font-semibold'>
                 Home
-              </a>
+              </Link>
               <a href='#' className='text-green-900 font-semibold'>
                 Listings
               </a>
-              <a href='#' className='text-green-900 font-semibold'>
+              <Link href='/addListing' className='text-green-900 font-semibold'>
                 Add Listing
-              </a>
+              </Link>
               <a href='#' className='text-green-900 font-semibold'>
                 About us
               </a>

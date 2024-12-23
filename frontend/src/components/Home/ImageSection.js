@@ -1,8 +1,8 @@
 import React from 'react';
-import selectBestImg from '../assets/Selectbest.png';
-import deliveryImg from '../assets/Delivery.png';
-import gCashImg from '../assets/GCash.png';
-import productsImg from '../assets/Products.png';
+import selectBestImg from '../../assets/Selectbest.png';
+import deliveryImg from '../../assets/Delivery.png';
+import gCashImg from '../../assets/GCash.png';
+import productsImg from '../../assets/Products.png';
 
 const ImageSection = () => (
   <div className='flex flex-wrap justify-center my-12 md:my-24 space-y-6 md:space-y-0 md:space-x-6'>

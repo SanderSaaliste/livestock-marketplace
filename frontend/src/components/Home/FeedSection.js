@@ -1,5 +1,5 @@
 import React from 'react';
-import feedImage from '../assets/Grower.png';
+import feedImage from '../../assets/Grower.png';
 
 const FeedSection = () => (
   <section className='bg-[#F0FDC8] py-16 pb-40'>

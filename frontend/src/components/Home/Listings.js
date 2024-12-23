@@ -1,7 +1,7 @@
 import React from 'react';
-import exampleImage1 from '../assets/Rectangle 23.png';
-import exampleImage2 from '../assets/Rectangle 33.png';
-import exampleImage3 from '../assets/Rectangle 22.png';
+import exampleImage1 from '../../assets/Rectangle 23.png';
+import exampleImage2 from '../../assets/Rectangle 33.png';
+import exampleImage3 from '../../assets/Rectangle 22.png';
 
 const Listings = () => (
   <section className='py-12 pb-32'>
