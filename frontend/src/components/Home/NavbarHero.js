@@ -207,7 +207,7 @@ const NavbarHero = () => {
             {groups.map((group, index) => (
               <div
                 key={index}
-                className='flex flex-col items-center text-center group'
+                className='flex flex-col items-center text-center group cursor-pointer'
               >
                 <div className='p-2 border-2 border-[#b5dd8f] rounded-xl bg-[#FEFFF9] transition-transform transform shadow-lg hover:scale-105'>
                   <img src={group.icon} alt={group.title} />

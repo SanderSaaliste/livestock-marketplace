@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 
 const CustomDropdown = ({ options, placeholder }) => {
+  const dropdownRef = useRef(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(placeholder);
 
@@ -12,8 +14,21 @@ const CustomDropdown = ({ options, placeholder }) => {
     }
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className='relative w-full sm:w-[60%] md:w-[40%]'>
+    <div ref={dropdownRef} className='relative w-full sm:w-[60%] md:w-[40%]'>
       <div
         className='flex items-center justify-between p-3 sm:p-4 rounded-lg border bg-white text-gray-700 cursor-pointer shadow-md'
         onClick={() => setIsOpen(!isOpen)}

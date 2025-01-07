@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiUpload } from 'react-icons/bi';
+import { FaImage } from 'react-icons/fa';
 
 const LogoUploadSection = ({ onChange, value }) => {
   const handleLogoUpload = (event) => {
@@ -27,7 +27,7 @@ const LogoUploadSection = ({ onChange, value }) => {
             />
           ) : (
             <>
-              <BiUpload className='text-8xl text-[#5EA91E] mb-4' />
+              <FaImage className='text-8xl text-[#5EA91E] mb-4' />
               <p className='text-gray-700 font-bold mb-2'>Browse files</p>
               <input
                 type='file'

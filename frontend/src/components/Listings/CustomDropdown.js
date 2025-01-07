@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiFilter } from 'react-icons/bi';
 import { FaCaretDown } from 'react-icons/fa';
 
 const CustomDropdown = ({ options, placeholder }) => {
+  const dropdownRef = useRef(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(placeholder);
 
@@ -13,8 +15,21 @@ const CustomDropdown = ({ options, placeholder }) => {
     }
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className='relative w-full'>
+    <div ref={dropdownRef} className='relative w-full'>
       <div
         className='flex items-center justify-between p-3 sm:p-4 bg-white text-gray-700 cursor-pointer'
         onClick={() => setIsOpen(!isOpen)}

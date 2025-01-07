@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BiCaretDown } from 'react-icons/bi';
 
 const CustomDropdown = ({
@@ -10,12 +10,29 @@ const CustomDropdown = ({
   selectOption,
   setSelectedCategory,
 }) => {
+  const dropdownRef = useRef(null);
+
   const isOpen = dropdownState[dropdownType];
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      toggleDropdown(dropdownType, true);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className='mb-12'>
       <p className='text-sm font-bold text-gray-700 mb-2'>{label}</p>
       <div
+        ref={dropdownRef}
         className={`relative rounded-md px-4 py-2 cursor-pointer ${
           isOpen ? 'border-2 border-[#5EA91E] bg-[#F5F5F5]' : 'bg-[#F5F5F5]'
         }`}
@@ -36,8 +53,11 @@ const CustomDropdown = ({
                   <div
                     key={optionIndex}
                     onClick={() => {
-                      setSelectedCategory(group.group);
-                      selectOption(dropdownType, option.label);
+                      if (!option.icon) {
+                        setSelectedCategory(group.group);
+                        selectOption(dropdownType, option.label);
+                        toggleDropdown(dropdownType);
+                      }
                     }}
                     className={`px-4 py-2 text-sm sm:text-base ${
                       option.icon

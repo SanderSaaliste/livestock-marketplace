@@ -1,6 +1,6 @@
 import React from 'react';
 import toast from 'react-hot-toast';
-import { BiUpload } from 'react-icons/bi';
+import { FaImage, FaVideo } from 'react-icons/fa';
 
 const ImageUploadSection = ({ onChange, formData }) => {
   const uploadedFiles = formData?.uploadedFiles || [];
@@ -11,39 +11,40 @@ const ImageUploadSection = ({ onChange, formData }) => {
 
     if (!file) return;
 
+    const updatedFiles = [...uploadedFiles];
+
     if (index === 4) {
       if (file.size > 50 * 1024 * 1024) {
         toast.error('Video size exceeds 50MB limit.');
-        onChange('videoError', 'Video size exceeds 50MB limit.');
         return;
       }
 
-      try {
-        const videoUrl = URL.createObjectURL(file);
-        const video = document.createElement('video');
-        video.src = videoUrl;
+      const videoUrl = URL.createObjectURL(file);
+      const video = document.createElement('video');
+      video.src = videoUrl;
 
-        video.onloadedmetadata = () => {
-          if (video.duration > 20) {
-            toast.error('Video duration exceeds 20 seconds limit.');
-            onChange('videoError', 'Video duration exceeds 20 seconds limit.');
-          } else {
-            const updatedFiles = [...uploadedFiles];
-            updatedFiles[index] = { type: 'video', url: videoUrl };
-            onChange('uploadedFiles', updatedFiles);
-            onChange('videoError', '');
-          }
+      video.onloadedmetadata = () => {
+        if (video.duration > 20) {
+          toast.error('Video duration exceeds 20 seconds limit.');
           URL.revokeObjectURL(videoUrl);
-        };
-      } catch (err) {
-        console.error('Error processing video:', err);
+        } else {
+          updatedFiles[index] = { type: 'video', url: videoUrl };
+          onChange('uploadedFiles', updatedFiles);
+        }
+      };
+
+      video.onerror = () => {
         toast.error('Failed to process video. Please try again.');
-      }
+        URL.revokeObjectURL(videoUrl);
+      };
     } else {
       const imageUrl = URL.createObjectURL(file);
-      const updatedFiles = [...uploadedFiles];
       updatedFiles[index] = { type: 'image', url: imageUrl };
       onChange('uploadedFiles', updatedFiles);
+
+      setTimeout(() => {
+        URL.revokeObjectURL(imageUrl);
+      }, 1000);
     }
   };
 
@@ -62,7 +63,7 @@ const ImageUploadSection = ({ onChange, formData }) => {
             />
           ) : (
             <>
-              <BiUpload className='text-8xl text-[#5EA91E] mb-4' />
+              <FaImage className='text-8xl text-[#5EA91E] mb-4' />
               <p className='text-gray-700 font-bold mb-2'>Browse files</p>
               <input
                 type='file'
@@ -102,7 +103,11 @@ const ImageUploadSection = ({ onChange, formData }) => {
                 />
               ) : (
                 <>
-                  <BiUpload className='text-5xl text-[#5EA91E] mb-4' />
+                  {index + 1 === 4 ? (
+                    <FaVideo className='text-5xl text-[#5EA91E] mb-4' />
+                  ) : (
+                    <FaImage className='text-5xl text-[#5EA91E] mb-4' />
+                  )}
                   <p className='text-gray-700 font-bold mb-2'>
                     {index + 1 === 4 ? 'Browse videos' : 'Browse images'}
                   </p>

@@ -34,10 +34,10 @@ const FillForm = () => {
   const [selectedSubcategory, setSelectedSubcategory] = useState(null);
   const [formData, setFormData] = useState({});
 
-  const toggleDropdown = (dropdownType) => {
+  const toggleDropdown = (dropdownType, forceClose = false) => {
     setDropdownState((prevState) => ({
       ...prevState,
-      [dropdownType]: !prevState[dropdownType],
+      [dropdownType]: forceClose ? false : !prevState[dropdownType],
     }));
   };
 
@@ -56,6 +56,8 @@ const FillForm = () => {
       ...prevData,
       [dropdownType]: text,
     }));
+
+    if (dropdownType !== 'category') toggleDropdown(dropdownType, false);
   };
 
   const togglePaymentOption = (paymentMethod) => {
@@ -128,6 +130,8 @@ const FillForm = () => {
       formData: {
         ...formData,
       },
+      salesStatus:
+        selectedCategory === 'Services / Jobs' ? 'Active' : 'For Sale',
     };
 
     const formDataToSend = new FormData();
@@ -532,14 +536,16 @@ const FillForm = () => {
         />
 
         {selectedCategory === 'Services / Jobs' ? (
-          <Dropdown
+          <>
+            {/* <Dropdown
             label="Edit your listing's sales status"
             options={['Inactive', 'Active']}
             dropdownType='salesStatus'
             dropdownState={dropdownState}
             toggleDropdown={toggleDropdown}
             selectOption={selectOption}
-          />
+          /> */}
+          </>
         ) : (
           <>
             <Dropdown
@@ -551,14 +557,14 @@ const FillForm = () => {
               selectOption={selectOption}
             />
 
-            <Dropdown
+            {/* <Dropdown
               label="Edit your listing's sales status"
               options={['For Sale', 'Pending', 'Sold']}
               dropdownType='salesStatus'
               dropdownState={dropdownState}
               toggleDropdown={toggleDropdown}
               selectOption={selectOption}
-            />
+            /> */}
 
             <PaymentOptions
               selectedPayments={selectedPayments}
