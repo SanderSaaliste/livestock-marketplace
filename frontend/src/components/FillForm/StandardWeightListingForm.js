@@ -17,8 +17,40 @@ const priceInputs = [
 
 const StandardWeightListingForm = ({ onChange, formData }) => {
   const handleInputChange = (field, value) => {
-    if (onChange) {
-      onChange(field, value);
+    if (!onChange) return;
+
+    onChange(field, value);
+
+    if (field === 'pricePerKg' || field === 'productWeight') {
+      const pricePerKg = parseFloat(
+        field === 'pricePerKg' ? value : formData?.pricePerKg || 0
+      );
+      const productWeight = parseFloat(
+        field === 'productWeight' ? value : formData?.productWeight || 0
+      );
+
+      if (pricePerKg > 0 && productWeight > 0) {
+        const productPrice = `${(pricePerKg * productWeight).toFixed(2)} PHP`;
+        onChange('productPrice', productPrice);
+      } else {
+        onChange('productPrice', '');
+      }
+    }
+
+    if (field === 'productPrice' || field === 'productWeight') {
+      const productPrice = parseFloat(
+        field === 'productPrice' ? value : formData?.productPrice || 0
+      );
+      const productWeight = parseFloat(
+        field === 'productWeight' ? value : formData?.productWeight || 0
+      );
+
+      if (productPrice > 0 && productWeight > 0) {
+        const pricePerKg = `${(productPrice / productWeight).toFixed(2)} PHP`;
+        onChange('pricePerKg', pricePerKg);
+      } else {
+        onChange('pricePerKg', '');
+      }
     }
   };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiSolidHeart } from 'react-icons/bi';
 import { GiWeight } from 'react-icons/gi';
@@ -11,6 +11,15 @@ import mayaImg from '../../assets/maya icon.webp';
 import { apiHost } from '../../constants';
 
 const ListingDetails = ({ listing }) => {
+  const [mainImage, setMainImage] = useState(
+    listing.formData.media && listing.formData.media[0]
+  );
+
+  const isVideo = (url) => {
+    const videoExtensions = ['.mp4', '.webm', '.ogg'];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  };
+
   return (
     <div className='max-w-7xl mx-auto px-4 py-8'>
       <div className='text-sm text-gray-500 mb-6'>
@@ -27,25 +36,43 @@ const ListingDetails = ({ listing }) => {
 
       <div className='flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8'>
         {listing.formData.media && listing.formData.media.length > 1 && (
-          <div className='flex flex-col space-y-4'>
-            {listing.formData.media.map((mediaUrl, index) => (
-              <img
-                key={index}
-                src={mediaUrl}
-                alt={`Thumbnail ${index + 1}`}
-                className='w-48 h-auto object-cover rounded-lg'
-              />
-            ))}
+          <div className='flex flex-col space-y-3'>
+            {listing.formData.media.map((mediaUrl, index) =>
+              isVideo(mediaUrl) ? (
+                <video
+                  key={index}
+                  src={`${apiHost}${mediaUrl}`}
+                  className='w-[108px] h-[106px] object-cover rounded-lg cursor-pointer'
+                  onMouseEnter={() => setMainImage(mediaUrl)}
+                />
+              ) : (
+                <img
+                  key={index}
+                  src={`${apiHost}${mediaUrl}`}
+                  alt={`Thumbnail ${index + 1}`}
+                  className='w-[108px] h-[106px] object-cover rounded-lg cursor-pointer'
+                  onMouseEnter={() => setMainImage(mediaUrl)}
+                />
+              )
+            )}
           </div>
         )}
 
-        {listing.formData.media && listing.formData.media.length > 0 && (
+        {mainImage && (
           <div className='w-full lg:w-1/3'>
-            <img
-              src={`${apiHost}${listing.formData.media[0]}`}
-              alt='Main Product'
-              className='w-full h-auto object-cover rounded-lg'
-            />
+            {isVideo(mainImage) ? (
+              <video
+                src={`${apiHost}${mainImage}`}
+                controls
+                className='w-[450px] h-[456px] object-cover rounded-lg'
+              />
+            ) : (
+              <img
+                src={`${apiHost}${mainImage}`}
+                alt='Main Product'
+                className='w-[450px] h-[456px] object-cover rounded-lg'
+              />
+            )}
           </div>
         )}
 

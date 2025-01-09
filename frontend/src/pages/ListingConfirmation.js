@@ -1,10 +1,20 @@
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BiCheck } from 'react-icons/bi';
 import { FaGlobeAmericas } from 'react-icons/fa';
 
 import logo from '../assets/farmifylogo.png';
 
 const ListingConfirmation = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleReviewClick = () => {
+    if (id) {
+      navigate(`/listing/${id}`);
+    }
+  };
+
   return (
     <div className='min-h-screen flex flex-col items-center'>
       <header className='w-full max-w-7xl mx-auto p-4 text-center border-b border-gray-200'>
@@ -33,7 +43,10 @@ const ListingConfirmation = () => {
         </section>
 
         <div className='flex space-x-8 mt-2'>
-          <button className='px-10 py-3 bg-[#EEEEEE] text-black font-bold rounded-full hover:bg-[#E1E1E1] transition duration-200'>
+          <button
+            className='px-10 py-3 bg-[#EEEEEE] text-black font-bold rounded-full hover:bg-[#E1E1E1] transition duration-200'
+            onClick={handleReviewClick}
+          >
             Review
           </button>
           <button className='px-10 py-3 bg-[#5EA91E] text-white font-bold rounded-full hover:bg-[#4E911B] transition duration-200'>

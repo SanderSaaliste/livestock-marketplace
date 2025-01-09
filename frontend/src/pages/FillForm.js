@@ -193,7 +193,7 @@ const FillForm = () => {
     try {
       const response = await listingService.createListing(formDataToSend);
 
-      navigate('/listingConfirmation');
+      navigate(`/listingConfirmation/${response.listing.id}`);
       console.log('Listing created successfully!', response);
     } catch (err) {
       console.error('Failed to create listing:', err);
@@ -566,10 +566,12 @@ const FillForm = () => {
               selectOption={selectOption}
             /> */}
 
-            <PaymentOptions
-              selectedPayments={selectedPayments}
-              togglePaymentOption={togglePaymentOption}
-            />
+            {selectedCategory !== 'Real Estate' && (
+              <PaymentOptions
+                selectedPayments={selectedPayments}
+                togglePaymentOption={togglePaymentOption}
+              />
+            )}
 
             <ImageUploadSection
               onChange={(label, value) => handleImageUploadChange(value)}

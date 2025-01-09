@@ -1,4 +1,5 @@
 import React from 'react';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
@@ -8,18 +9,28 @@ const PaymentOptions = ({ selectedPayments, togglePaymentOption }) => {
     {
       id: 'cash',
       label: 'Cash',
-      icon: 'https://img.icons8.com/color/27/get-cash.png',
+      icon: <FcMoneyTransfer className='h-6 w-6' />,
     },
     {
       id: 'gcash',
       label: 'GCash',
-      icon: gcashImg,
+      icon: <img src={gcashImg} alt='GCash' className='h-6 w-6' />,
     },
-    { id: 'maya', label: 'Maya', icon: mayaImg },
+    {
+      id: 'maya',
+      label: 'Maya',
+      icon: <img src={mayaImg} alt='Maya' className='h-6 w-6' />,
+    },
     {
       id: 'creditCard',
       label: 'Credit Card',
-      icon: 'https://img.icons8.com/color/48/visa.png',
+      icon: (
+        <img
+          src='https://img.icons8.com/color/48/visa.png'
+          alt='Credit Card'
+          className='h-6 w-6'
+        />
+      ),
     },
   ];
 
@@ -41,7 +52,7 @@ const PaymentOptions = ({ selectedPayments, togglePaymentOption }) => {
               className='h-3 w-3 accent-green-600 mr-3'
             />
             <span className='flex items-center space-x-2'>
-              <img src={method.icon} alt={method.label} className='h-5 w-5' />
+              {method.icon}
               <span className='text-gray-400 font-semibold text-sm'>
                 {method.label}
               </span>

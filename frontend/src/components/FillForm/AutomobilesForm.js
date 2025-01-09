@@ -14,10 +14,10 @@ const priceInputs = [
 const AutomobilesForm = ({ onChange, formData }) => {
   const [dropdownState, setDropdownState] = useState({});
 
-  const toggleDropdown = (dropdownType) => {
+  const toggleDropdown = (dropdownType, forceClose = false) => {
     setDropdownState((prevState) => ({
       ...prevState,
-      [dropdownType]: !prevState[dropdownType],
+      [dropdownType]: forceClose ? false : !prevState[dropdownType],
     }));
   };
 
@@ -27,6 +27,8 @@ const AutomobilesForm = ({ onChange, formData }) => {
       [`${dropdownType}Selected`]: text,
       [dropdownType]: false,
     }));
+
+    toggleDropdown(dropdownType, false);
   };
 
   const handleInputChange = (field, value) => {

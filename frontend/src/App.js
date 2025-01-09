@@ -22,7 +22,7 @@ function App() {
           <Route path='/addListing' element={<AddListing />} />
           <Route path='/fillForm' element={<FillInForm />} />
           <Route
-            path='/listingConfirmation'
+            path='/listingConfirmation/:id'
             element={<ListingConfirmation />}
           />
           <Route path='/listings' element={<Listings />} />

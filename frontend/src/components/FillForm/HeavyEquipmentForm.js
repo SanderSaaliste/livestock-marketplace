@@ -5,9 +5,9 @@ import TextAreaField from './TextAreaField';
 
 const priceInputs = [
   {
-    label: 'What is the price per bag?',
+    label: 'Total Price',
     placeholder: 'Example: 150,000PHP',
-    key: 'pricePerBag',
+    key: 'totalPrice',
   },
 ];
 
@@ -70,7 +70,7 @@ const HeavyEquipmentForm = ({ onChange, formData }) => {
       ))}
 
       <TextAreaField
-        label='Describe your product'
+        label='Provide a description here'
         placeholder='Enter the description'
         value={formData?.description || ''}
         onChange={(value) => handleInputChange('description', value)}

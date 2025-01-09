@@ -8,8 +8,10 @@ const ImageUploadSection = ({ onChange, formData }) => {
 
   const handleFileUpload = async (event, index) => {
     const file = event.target.files[0];
-
-    if (!file) return;
+    if (!file) {
+      toast.error('No file selected. Please try again.');
+      return;
+    }
 
     const updatedFiles = [...uploadedFiles];
 
@@ -38,13 +40,14 @@ const ImageUploadSection = ({ onChange, formData }) => {
         URL.revokeObjectURL(videoUrl);
       };
     } else {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type. Please upload an image.');
+        return;
+      }
+
       const imageUrl = URL.createObjectURL(file);
       updatedFiles[index] = { type: 'image', url: imageUrl };
       onChange('uploadedFiles', updatedFiles);
-
-      setTimeout(() => {
-        URL.revokeObjectURL(imageUrl);
-      }, 1000);
     }
   };
 
