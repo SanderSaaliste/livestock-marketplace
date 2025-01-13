@@ -241,12 +241,6 @@ const LivestockForm = ({ onChange, formData }) => {
         }}
       />
       <InputField
-        label='Share details about their breeding history'
-        placeholder='How many piglets?'
-        value={formData?.breedingHistory || ''}
-        onChange={(value) => handleInputChange('breedingHistory', value)}
-      />
-      <InputField
         label='Primary feeding brand consumed by pigs'
         placeholder='Please provide the brand name'
         value={formData?.feedingBrand || ''}

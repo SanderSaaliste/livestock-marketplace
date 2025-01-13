@@ -14,7 +14,7 @@ const ListingCard = ({ listing }) => {
 
   return (
     <div
-      className={`max-w-sm bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 p-2 flex flex-col h-full relative ${
+      className={`min-w-[400px] max-w-sm bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 p-2 flex flex-col h-full relative ${
         listing.formData.salesStatus === 'Sold' ||
         listing.formData.salesStatus === 'Inactive'
           ? 'opacity-50'
@@ -189,6 +189,7 @@ const ListingCard = ({ listing }) => {
               : 'bg-[#E1E1E1] hover:bg-gray-300 hover:text-gray-800 hover:shadow-md'
           }`}
           disabled={listing.formData.salesStatus === 'Sold'}
+          onClick={() => navigate(`/listing/${listing.id}`)}
         >
           View
         </button>

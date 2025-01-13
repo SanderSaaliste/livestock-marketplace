@@ -7,6 +7,8 @@ const priceInputs = [
   {
     label: 'Price per / kg',
     placeholder: 'Example: 180PHP',
+    helpingText:
+      'This field is optional; you can directly enter the product price.',
     key: 'pricePerKg',
   },
   {
@@ -17,6 +19,7 @@ const priceInputs = [
   {
     label: 'What quality level of bananas are you selling?',
     options: ['Class A', 'Class B', 'Class C'],
+    helpingText: 'This field is optional.',
     type: 'dropdown',
     key: 'qualityLevel',
   },
@@ -65,6 +68,7 @@ const BananasForm = ({ onChange, formData }) => {
       <InputField
         label='How much does your product weigh?'
         placeholder='Example: 10kg'
+        helpingText='For example, enter "10kg" for a banana box that weighs 10kg.'
         value={formData?.weight || ''}
         onChange={(value) => handleInputChange('weight', value)}
       />
@@ -79,6 +83,7 @@ const BananasForm = ({ onChange, formData }) => {
             key={index}
             label={input.label}
             options={input.options}
+            helpingText={input.helpingText}
             dropdownType={`dropdown-${input.key}`}
             dropdownState={dropdownState}
             toggleDropdown={toggleDropdown}
@@ -90,6 +95,7 @@ const BananasForm = ({ onChange, formData }) => {
             key={index}
             label={input.label}
             placeholder={input.placeholder}
+            helpingText={input.helpingText}
             value={formData?.[input.key] || ''}
             onChange={(value) => handleInputChange(input.key, value)}
           />

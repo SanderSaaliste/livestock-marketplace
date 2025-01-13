@@ -32,7 +32,7 @@ CREATE TABLE `listings` (
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `listings_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,6 @@ CREATE TABLE `listings` (
 
 LOCK TABLES `listings` WRITE;
 /*!40000 ALTER TABLE `listings` DISABLE KEYS */;
-INSERT INTO `listings` VALUES (6,2,'Livestock','Eggs','{\"media\": [\"/listingMedia/1734983606954-image-0.webp\"], \"title\": \"Test\", \"harvest\": \"First Harvest\", \"pwPrice\": \"100PHP\", \"category\": \"Eggs\", \"location\": \"Test\", \"minOrder\": \"Test\", \"description\": \"Test\", \"salesStatus\": \"For Sale\", \"uploadedFiles\": [{\"url\": \"blob:http://localhost:3000/fec8317d-7a36-4f38-88c0-e4c326927a56\", \"type\": \"image\"}], \"paymentMethods\": [\"cash\", \"gcash\"]}','2024-12-23 19:53:26'),(7,2,'Services / Jobs','Plumber','{\"media\": [\"/listingMedia/1734983606954-image-0.webp\"], \"title\": \"Test\", \"jobType\": \"Offering\", \"category\": \"Plumber\", \"location\": \"Test\", \"position\": \"Mechanic\", \"hourlyRate\": \"75\", \"companyLogo\": \"blob:http://localhost:3000/c6f460be-22a6-4d23-a27c-46d700a7c90f\", \"salesStatus\": \"Active\", \"jobDescription\": \"Teset\"}','2024-12-23 20:01:51'),(8,2,'Services / Jobs','Mechanic','{\"media\": [\"/listingMedia/1734984557655-companyLogo.jpeg\"], \"title\": \"TEst\", \"jobType\": \"Offering\", \"category\": \"Mechanic\", \"location\": \"Test\", \"position\": \"Mechanic\", \"hourlyRate\": \"75\", \"companyLogo\": {\"url\": \"blob:http://localhost:3000/afce0af5-afe8-4b28-b2e2-35f5934be07f\", \"type\": \"image\"}, \"salesStatus\": \"Active\", \"jobDescription\": \"Test\"}','2024-12-23 20:09:17');
 /*!40000 ALTER TABLE `listings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +60,7 @@ CREATE TABLE `refreshTokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
   CONSTRAINT `refreshtokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,8 +69,39 @@ CREATE TABLE `refreshTokens` (
 
 LOCK TABLES `refreshTokens` WRITE;
 /*!40000 ALTER TABLE `refreshTokens` DISABLE KEYS */;
-INSERT INTO `refreshTokens` VALUES (1,2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM0OTgyNzU3LCJleHAiOjE3Mzc1NzQ3NTd9.tDTKb9RHvBH4hT1yNtMaAEKpjupBllXtPYWfbXI0EKc','2025-01-22 19:39:17',1);
+INSERT INTO `refreshTokens` VALUES (1,2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM2NDI1ODcyLCJleHAiOjE3MzkwMTc4NzJ9.7WWY_zQqhO3dovla11OZUjxcgufM7w5o0O54JiqTWC8','2025-02-08 12:31:12',1);
 /*!40000 ALTER TABLE `refreshTokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `userReviews`
+--
+
+DROP TABLE IF EXISTS `userReviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `userReviews` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `reviewerId` int NOT NULL,
+  `reviewedId` int NOT NULL,
+  `rating` int NOT NULL,
+  `comment` text,
+  `createdTimestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userReviews_unique` (`reviewerId`,`reviewedId`),
+  KEY `userReviews_users_FK_1` (`reviewedId`),
+  CONSTRAINT `userReviews_users_FK` FOREIGN KEY (`reviewerId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `userReviews_users_FK_1` FOREIGN KEY (`reviewedId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userReviews`
+--
+
+LOCK TABLES `userReviews` WRITE;
+/*!40000 ALTER TABLE `userReviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userReviews` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -98,7 +128,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,4 +154,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-24  2:03:21
+-- Dump completed on 2025-01-13 23:29:50

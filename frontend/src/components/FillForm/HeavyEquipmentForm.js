@@ -64,7 +64,7 @@ const HeavyEquipmentForm = ({ onChange, formData }) => {
           key={index}
           label={input.label}
           placeholder={input.placeholder}
-          value={formData?.pricePerBag || ''}
+          value={formData?.totalPrice || ''}
           onChange={(value) => handleInputChange(input.key, value)}
         />
       ))}

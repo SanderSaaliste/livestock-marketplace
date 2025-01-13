@@ -50,6 +50,10 @@ const FillForm = () => {
 
     if (dropdownType === 'category') {
       setSelectedSubcategory(text);
+
+      setFormData({
+        category: text,
+      });
     }
 
     setFormData((prevData) => ({
@@ -258,7 +262,7 @@ const FillForm = () => {
         switch (selectedSubcategory) {
           case 'Mechanic':
           case 'Plumber':
-          case 'Farm hand':
+          case 'Farm Hand':
           case 'Electrician':
           case 'Builder':
           case 'Veterinarian':
@@ -399,8 +403,8 @@ const FillForm = () => {
 
       case 'Fertilizers':
         switch (selectedSubcategory) {
-          case 'Organic Fertilizers':
-          case 'Chemical Fertilizers':
+          case 'Organic Fertilisers':
+          case 'Chemical Fertilisers':
             return (
               <StandardWeightListingForm
                 onChange={handleInputChange}
@@ -450,13 +454,13 @@ const FillForm = () => {
       case 'Seeds':
         switch (selectedSubcategory) {
           case 'Rice Seeds':
-          case 'Corn - Seeds':
-          case 'Mung Bean Seeds':
-          case 'Coconut Seeds':
+          case 'Corn Seeds':
+          case 'Mung Bean Seeds (Munggo)':
+          case 'Coconut Seeds (Niyog)':
           case 'Peanut Seeds':
           case 'Okra Seeds':
           case 'Ampalaya (Bitter Melon) Seeds':
-          case 'Tomato Seeds':
+          case 'Tomato Seeds (Kamatis)':
           case 'Other':
             return (
               <StandardWeightListingForm
@@ -475,6 +479,7 @@ const FillForm = () => {
           case 'Wood':
           case 'Bamboo':
           case 'Glass':
+          case 'Roofing Materials':
           case 'Sand & Gravel':
           case 'Bricks':
           case 'Cement':

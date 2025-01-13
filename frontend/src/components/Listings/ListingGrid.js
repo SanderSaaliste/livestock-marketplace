@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { BiListUl, BiSolidGridAlt } from 'react-icons/bi';
+import {
+  BiListUl,
+  BiSolidGridAlt,
+  BiChevronLeft,
+  BiChevronRight,
+} from 'react-icons/bi';
 
 import ListingCard from './ListingCard';
 import Filters from './Filters';
@@ -9,6 +14,8 @@ import toast from 'react-hot-toast';
 const ListingsGrid = () => {
   const [layout, setLayout] = useState('grid');
   const [listings, setListings] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [listingsPerPage] = useState(6);
 
   const fetchListings = async () => {
     try {
@@ -23,6 +30,19 @@ const ListingsGrid = () => {
   useEffect(() => {
     fetchListings();
   }, []);
+
+  const indexOfLastListing = currentPage * listingsPerPage;
+  const indexOfFirstListing = indexOfLastListing - listingsPerPage;
+  const currentListings = listings.slice(
+    indexOfFirstListing,
+    indexOfLastListing
+  );
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const totalPages = Math.ceil(listings.length / listingsPerPage);
 
   return (
     <div className='py-8'>
@@ -67,7 +87,7 @@ const ListingsGrid = () => {
           <div className='w-full lg:w-[70%]'>
             {layout === 'grid' ? (
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                {listings.map((listing) => (
+                {currentListings.map((listing) => (
                   <div className='mx-auto' key={listing.id}>
                     <ListingCard listing={listing} />
                   </div>
@@ -75,7 +95,7 @@ const ListingsGrid = () => {
               </div>
             ) : (
               <div className='space-y-6'>
-                {listings.map((listing) => (
+                {currentListings.map((listing) => (
                   <div className='flex justify-center' key={listing.id}>
                     <ListingCard listing={listing} />
                   </div>
@@ -83,6 +103,54 @@ const ListingsGrid = () => {
               </div>
             )}
           </div>
+        </div>
+
+        <div className='flex justify-center items-center mt-8'>
+          <nav className='flex space-x-4'>
+            <button
+              className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
+                currentPage === 1 ? 'cursor-not-allowed' : ''
+              }`}
+              onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <BiChevronLeft
+                className={`${currentPage === 1 ? 'text-gray-400' : ''}`}
+              />
+              <span className='ml-1'>Previous</span>
+            </button>
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                className={`px-3 py-1 border rounded ${
+                  currentPage === index + 1
+                    ? 'bg-[#008001] text-white'
+                    : 'bg-white text-black hover:bg-gray-100'
+                }`}
+                onClick={() => paginate(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
+                currentPage === totalPages
+                  ? 'text-gray-400 cursor-not-allowed'
+                  : ''
+              }`}
+              onClick={() =>
+                currentPage < totalPages && paginate(currentPage + 1)
+              }
+              disabled={currentPage === totalPages}
+            >
+              <span className='mr-1'>Next</span>
+              <BiChevronRight
+                className={`${
+                  currentPage === totalPages ? 'text-gray-400' : ''
+                }`}
+              />
+            </button>
+          </nav>
         </div>
       </div>
     </div>

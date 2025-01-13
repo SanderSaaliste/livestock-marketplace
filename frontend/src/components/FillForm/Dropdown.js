@@ -4,6 +4,7 @@ import { BiCaretDown } from 'react-icons/bi';
 const Dropdown = ({
   label,
   options,
+  helpingText,
   dropdownType,
   dropdownState,
   toggleDropdown,
@@ -58,6 +59,9 @@ const Dropdown = ({
           </div>
         )}
       </div>
+      {!isOpen && helpingText && (
+        <p className='text-xs font-semibold text-[#00b800]'>{helpingText}</p>
+      )}
     </div>
   );
 };

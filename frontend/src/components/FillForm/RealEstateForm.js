@@ -35,12 +35,14 @@ const RealEstateForm = ({ onChange, formData }) => {
       <InputField
         label='How many bedrooms?'
         placeholder='Example: 3'
+        helpingText='If you are selling a land plot, you can skip this field.'
         value={formData?.bedrooms || ''}
         onChange={(value) => handleInputChange('bedrooms', value)}
       />
       <InputField
         label='What is the interior size of the house in square meters?'
         placeholder='Example: 105 m2'
+        helpingText='If you are selling a land plot, you can skip this field.'
         value={formData?.interiorSize || ''}
         onChange={(value) => handleInputChange('interiorSize', value)}
       />
@@ -53,6 +55,7 @@ const RealEstateForm = ({ onChange, formData }) => {
       <InputField
         label='Does your property have a lot number?'
         placeholder='Example: 337'
+        helpingText='This field is optional.'
         value={formData?.lotNumber || ''}
         onChange={(value) => handleInputChange('lotNumber', value)}
       />

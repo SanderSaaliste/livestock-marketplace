@@ -8,6 +8,8 @@ const priceInputs = [
   {
     label: 'Price per / kg',
     placeholder: 'Example: 180PHP',
+    helpingText:
+      'This field is optional; you can directly enter the product price.',
     key: 'pricePerKg',
   },
   {
@@ -18,6 +20,7 @@ const priceInputs = [
   {
     label: 'What quality level of mangoes are you selling?',
     options: ['D1 (Grade 1)', 'D2 (Grade 2)', 'D3 (Grade 3)'],
+    helpingText: 'This field is optional.',
     type: 'dropdown',
     key: 'qualityLevel',
   },
@@ -66,6 +69,7 @@ const MangoesForm = ({ onChange, formData }) => {
       <InputField
         label='How much does your product weigh?'
         placeholder='Example: 10kg'
+        helpingText='For example, enter "10kg" for a mango box that weighs 10kg.'
         value={formData?.weight || ''}
         onChange={(value) => handleInputChange('weight', value)}
       />
@@ -80,6 +84,7 @@ const MangoesForm = ({ onChange, formData }) => {
             key={index}
             label={input.label}
             options={input.options}
+            helpingText={input.helpingText}
             dropdownType={`dropdown-${input.key}`}
             dropdownState={dropdownState}
             toggleDropdown={toggleDropdown}
@@ -91,6 +96,7 @@ const MangoesForm = ({ onChange, formData }) => {
             key={index}
             label={input.label}
             placeholder={input.placeholder}
+            helpingText={input.helpingText}
             value={formData?.[input.key] || ''}
             onChange={(value) => handleInputChange(input.key, value)}
           />

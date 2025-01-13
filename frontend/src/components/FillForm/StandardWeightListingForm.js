@@ -6,6 +6,8 @@ const priceInputs = [
   {
     label: 'Price per / kg',
     placeholder: 'Example: 180PHP',
+    helpingText:
+      'This field is optional; you can directly enter the product price.',
     key: 'pricePerKg',
   },
   {
@@ -71,6 +73,7 @@ const StandardWeightListingForm = ({ onChange, formData }) => {
       <InputField
         label='How much does your product weigh?'
         placeholder='Example: 25kg'
+        helpingText='For example, enter "25kg" for a rice bag weighing 25kg.'
         value={formData?.productWeight || ''}
         onChange={(value) => handleInputChange('productWeight', value)}
       />
@@ -84,6 +87,7 @@ const StandardWeightListingForm = ({ onChange, formData }) => {
           key={input.key}
           label={input.label}
           placeholder={input.placeholder}
+          helpingText={input.helpingText}
           value={formData?.[input.key] || ''}
           onChange={(value) => handleInputChange(input.key, value)}
         />

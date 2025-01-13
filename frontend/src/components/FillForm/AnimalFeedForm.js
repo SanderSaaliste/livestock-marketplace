@@ -55,6 +55,7 @@ const AnimalFeedForm = ({ onChange, formData }) => {
       <InputField
         label='How much does your feed bag weigh?'
         placeholder='Example: 50kg'
+        helpingText='For example, enter "50kg" for a feed bag weighing 50kg.'
         value={formData?.feedBagWeight || ''}
         onChange={(value) => handleInputChange('feedBagWeight', value)}
       />

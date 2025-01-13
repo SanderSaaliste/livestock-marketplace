@@ -15,7 +15,7 @@ const ImageUploadSection = ({ onChange, formData }) => {
 
     const updatedFiles = [...uploadedFiles];
 
-    if (index === 4) {
+    if (index === 3) {
       if (file.size > 50 * 1024 * 1024) {
         toast.error('Video size exceeds 50MB limit.');
         return;
@@ -54,7 +54,7 @@ const ImageUploadSection = ({ onChange, formData }) => {
   return (
     <div className='mb-12'>
       <p className='text-sm font-bold text-gray-700 mb-2'>
-        Please upload 5 files (last slot reserved for a video)
+        Please upload 4 files (last slot reserved for a video)
       </p>
       <div className='grid gap-4'>
         <div className='col-span-full bg-[#F5F5F5] border-dashed border-2 border-[#A4CB87] rounded-md p-8 flex flex-col items-center'>
@@ -67,7 +67,7 @@ const ImageUploadSection = ({ onChange, formData }) => {
           ) : (
             <>
               <FaImage className='text-8xl text-[#5EA91E] mb-4' />
-              <p className='text-gray-700 font-bold mb-2'>Browse files</p>
+              <p className='text-gray-700 font-bold mb-2'>Browse images</p>
               <input
                 type='file'
                 accept='image/*'
@@ -86,54 +86,69 @@ const ImageUploadSection = ({ onChange, formData }) => {
         </div>
 
         <div className='grid grid-cols-2 gap-4'>
-          {[...Array(4)].map((_, index) => (
+          {[1, 2].map((index) => (
             <div
-              key={index + 1}
+              key={index}
               className='bg-[#F5F5F5] border-dashed border-2 border-[#A4CB87] rounded-md p-6 flex flex-col items-center'
             >
-              {uploadedFiles[index + 1]?.type === 'image' ? (
+              {uploadedFiles[index]?.type === 'image' ? (
                 <img
-                  src={uploadedFiles[index + 1].url}
-                  alt={`Uploaded ${index + 2}`}
-                  className='h-40 w-40 object-cover rounded-md'
-                />
-              ) : index + 1 === 4 &&
-                uploadedFiles[index + 1]?.type === 'video' ? (
-                <video
-                  src={uploadedFiles[index + 1].url}
-                  controls
+                  src={uploadedFiles[index].url}
+                  alt={`Uploaded ${index + 1}`}
                   className='h-40 w-40 object-cover rounded-md'
                 />
               ) : (
                 <>
-                  {index + 1 === 4 ? (
-                    <FaVideo className='text-5xl text-[#5EA91E] mb-4' />
-                  ) : (
-                    <FaImage className='text-5xl text-[#5EA91E] mb-4' />
-                  )}
-                  <p className='text-gray-700 font-bold mb-2'>
-                    {index + 1 === 4 ? 'Browse videos' : 'Browse images'}
-                  </p>
+                  <FaImage className='text-5xl text-[#5EA91E] mb-4' />
+                  <p className='text-gray-700 font-bold mb-2'>Browse images</p>
                   <input
                     type='file'
-                    accept={index + 1 === 4 ? 'video/*' : 'image/*'}
+                    accept='image/*'
                     className='hidden'
-                    id={`file-upload-${index + 1}`}
-                    onChange={(event) => handleFileUpload(event, index + 1)}
+                    id={`file-upload-${index}`}
+                    onChange={(event) => handleFileUpload(event, index)}
                   />
                   <label
-                    htmlFor={`file-upload-${index + 1}`}
+                    htmlFor={`file-upload-${index}`}
                     className='bg-[#5EA91E] text-white font-semibold py-2 px-8 rounded-full hover:bg-[#4E911B] transition cursor-pointer'
                   >
                     Upload
                   </label>
-                  {index + 1 === 4 && videoError && (
-                    <p className='text-red-500 text-xs mt-2'>{videoError}</p>
-                  )}
                 </>
               )}
             </div>
           ))}
+        </div>
+
+        <div className='col-span-full bg-[#F5F5F5] border-dashed border-2 border-[#A4CB87] rounded-md p-8 flex flex-col items-center'>
+          {uploadedFiles[3]?.type === 'video' ? (
+            <video
+              src={uploadedFiles[3].url}
+              controls
+              className='h-60 w-full object-cover rounded-md'
+            />
+          ) : (
+            <>
+              <FaVideo className='text-8xl text-[#5EA91E] mb-4' />
+              <p className='text-gray-700 font-bold mb-2'>Browse videos</p>
+              <input
+                type='file'
+                accept='video/*'
+                className='hidden'
+                id='file-upload-3'
+                onChange={(event) => handleFileUpload(event, 3)}
+              />
+              <label
+                htmlFor='file-upload-3'
+                className='bg-[#5EA91E] text-white font-semibold py-2 px-8 rounded-full hover:bg-[#4E911B] transition cursor-pointer'
+              >
+                Upload
+              </label>
+              {videoError && (
+                <p className='text-red-500 text-xs mt-2'>{videoError}</p>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

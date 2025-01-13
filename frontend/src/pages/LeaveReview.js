@@ -3,13 +3,19 @@ import { FaGlobeAmericas } from 'react-icons/fa';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 import logo from '../assets/farmifylogo.png';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import userReviewService from '../services/userReview-service';
+import toast from 'react-hot-toast';
 
 const LeaveReview = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const listing = location.state?.listing;
 
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   const handleStarClick = (value) => {
     setRating(value);
@@ -21,6 +27,43 @@ const LeaveReview = () => {
 
   const handleStarHoverLeave = () => {
     setHoverRating(0);
+  };
+
+  const handleSubmit = async () => {
+    if (!listing) {
+      toast.error('Failed to find listing. Please try again.');
+      return;
+    }
+
+    if (!rating) {
+      toast.error('Please provide a rating.');
+      return;
+    }
+
+    if (!comment.trim()) {
+      toast.error('Please write a comment.');
+      return;
+    }
+
+    const data = {
+      reviewedId: listing?.userId,
+      rating,
+      comment,
+    };
+
+    try {
+      const response = await userReviewService.createReview(data);
+
+      if (response.error) {
+        toast.error(response.error);
+      } else {
+        toast.success('Review submitted successfully!');
+        setTimeout(() => navigate(`/listing/${listing.id}`), 2000);
+      }
+    } catch (err) {
+      console.error('Error submitting review:', err);
+      toast.error('Failed to submit review. Please try again.');
+    }
   };
 
   return (
@@ -72,13 +115,15 @@ const LeaveReview = () => {
             className='w-full bg-[#F5F5F5] rounded-md px-4 py-2 border-2 border-[#F5F5F5] focus:border-[#5EA91E] focus:outline-none placeholder:text-sm placeholder:font-bold placeholder:text-gray-400'
             placeholder='Write your review here...'
             rows={5}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
           ></textarea>
         </section>
 
         <div className='flex mt-6'>
           <button
             className='px-10 py-3 bg-[#5EA91E] text-white font-bold rounded-full hover:bg-[#4E911B] transition duration-200'
-            onClick={() => navigate('/listings')}
+            onClick={handleSubmit}
           >
             Submit
           </button>

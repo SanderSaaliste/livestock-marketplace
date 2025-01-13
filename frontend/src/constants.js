@@ -177,7 +177,7 @@ export const categories = [
       { label: 'Coffee' },
       { label: 'Cacao' },
       { label: 'Papaya' },
-      { label: 'Coconut' },
+      { label: 'Cocoanut' },
       { label: 'Eggplant' },
       { label: 'Tomato' },
       { label: 'Squash' },
@@ -229,6 +229,7 @@ export const categories = [
         label: 'Other',
         icon: 'https://img.icons8.com/ios/20/connection-status-off.png',
       },
+      { label: 'Other' },
     ],
   },
 ];

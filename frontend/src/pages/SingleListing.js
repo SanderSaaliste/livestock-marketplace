@@ -11,11 +11,13 @@ import Description from '../components/SingleListing/Description';
 import Reviews from '../components/SingleListing/Reviews';
 import listingService from '../services/listing-service';
 import toast from 'react-hot-toast';
+import userReviewService from '../services/userReview-service';
 
 const SingleListing = () => {
   const { id } = useParams();
 
   const [listing, setListing] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchListing = async () => {
@@ -26,13 +28,31 @@ const SingleListing = () => {
       console.error('Failed to fetch listing:', err);
       toast.error('Failed to load listing. Please try again.');
     } finally {
-      setLoading(false); // Stop loading spinner or loader
+      setLoading(false);
+    }
+  };
+
+  const fetchReviewsByReviewerId = async () => {
+    try {
+      const response = await userReviewService.getReviewsByReviewerId(
+        listing.userId
+      );
+
+      setReviews(response || []);
+    } catch (err) {
+      console.error('Failed to fetch listing reviews:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchListing();
   }, [id]);
+
+  useEffect(() => {
+    if (listing && listing.userId) fetchReviewsByReviewerId();
+  }, [listing]);
 
   if (loading) {
     return (
@@ -57,7 +77,7 @@ const SingleListing = () => {
       <TabNavbar />
       <Features listing={listing} />
       <Description listing={listing} />
-      <Reviews listing={listing} />
+      <Reviews listing={listing} reviews={reviews} />
       <RelatedListings />
       <Footer />
     </div>

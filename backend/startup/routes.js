@@ -5,6 +5,7 @@ const path = require('path');
 const auth = require('../routers/auth.route');
 const user = require('../routers/user.route');
 const listing = require('../routers/listing.route');
+const userReview = require('../routers/userReview.route');
 const error = require('../middlewares/error');
 
 const corsOptions = {
@@ -27,5 +28,6 @@ module.exports = (app) => {
   app.use('/api/auth', auth);
   app.use('/api/user', user);
   app.use('/api/listing', listing);
+  app.use('/api/review', userReview);
   app.use(error);
 };

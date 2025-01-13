@@ -66,6 +66,7 @@ const BoatsForm = ({ onChange, formData }) => {
       <InputField
         label="What is the boat's horsepower?"
         placeholder='Example: 140 HP'
+        helpingText='If the boat does not have an engine, type "None."'
         value={formData?.horsepower || ''}
         onChange={(value) => handleInputChange('horsepower', value)}
       />

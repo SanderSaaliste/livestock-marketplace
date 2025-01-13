@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const InputField = ({
   label,
   placeholder,
+  helpingText,
   disabled = false,
   value,
   onChange,
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
   const handleInputChange = (event) => {
     if (onChange) {
       onChange(event.target.value);
     }
   };
+
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   return (
     <div className='mb-12'>
@@ -23,7 +29,12 @@ const InputField = ({
         disabled={disabled}
         value={value}
         onChange={handleInputChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
+      {helpingText && isFocused && (
+        <p className='text-xs font-semibold text-[#00b800]'>{helpingText}</p>
+      )}
     </div>
   );
 };
