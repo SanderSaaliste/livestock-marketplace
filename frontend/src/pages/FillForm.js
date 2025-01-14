@@ -24,6 +24,7 @@ import RealEstateForm from '../components/FillForm/RealEstateForm';
 import JobListingForm from '../components/FillForm/JobListingForm';
 import toast from 'react-hot-toast';
 import listingService from '../services/listing-service';
+import InputField from '../components/FillForm/InputField';
 
 const FillForm = () => {
   const navigate = useNavigate();
@@ -538,6 +539,13 @@ const FillForm = () => {
           toggleDropdown={toggleDropdown}
           selectOption={selectOption}
           setSelectedCategory={setSelectedCategory}
+        />
+
+        <InputField
+          label='Phone Number'
+          placeholder='Enter your phone number'
+          value={formData?.phoneNumber || ''}
+          onChange={(value) => handleInputChange('phoneNumber', value)}
         />
 
         {selectedCategory === 'Services / Jobs' ? (

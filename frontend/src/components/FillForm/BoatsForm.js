@@ -77,8 +77,10 @@ const BoatsForm = ({ onChange, formData }) => {
         dropdownType='boatFuel'
         dropdownState={dropdownState}
         toggleDropdown={toggleDropdown}
-        selectOption={selectOption}
-        selectedOption={formData?.boatFuel || ''}
+        selectOption={(dropdownType, value) => {
+          selectOption(dropdownType, value);
+          handleInputChange(dropdownType, value);
+        }}
       />
 
       <h2 className='text-xl font-bold mb-12'>Price</h2>

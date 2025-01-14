@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TabNavbar = () => {
+const TabNavbar = ({ onTabClick }) => {
   const [activeTab, setActiveTab] = useState('Features');
 
   const tabs = ['Features', 'Descriptions', 'Reviews'];
@@ -14,7 +14,10 @@ const TabNavbar = () => {
             className={`text-gray-600 text-xl ${
               activeTab === tab ? 'text-black font-semibold' : ''
             }`}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => {
+              setActiveTab(tab);
+              onTabClick(tab);
+            }}
           >
             {tab}
           </button>

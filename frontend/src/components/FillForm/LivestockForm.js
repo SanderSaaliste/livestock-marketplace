@@ -28,69 +28,101 @@ const LivestockForm = ({ onChange, formData }) => {
 
     onChange(field, value);
 
-    if (field === 'quantity' || field === 'estimatedWeight') {
-      const quantity = parseFloat(
-        field === 'quantity' ? value : formData?.quantity || 0
-      );
-      const estimatedWeight = parseFloat(
-        field === 'estimatedWeight' ? value : formData?.estimatedWeight || 0
-      );
+    const quantity = parseFloat(
+      field === 'quantity' ? value : formData?.quantity || 0
+    );
+    const estimatedWeight = parseFloat(
+      field === 'estimatedWeight' ? value : formData?.estimatedWeight || 0
+    );
+    const pricePerKg = parseFloat(
+      field === 'pricePerKg' ? value : formData?.pricePerKg || 0
+    );
+    const totalPrice = parseFloat(
+      field === 'totalPrice' ? value : formData?.totalPrice || 0
+    );
 
-      if (quantity > 0 && estimatedWeight > 0) {
-        const totalWeight = `${estimatedWeight} kg`;
-        const avgWeightPerHead = `${(estimatedWeight / quantity).toFixed(
-          2
-        )} kg`;
-        onChange('totalWeight', totalWeight);
-        onChange('avgWeightPerHead', avgWeightPerHead);
-      } else {
-        onChange('totalWeight', '');
-        onChange('avgWeightPerHead', '');
+    if (field === 'quantity') {
+      if (totalPrice > 0) {
+        const avgPricePerHead = totalPrice / quantity;
+        onChange(
+          'avgPricePerHead',
+          isNaN(avgPricePerHead) ? '' : `${avgPricePerHead.toFixed(2)} PHP`
+        );
+      }
+
+      if (estimatedWeight > 0) {
+        const avgWeightPerHead = estimatedWeight / quantity;
+        onChange(
+          'avgWeightPerHead',
+          isNaN(avgWeightPerHead) ? '' : `${avgWeightPerHead.toFixed(2)} kg`
+        );
       }
     }
 
-    if (field === 'pricePerKg' || field === 'totalWeight') {
-      const pricePerKg = parseFloat(
-        field === 'pricePerKg' ? value : formData?.pricePerKg || 0
-      );
-      const totalWeight = parseFloat(
-        field === 'totalWeight' ? value : formData?.totalWeight || 0
-      );
+    if (field === 'estimatedWeight') {
+      if (pricePerKg > 0) {
+        const newTotalPrice = pricePerKg * estimatedWeight;
+        onChange(
+          'totalPrice',
+          isNaN(newTotalPrice) ? '' : `${newTotalPrice.toFixed(2)} PHP`
+        );
+      }
 
-      if (pricePerKg > 0 && totalWeight > 0) {
-        const totalPrice = `${(pricePerKg * totalWeight).toFixed(2)} PHP`;
-        onChange('totalPrice', totalPrice);
+      if (totalPrice > 0) {
+        const newPricePerKg = totalPrice / estimatedWeight;
+        onChange(
+          'pricePerKg',
+          isNaN(newPricePerKg) ? '' : `${newPricePerKg.toFixed(2)} PHP`
+        );
+      }
 
-        if (formData?.quantity > 0) {
-          const avgPricePerHead = `${(
-            (pricePerKg * totalWeight) /
-            formData.quantity
-          ).toFixed(2)} PHP`;
-          onChange('avgPricePerHead', avgPricePerHead);
-        }
-      } else {
-        onChange('totalPrice', '');
-        onChange('avgPricePerHead', '');
+      if (quantity > 0) {
+        const avgWeightPerHead = estimatedWeight / quantity;
+        onChange(
+          'avgWeightPerHead',
+          isNaN(avgWeightPerHead) ? '' : `${avgWeightPerHead.toFixed(2)} kg`
+        );
+      }
+
+      onChange(
+        'totalWeight',
+        estimatedWeight > 0 ? `${estimatedWeight} kg` : ''
+      );
+    }
+
+    if (field === 'pricePerKg') {
+      if (estimatedWeight > 0) {
+        const newTotalPrice = pricePerKg * estimatedWeight;
+        onChange(
+          'totalPrice',
+          isNaN(newTotalPrice) ? '' : `${newTotalPrice.toFixed(2)} PHP`
+        );
+      }
+
+      if (estimatedWeight > 0 && quantity > 0) {
+        const avgPricePerHead = (pricePerKg * estimatedWeight) / quantity;
+        onChange(
+          'avgPricePerHead',
+          isNaN(avgPricePerHead) ? '' : `${avgPricePerHead.toFixed(2)} PHP`
+        );
       }
     }
 
     if (field === 'totalPrice') {
-      const totalPrice = parseFloat(value || 0);
-      const totalWeight = parseFloat(formData?.totalWeight || 0);
+      if (estimatedWeight > 0) {
+        const newPricePerKg = totalPrice / estimatedWeight;
+        onChange(
+          'pricePerKg',
+          isNaN(newPricePerKg) ? '' : `${newPricePerKg.toFixed(2)} PHP`
+        );
+      }
 
-      if (totalPrice > 0 && totalWeight > 0) {
-        const pricePerKg = `${(totalPrice / totalWeight).toFixed(2)} PHP`;
-        onChange('pricePerKg', pricePerKg);
-
-        if (formData?.quantity > 0) {
-          const avgPricePerHead = `${(totalPrice / formData.quantity).toFixed(
-            2
-          )} PHP`;
-          onChange('avgPricePerHead', avgPricePerHead);
-        }
-      } else {
-        onChange('pricePerKg', '');
-        onChange('avgPricePerHead', '');
+      if (quantity > 0) {
+        const avgPricePerHead = totalPrice / quantity;
+        onChange(
+          'avgPricePerHead',
+          isNaN(avgPricePerHead) ? '' : `${avgPricePerHead.toFixed(2)} PHP`
+        );
       }
     }
   };

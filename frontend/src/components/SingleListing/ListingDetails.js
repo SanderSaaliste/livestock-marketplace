@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiSolidHeart } from 'react-icons/bi';
-import { GiWeight } from 'react-icons/gi';
 import { BsFacebook, BsInstagram, BsStarFill } from 'react-icons/bs';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { FaUserCircle } from 'react-icons/fa';
@@ -10,7 +9,7 @@ import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
 import { apiHost } from '../../constants';
 
-const ListingDetails = ({ listing }) => {
+const ListingDetails = ({ listing, descriptionRef }) => {
   const [mainImage, setMainImage] = useState(
     listing.formData.media && listing.formData.media[0]
   );
@@ -97,28 +96,410 @@ const ListingDetails = ({ listing }) => {
           </div>
           <div className='flex justify-between items-start mb-4'>
             <h1 className='text-3xl font-bold font-mochiy'>
-              {listing.formData.title}
+              {listing.formData.jobType === 'Offering' && 'Offering: '}
+              {listing.formData.jobType === 'Jobseeker' && 'Wanted: '}
+              {listing.formData.title.length > 85
+                ? `${listing.formData.title.substring(0, 85)}...`
+                : listing.formData.title}
             </h1>
           </div>
 
           <div className='flex items-center space-x-6 mb-6'>
-            {listing.formData.perBag && (
-              <div className='flex items-center text-black text-lg'>
+            {listing.selectedCategory === 'Livestock' &&
+              listing.selectedSubcategory === 'Eggs' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <select
+                    className='w-full md:w-auto] rounded-md px-2 py-2 text-lg text-black font-bold'
+                    defaultValue=''
+                  >
+                    <option value='' disabled>
+                      Select size
+                    </option>
+                    {[
+                      { label: 'PW', value: listing.formData.pwPrice },
+                      { label: 'XS', value: listing.formData.xsPrice },
+                      { label: 'S', value: listing.formData.sPrice },
+                      { label: 'M', value: listing.formData.mPrice },
+                      { label: 'L', value: listing.formData.lPrice },
+                      { label: 'XL', value: listing.formData.xlPrice },
+                      { label: 'Jumbo', value: listing.formData.jumboPrice },
+                      { label: 'Dirty', value: listing.formData.dirtyPrice },
+                    ]
+                      .filter((option) => option.value)
+                      .map((option) => (
+                        <option key={option.label} value={option.value}>
+                          {option.label}: {option.value}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Livestock' &&
+              listing.selectedSubcategory !== 'Eggs' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      Price: {listing.formData.avgPricePerHead}
+                    </p>
+                    <p className='text-sm font-semibold text-gray-600'>
+                      Per/kg: {listing.formData.pricePerKg}
+                    </p>
+                  </div>
+
+                  <img
+                    src='https://img.icons8.com/color/96/weight-kg.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2 ml-10'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      Avg head: {listing.formData.avgWeightPerHead}
+                    </p>
+                    <p className='text-sm font-semibold text-gray-600'>
+                      Total: {listing.formData.totalWeight}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Vehicles' &&
+              listing.selectedSubcategory === 'Motorcycles and ATVs' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <p className='text-lg font-bold text-gray-600'>
+                    Price: {listing.formData.totalPrice}
+                  </p>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Vehicles' &&
+              listing.selectedSubcategory !== 'Motorcycles and ATVs' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <p className='text-lg font-bold text-gray-600'>
+                    Price: {listing.formData.totalPrice}
+                  </p>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Services / Jobs' && (
+              <div className='flex items-center'>
                 <img
                   src='https://img.icons8.com/color/96/peso-symbol.png'
-                  alt='Peso'
-                  className='h-10 w-10 mr-1'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
                 />
-                <span className='font-bold'>
-                  Per bag: {listing.formData.perBag}
-                </span>
+                <p className='text-lg font-bold text-gray-600'>
+                  Hourly:{' '}
+                  {listing.formData.hourlyRate ||
+                    listing.formData.preferredHourlyRate}
+                </p>
               </div>
             )}
 
-            {listing.formData.bag && (
-              <div className='flex items-center text-black text-lg'>
-                <GiWeight className='mr-1 text-4xl text-[#9FA8DA]' />
-                <span className='font-bold'>Bag: {listing.formData.bag}</span>
+            {listing.selectedCategory === 'Real Estate' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Heavy Equipment' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Aquaculture' &&
+              listing.selectedSubcategory === 'Boats (Bangka/Banca)' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <p className='text-lg font-bold text-gray-600'>
+                    Price: {listing.formData.totalPrice}
+                  </p>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Aquaculture' &&
+              listing.selectedSubcategory !== 'Boats (Bangka/Banca)' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <p className='text-lg font-bold text-gray-600'>
+                    Price: {listing.formData.totalPrice}
+                  </p>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Tools' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Home & Garden' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Animal Feed' &&
+              (listing.selectedSubcategory === 'Hay and Silage' ||
+                listing.selectedSubcategory === 'Pellets' ||
+                listing.selectedSubcategory === 'Grains') && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ Price: {listing.formData.productPrice}
+                    </p>
+                    <p className='text-sm font-semibold text-gray-600'>
+                      Per/kg: {listing.formData.pricePerKg}
+                    </p>
+                  </div>
+
+                  <img
+                    src='https://img.icons8.com/color/96/weight-kg.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2 ml-10'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ: {listing.formData.productWeight}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Animal Feed' &&
+              listing.selectedSubcategory !== 'Hay and Silage' &&
+              listing.selectedSubcategory !== 'Pellets' &&
+              listing.selectedSubcategory !== 'Grains' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      Per bag: {listing.formData.pricePerBag}
+                    </p>
+                  </div>
+
+                  <img
+                    src='https://img.icons8.com/color/96/weight-kg.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2 ml-10'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      Bag: {listing.formData.feedBagWeight}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Fertilizers' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <div>
+                  <p className='text-lg font-bold text-gray-600'>
+                    MOQ Price: {listing.formData.productPrice}
+                  </p>
+                  <p className='text-sm font-semibold text-gray-600'>
+                    Per/kg: {listing.formData.pricePerKg}
+                  </p>
+                </div>
+
+                <img
+                  src='https://img.icons8.com/color/96/weight-kg.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2 ml-10'
+                />
+                <div>
+                  <p className='text-lg font-bold text-gray-600'>
+                    MOQ: {listing.formData.productWeight}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Fruits, Vegetables & Growables' &&
+              (listing.selectedSubcategory === 'Mango' ||
+                listing.selectedSubcategory === 'Banana') && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ Price: {listing.formData.productPrice}
+                    </p>
+                    <p className='text-sm font-semibold text-gray-600'>
+                      Per/kg: {listing.formData.pricePerKg}
+                    </p>
+                  </div>
+
+                  <img
+                    src='https://img.icons8.com/color/96/weight-kg.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2 ml-10'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ: {listing.formData.weight}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Fruits, Vegetables & Growables' &&
+              listing.selectedSubcategory !== 'Mango' &&
+              listing.selectedSubcategory !== 'Banana' && (
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ Price: {listing.formData.productPrice}
+                    </p>
+                    <p className='text-sm font-semibold text-gray-600'>
+                      Per/kg: {listing.formData.pricePerKg}
+                    </p>
+                  </div>
+
+                  <img
+                    src='https://img.icons8.com/color/96/weight-kg.png'
+                    alt='Price'
+                    className='h-12 w-12 mr-2 ml-10'
+                  />
+                  <div>
+                    <p className='text-lg font-bold text-gray-600'>
+                      MOQ: {listing.formData.productWeight}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            {listing.selectedCategory === 'Seeds' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <div>
+                  <p className='text-lg font-bold text-gray-600'>
+                    MOQ Price: {listing.formData.productPrice}
+                  </p>
+                  <p className='text-sm font-semibold text-gray-600'>
+                    Per/kg: {listing.formData.pricePerKg}
+                  </p>
+                </div>
+
+                <img
+                  src='https://img.icons8.com/color/96/weight-kg.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2 ml-10'
+                />
+                <div>
+                  <p className='text-lg font-bold text-gray-600'>
+                    MOQ: {listing.formData.productWeight}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Building Materials' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
+              </div>
+            )}
+
+            {listing.selectedCategory === 'Others' && (
+              <div className='flex items-center'>
+                <img
+                  src='https://img.icons8.com/color/96/peso-symbol.png'
+                  alt='Price'
+                  className='h-12 w-12 mr-2'
+                />
+                <p className='text-lg font-bold text-gray-600'>
+                  Price: {listing.formData.totalPrice}
+                </p>
               </div>
             )}
           </div>
@@ -179,7 +560,80 @@ const ListingDetails = ({ listing }) => {
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
-                {listing.formData.description}
+                {listing.formData.description.length > 250 ? (
+                  <>
+                    {`${listing.formData.description.substring(0, 250)}... `}
+                    <button
+                      onClick={() =>
+                        descriptionRef.current.scrollIntoView({
+                          behavior: 'smooth',
+                        })
+                      }
+                      className='text-blue-500 underline'
+                    >
+                      Read more
+                    </button>
+                  </>
+                ) : (
+                  listing.formData.description
+                )}
+              </p>
+            </div>
+          )}
+
+          {listing.formData.jobDescription && (
+            <div className='mb-6'>
+              <p className='text-gray-600'>
+                <span className='font-bold text-gray-700 mr-1'>
+                  Description:
+                </span>
+                {listing.formData.jobDescription.length > 250 ? (
+                  <>
+                    {`${listing.formData.jobDescription.substring(0, 250)}... `}
+                    <button
+                      onClick={() =>
+                        descriptionRef.current.scrollIntoView({
+                          behavior: 'smooth',
+                        })
+                      }
+                      className='text-blue-500 underline'
+                    >
+                      Read more
+                    </button>
+                  </>
+                ) : (
+                  listing.formData.jobDescription
+                )}
+              </p>
+            </div>
+          )}
+
+          {listing.formData.selfDescription && (
+            <div className='mb-6'>
+              <p className='text-gray-600'>
+                <span className='font-bold text-gray-700 mr-1'>
+                  Description:
+                </span>
+                {listing.formData.selfDescription.length > 250 ? (
+                  <>
+                    {`${listing.formData.selfDescription.substring(
+                      0,
+                      250
+                    )}... `}
+                    <button
+                      onClick={() =>
+                        descriptionRef.current.scrollIntoView({
+                          behavior: 'smooth',
+                        })
+                      }
+                      className='text-blue-500 underline'
+                    >
+                      Read more
+                    </button>
+                  </>
+                ) : (
+                  listing.formData.selfDescription
+                )}
               </p>
             </div>
           )}

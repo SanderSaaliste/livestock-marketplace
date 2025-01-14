@@ -78,8 +78,10 @@ const AnimalFeedForm = ({ onChange, formData }) => {
         dropdownType='animalFeedType'
         dropdownState={dropdownState}
         toggleDropdown={toggleDropdown}
-        selectOption={selectOption}
-        selectedOption={formData?.animalFeedType || ''}
+        selectOption={(dropdownType, value) => {
+          selectOption(dropdownType, value);
+          handleInputChange(dropdownType, value);
+        }}
       />
 
       <h2 className='text-xl font-bold mb-12'>Price</h2>

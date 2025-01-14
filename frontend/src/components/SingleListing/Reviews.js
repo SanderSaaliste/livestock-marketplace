@@ -13,13 +13,17 @@ const Reviews = ({ listing, reviews }) => {
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [hasReviewed, setHasReviewed] = useState(false);
 
   useEffect(() => {
     setFilteredReviews(reviews);
 
     const currentUser = JSON.parse(localStorage.getItem('user'));
-    if (!currentUser) return;
+    if (!currentUser) {
+      setIsLoggedIn(false);
+      return;
+    }
 
     if (listing.userId === currentUser.id) {
       setHasReviewed(true);
@@ -111,7 +115,12 @@ const Reviews = ({ listing, reviews }) => {
 
         {reviews && reviews.length > 0 && !hasReviewed && (
           <button
-            className='flex items-center bg-[#5EA91E] text-white py-3 px-6 rounded-md font-semibold hover:bg-[#639E3B] transition'
+            className={`flex items-center py-3 px-6 rounded-md font-semibold transition ${
+              isLoggedIn
+                ? 'bg-[#5EA91E] text-white hover:bg-[#639E3B]'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+            disabled={!isLoggedIn}
             onClick={() =>
               navigate('leaveReview', {
                 state: { listing },
@@ -119,7 +128,7 @@ const Reviews = ({ listing, reviews }) => {
             }
           >
             <MdOutlineReviews className='mr-2 text-lg' />
-            Leave/Add a Review
+            {isLoggedIn ? 'Leave/Add a Review' : 'Login to add a review'}
           </button>
         )}
       </div>
@@ -286,7 +295,12 @@ const Reviews = ({ listing, reviews }) => {
 
           {!hasReviewed && (
             <button
-              className='flex items-center bg-[#5EA91E] text-white py-3 px-6 rounded-md font-semibold hover:bg-[#639E3B] transition'
+              className={`flex items-center py-3 px-6 rounded-md font-semibold transition ${
+                isLoggedIn
+                  ? 'bg-[#5EA91E] text-white hover:bg-[#639E3B]'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={!isLoggedIn}
               onClick={() =>
                 navigate('leaveReview', {
                   state: { listing },
@@ -294,7 +308,7 @@ const Reviews = ({ listing, reviews }) => {
               }
             >
               <MdOutlineReviews className='mr-2 text-lg' />
-              Leave/Add a Review
+              {isLoggedIn ? 'Leave/Add a Review' : 'Login to add a review'}
             </button>
           )}
         </div>

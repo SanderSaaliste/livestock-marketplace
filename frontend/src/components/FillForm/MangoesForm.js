@@ -85,11 +85,13 @@ const MangoesForm = ({ onChange, formData }) => {
             label={input.label}
             options={input.options}
             helpingText={input.helpingText}
-            dropdownType={`dropdown-${input.key}`}
+            dropdownType={input.key}
             dropdownState={dropdownState}
             toggleDropdown={toggleDropdown}
-            selectOption={selectOption}
-            selectedOption={formData?.[input.key] || ''}
+            selectOption={(dropdownType, value) => {
+              selectOption(dropdownType, value);
+              handleInputChange(dropdownType, value);
+            }}
           />
         ) : (
           <InputField

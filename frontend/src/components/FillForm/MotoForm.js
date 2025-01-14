@@ -80,7 +80,6 @@ const MotoForm = ({ onChange, formData }) => {
           selectOption(dropdownType, value);
           handleInputChange(dropdownType, value);
         }}
-        selectedOption={formData?.transmission || ''}
       />
 
       <h2 className='text-xl font-bold mb-12'>Price</h2>

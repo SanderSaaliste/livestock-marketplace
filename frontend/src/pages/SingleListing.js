@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
@@ -15,6 +15,10 @@ import userReviewService from '../services/userReview-service';
 
 const SingleListing = () => {
   const { id } = useParams();
+
+  const featuresRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const reviewsRef = useRef(null);
 
   const [listing, setListing] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -48,10 +52,12 @@ const SingleListing = () => {
 
   useEffect(() => {
     fetchListing();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
     if (listing && listing.userId) fetchReviewsByReviewerId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listing]);
 
   if (loading) {
@@ -73,11 +79,26 @@ const SingleListing = () => {
   return (
     <div className='Home'>
       <Navbar />
-      <ListingDetails listing={listing} />
-      <TabNavbar />
-      <Features listing={listing} />
-      <Description listing={listing} />
-      <Reviews listing={listing} reviews={reviews} />
+      <ListingDetails listing={listing} descriptionRef={descriptionRef} />
+      <TabNavbar
+        onTabClick={(tab) => {
+          if (tab === 'Features')
+            featuresRef.current.scrollIntoView({ behavior: 'smooth' });
+          if (tab === 'Descriptions')
+            descriptionRef.current.scrollIntoView({ behavior: 'smooth' });
+          if (tab === 'Reviews')
+            reviewsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
+      <div ref={featuresRef}>
+        <Features listing={listing} />
+      </div>
+      <div ref={descriptionRef}>
+        <Description listing={listing} />
+      </div>
+      <div ref={reviewsRef}>
+        <Reviews listing={listing} reviews={reviews} />
+      </div>
       <RelatedListings />
       <Footer />
     </div>

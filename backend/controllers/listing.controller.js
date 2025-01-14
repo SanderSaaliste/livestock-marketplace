@@ -84,7 +84,7 @@ const listingController = {
   },
 
   getAllListings: async (req, res) => {
-    const { userId, category, subcategory } = req.query;
+    const { userId, category, subcategory, page = 1, numItems = 6 } = req.query;
 
     try {
       const whereClause = {};
@@ -93,12 +93,28 @@ const listingController = {
       if (category) whereClause.selectedCategory = category;
       if (subcategory) whereClause.selectedSubcategory = subcategory;
 
-      const listings = await Listing.findAll({
-        where: whereClause,
-        order: [['createdTimestamp', 'DESC']],
-      });
+      const limit = parseInt(numItems, 10);
+      const offset = (parseInt(page, 10) - 1) * limit;
 
-      res.status(httpStatus.OK).json(listings);
+      const { rows: listings, count: totalItems } =
+        await Listing.findAndCountAll({
+          where: whereClause,
+          order: [['createdTimestamp', 'DESC']],
+          limit,
+          offset,
+        });
+
+      const totalPages = Math.ceil(totalItems / limit);
+
+      res.status(httpStatus.OK).json({
+        listings,
+        pagination: {
+          totalItems,
+          totalPages,
+          currentPage: parseInt(page, 10),
+          numItems: limit,
+        },
+      });
     } catch (error) {
       console.error('Error fetching listings:', error);
       res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
