@@ -90,6 +90,13 @@ const listingController = {
       category,
       subcategory,
       searchText,
+      minPrice,
+      maxPrice,
+      priceOptions,
+      minWeight,
+      maxWeight,
+      weightOptions,
+      paymentOptions,
       page = 1,
       numItems = 6,
     } = req.query;
@@ -118,6 +125,58 @@ const listingController = {
                 [Op.like]: `%${searchText}%`,
               }),
             ],
+          },
+        ];
+      }
+      if (priceOptions) {
+        const priceOptionsArray = priceOptions.split(',');
+        whereClause[Op.and] = [
+          ...(whereClause[Op.and] || []),
+          {
+            [Op.or]: priceOptionsArray.map((option) =>
+              Sequelize.where(
+                Sequelize.literal(
+                  `CAST(REPLACE(JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')), 'PHP', '') AS DECIMAL)`
+                ),
+                {
+                  [Op.between]: [minPrice || 0, maxPrice || Number.MAX_VALUE],
+                }
+              )
+            ),
+          },
+        ];
+      }
+      if (weightOptions) {
+        const weightOptionsArray = weightOptions.split(',');
+        whereClause[Op.and] = [
+          ...(whereClause[Op.and] || []),
+          {
+            [Op.or]: weightOptionsArray.map((option) =>
+              Sequelize.where(
+                Sequelize.literal(
+                  `CAST(REPLACE(JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')), ' kg', '') AS DECIMAL)`
+                ),
+                {
+                  [Op.between]: [minWeight || 0, maxWeight || Number.MAX_VALUE],
+                }
+              )
+            ),
+          },
+        ];
+      }
+      if (paymentOptions) {
+        const paymentOptionsArray = paymentOptions.split(',');
+        whereClause[Op.and] = [
+          ...(whereClause[Op.and] || []),
+          {
+            [Op.or]: paymentOptionsArray.map((option) =>
+              Sequelize.where(
+                Sequelize.literal(
+                  `JSON_CONTAINS(JSON_EXTRACT(formData, '$.paymentMethods'), '"${option}"')`
+                ),
+                true
+              )
+            ),
           },
         ];
       }

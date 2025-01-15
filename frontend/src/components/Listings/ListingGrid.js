@@ -23,17 +23,45 @@ const ListingsGrid = ({ searchParams, setSearchLength }) => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentRange, setCurrentRange] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const maxPagesToShow = 6;
 
+  const mergeSearchParams = (params1, params2) => {
+    const merged = {};
+    const keys = new Set([
+      ...Object.keys(params1 || {}),
+      ...Object.keys(params2 || {}),
+    ]);
+
+    keys.forEach((key) => {
+      merged[key] = params1?.[key] ?? params2?.[key];
+    });
+
+    return merged;
+  };
+
   const fetchListings = async (page = 1) => {
     setLoading(true);
+
+    const finalSearchParams = mergeSearchParams(searchParams, searchQuery);
+
     try {
       const response = await listingService.getAllListings({
-        ...searchParams,
+        ...finalSearchParams,
         page,
         numItems: listingsPerPage,
       });
+
+      if (response.error) {
+        console.error('Error fetching listings:', response.error);
+        toast.error(
+          response.error || 'Failed to load listings. Please try again.'
+        );
+
+        return;
+      }
+
       setListings(response.listings);
       setSearchLength(response.listings.length);
       setCurrentPage(response.pagination.currentPage);
@@ -50,7 +78,7 @@ const ListingsGrid = ({ searchParams, setSearchLength }) => {
     fetchListings(1);
     scrollToTop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, [searchParams, searchQuery]);
 
   const paginate = (pageNumber) => {
     fetchListings(pageNumber);
@@ -86,6 +114,10 @@ const ListingsGrid = ({ searchParams, setSearchLength }) => {
     { length: endPage - startPage + 1 },
     (_, idx) => startPage + idx
   );
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
 
   return (
     <div className='py-8' ref={gridRef}>
@@ -131,8 +163,10 @@ const ListingsGrid = ({ searchParams, setSearchLength }) => {
             </div>
 
             <div className='flex flex-col lg:flex-row'>
-              <div className='w-full lg:w-[30%] p-4 mb-6 lg:mb-0 lg:mr-6 flex justify-center lg:justify-start'>
-                <Filters />
+              <div className='w-full lg:w-[30%] p-4 mb-6 lg:mb-0 lg:mr-6'>
+                <div className='sticky top-4'>
+                  <Filters onSearch={handleSearch} />
+                </div>
               </div>
 
               <div className='w-full lg:w-[70%]'>
