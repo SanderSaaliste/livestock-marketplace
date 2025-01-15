@@ -1,6 +1,7 @@
 const httpStatus = require('http-status-codes').StatusCodes;
 const fs = require('fs');
 const path = require('path');
+const { Op, Sequelize } = require('sequelize');
 
 const { Listing } = require('../models/listing.model');
 const { User } = require('../models/user.model');
@@ -84,7 +85,14 @@ const listingController = {
   },
 
   getAllListings: async (req, res) => {
-    const { userId, category, subcategory, page = 1, numItems = 6 } = req.query;
+    const {
+      userId,
+      category,
+      subcategory,
+      searchText,
+      page = 1,
+      numItems = 6,
+    } = req.query;
 
     try {
       const whereClause = {};
@@ -92,6 +100,27 @@ const listingController = {
       if (userId) whereClause.userId = userId;
       if (category) whereClause.selectedCategory = category;
       if (subcategory) whereClause.selectedSubcategory = subcategory;
+      if (searchText) {
+        whereClause[Op.and] = [
+          ...(whereClause[Op.and] || []),
+          {
+            [Op.or]: [
+              Sequelize.where(Sequelize.json('formData.title'), {
+                [Op.like]: `%${searchText}%`,
+              }),
+              Sequelize.where(Sequelize.json('formData.description'), {
+                [Op.like]: `%${searchText}%`,
+              }),
+              Sequelize.where(Sequelize.json('formData.jobDescription'), {
+                [Op.like]: `%${searchText}%`,
+              }),
+              Sequelize.where(Sequelize.json('formData.selfDescription'), {
+                [Op.like]: `%${searchText}%`,
+              }),
+            ],
+          },
+        ];
+      }
 
       const limit = parseInt(numItems, 10);
       const offset = (parseInt(page, 10) - 1) * limit;

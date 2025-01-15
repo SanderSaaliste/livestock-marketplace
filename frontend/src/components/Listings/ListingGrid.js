@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import ListingCardAlt from './ListingCardAlt';
 import Loader from '../Loader';
 
-const ListingsGrid = () => {
+const ListingsGrid = ({ searchParams, setSearchLength }) => {
   const gridRef = useRef(null);
 
   const [layout, setLayout] = useState('list');
@@ -30,10 +30,12 @@ const ListingsGrid = () => {
     setLoading(true);
     try {
       const response = await listingService.getAllListings({
+        ...searchParams,
         page,
         numItems: listingsPerPage,
       });
       setListings(response.listings);
+      setSearchLength(response.listings.length);
       setCurrentPage(response.pagination.currentPage);
       setTotalPages(response.pagination.totalPages);
     } catch (err) {
@@ -45,9 +47,10 @@ const ListingsGrid = () => {
   };
 
   useEffect(() => {
-    fetchListings();
+    fetchListings(1);
+    scrollToTop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   const paginate = (pageNumber) => {
     fetchListings(pageNumber);
@@ -133,67 +136,80 @@ const ListingsGrid = () => {
               </div>
 
               <div className='w-full lg:w-[70%]'>
-                {layout === 'grid' ? (
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                    {listings.map((listing) => (
-                      <div className='mx-auto' key={listing.id}>
-                        <ListingCard listing={listing} />
+                {listings.length > 0 ? (
+                  <>
+                    {layout === 'grid' ? (
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                        {listings.map((listing) => (
+                          <div className='mx-auto' key={listing.id}>
+                            <ListingCard listing={listing} />
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    ) : (
+                      <div className='space-y-6'>
+                        {listings.map((listing) => (
+                          <div className='flex justify-center' key={listing.id}>
+                            <ListingCardAlt listing={listing} />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className='flex items-center mt-8'>
+                      <nav className='flex space-x-4'>
+                        <button
+                          className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
+                            currentRange === 1
+                              ? 'cursor-not-allowed text-gray-400'
+                              : ''
+                          }`}
+                          onClick={() => changeRange('previous')}
+                          disabled={currentRange === 1}
+                        >
+                          <BiChevronLeft />
+                          <span className='ml-1'>Previous</span>
+                        </button>
+                        {pagesToShow.map((page) => (
+                          <button
+                            key={page}
+                            className={`px-3 py-1 border rounded ${
+                              currentPage === page
+                                ? 'bg-[#008001] text-white'
+                                : 'bg-white text-black hover:bg-gray-100'
+                            }`}
+                            onClick={() => paginate(page)}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                        <button
+                          className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
+                            currentRange ===
+                            Math.ceil(totalPages / maxPagesToShow)
+                              ? 'cursor-not-allowed text-gray-400'
+                              : ''
+                          }`}
+                          onClick={() => changeRange('next')}
+                          disabled={
+                            currentRange ===
+                            Math.ceil(totalPages / maxPagesToShow)
+                          }
+                        >
+                          <span className='mr-1'>Next</span>
+                          <BiChevronRight />
+                        </button>
+                      </nav>
+                    </div>
+                  </>
                 ) : (
-                  <div className='space-y-6'>
-                    {listings.map((listing) => (
-                      <div className='flex justify-center' key={listing.id}>
-                        <ListingCardAlt listing={listing} />
-                      </div>
-                    ))}
+                  <div className='text-center py-8'>
+                    <p className='text-gray-600 text-lg'>
+                      No listings found. Try adjusting your filters or search
+                      criteria.
+                    </p>
                   </div>
                 )}
-
-                <div className='flex items-center mt-8'>
-                  <nav className='flex space-x-4'>
-                    <button
-                      className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
-                        currentRange === 1
-                          ? 'cursor-not-allowed text-gray-400'
-                          : ''
-                      }`}
-                      onClick={() => changeRange('previous')}
-                      disabled={currentRange === 1}
-                    >
-                      <BiChevronLeft />
-                      <span className='ml-1'>Previous</span>
-                    </button>
-                    {pagesToShow.map((page) => (
-                      <button
-                        key={page}
-                        className={`px-3 py-1 border rounded ${
-                          currentPage === page
-                            ? 'bg-[#008001] text-white'
-                            : 'bg-white text-black hover:bg-gray-100'
-                        }`}
-                        onClick={() => paginate(page)}
-                      >
-                        {page}
-                      </button>
-                    ))}
-                    <button
-                      className={`px-3 py-1 border rounded bg-white hover:bg-gray-100 flex items-center ${
-                        currentRange === Math.ceil(totalPages / maxPagesToShow)
-                          ? 'cursor-not-allowed text-gray-400'
-                          : ''
-                      }`}
-                      onClick={() => changeRange('next')}
-                      disabled={
-                        currentRange === Math.ceil(totalPages / maxPagesToShow)
-                      }
-                    >
-                      <span className='mr-1'>Next</span>
-                      <BiChevronRight />
-                    </button>
-                  </nav>
-                </div>
               </div>
             </div>
           </>

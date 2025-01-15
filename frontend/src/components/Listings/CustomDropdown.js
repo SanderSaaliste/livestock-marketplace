@@ -2,18 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BiFilter } from 'react-icons/bi';
 import { FaCaretDown } from 'react-icons/fa';
 
-const CustomDropdown = ({ options, placeholder }) => {
+const CustomDropdown = ({
+  options,
+  placeholder,
+  setSelectedCategory,
+  selectedSubCategory,
+  setSelectedSubCategory,
+}) => {
   const dropdownRef = useRef(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(placeholder);
-
-  const handleOptionClick = (option) => {
-    if (!option.icon) {
-      setSelectedOption(option.label);
-      setIsOpen(false);
-    }
-  };
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -37,7 +35,7 @@ const CustomDropdown = ({ options, placeholder }) => {
         <div className='flex items-center'>
           <BiFilter className='text-gray-500 text-xl mr-2' />
           <span className='text-gray-400 font-semibold text-sm sm:text-base'>
-            {selectedOption}
+            {selectedSubCategory || placeholder}
           </span>
         </div>
         <div className='flex items-center'>
@@ -53,7 +51,11 @@ const CustomDropdown = ({ options, placeholder }) => {
               {group.options.map((option, optionIndex) => (
                 <div
                   key={optionIndex}
-                  onClick={() => handleOptionClick(option)}
+                  onClick={() => {
+                    setSelectedCategory(group.group);
+                    setSelectedSubCategory(option.label);
+                    setIsOpen(false);
+                  }}
                   className={`px-4 py-2 text-sm sm:text-base ${
                     option.icon
                       ? 'font-bold text-gray-700 cursor-default flex items-center'
