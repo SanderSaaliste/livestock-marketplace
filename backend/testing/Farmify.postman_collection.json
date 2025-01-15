@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "996a2aff-ea3f-4865-bf8f-fe6f2441e6a8",
+		"name": "Farmify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12342439"
+	},
+	"item": [
+		{
+			"name": "Eggs Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834348691-image-0.jpeg\",\n        \"/listingMedia/1736834348693-image-1.jpeg\",\n        \"/listingMedia/1736834348693-image-2.jpeg\",\n        \"/listingMedia/1736834348693-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Eggs.html (Livestock Egg Subcategory)\",\n    \"lPrice\": \"160PHP\",\n    \"mPrice\": \"140PHP\",\n    \"sPrice\": \"120PHP\",\n    \"harvest\": \"First Harvest\",\n    \"pwPrice\": \"80PHP\",\n    \"xlPrice\": \"180PHP\",\n    \"xsPrice\": \"100PHP\",\n    \"category\": \"Eggs\",\n    \"location\": \"Bukas\",\n    \"minOrder\": \"1 tray\",\n    \"dirtyPrice\": \"90PHP\",\n    \"jumboPrice\": \"200PHP\",\n    \"description\": \"Test\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/cae7e8bf-3e71-40ea-a3bf-33e5fb3af047\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/38b3b42e-9f77-47db-9bc1-c0a7225e85a2\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/98ffd903-0578-4017-9d9f-26264a352d0d\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/0780e715-1139-4c82-b5a2-c4fa59399a0c\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Livestock Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"age\": \"5\",\n    \"media\": [\n        \"/listingMedia/1736834470767-image-0.jpeg\",\n        \"/listingMedia/1736834470770-image-1.jpeg\",\n        \"/listingMedia/1736834470770-image-2.jpeg\",\n        \"/listingMedia/1736834470770-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Livestock.html (Livestock Category)\",\n    \"gender\": \"Male\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Cattle\",\n    \"location\": \"Manila\",\n    \"quantity\": \"10\",\n    \"vitamins\": \"Test Vitamins\",\n    \"pricePerKg\": \"180 PHP\",\n    \"totalPrice\": \"86400.00 PHP\",\n    \"description\": \"Test\",\n    \"temperament\": \"Easy to handle\",\n    \"totalWeight\": \"480 kg\",\n    \"feedingBrand\": \"Test\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/af503329-a1d1-4b95-bb93-b58143f94dab\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/f2780956-e91f-4089-aa75-74556fc66524\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/72a6b4f1-1f29-4206-a953-f6630d836f9d\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/bea9fc68-fa26-44a1-9d75-c8728497b148\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ],\n    \"avgPricePerHead\": \"8640.00 PHP\",\n    \"estimatedWeight\": \"480\",\n    \"vaccinationDate\": \"27/03/2020\",\n    \"avgWeightPerHead\": \"48.00 kg\",\n    \"sicknessFrequency\": \"Mostly Healthy\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vehicles Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": \"2020\",\n    \"media\": [\n        \"/listingMedia/1736834572322-image-0.jpeg\",\n        \"/listingMedia/1736834572324-image-1.jpeg\",\n        \"/listingMedia/1736834572324-image-2.jpeg\",\n        \"/listingMedia/1736834572324-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Cars, Trucks, Others.html (Vehicle Category)\",\n    \"harvest\": \"First Harvest\",\n    \"mileage\": \"50,000 km\",\n    \"category\": \"Cars\",\n    \"location\": \"Test\",\n    \"engineType\": \"2.0L\",\n    \"totalPrice\": \"500,000PHP\",\n    \"description\": \"Test\",\n    \"transmission\": \"Automatic\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/cd14a3dd-932e-4e28-90c9-2502cc4fbb84\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/3c4cdb16-aa1e-4094-ae31-5eb6aa30e7be\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/fd9ce31f-bd48-4203-a6b4-487a0a0cc5f9\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/48cc7d4a-62d5-40d2-bebc-eb2a3236aec5\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Moto Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": \"2020\",\n    \"media\": [\n        \"/listingMedia/1736834633786-image-0.jpeg\",\n        \"/listingMedia/1736834633788-image-1.jpeg\",\n        \"/listingMedia/1736834633789-image-2.jpeg\",\n        \"/listingMedia/1736834633789-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Moto, ATV.html (Vehicle Category)\",\n    \"harvest\": \"First Harvest\",\n    \"mileage\": \"50,000km\",\n    \"category\": \"Motorcycles and ATVs\",\n    \"location\": \"Test\",\n    \"engineType\": \"150cc\",\n    \"totalPrice\": \"75,000PHP\",\n    \"description\": \"Test\",\n    \"transmission\": \"Automatic\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/7138a317-2e70-4ec3-8bc7-26c43c7ebf83\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/5c62c7db-cf94-4215-977c-4c24c9ec6d30\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/b803f68d-c2c6-4a9e-9473-e87d01417577\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/a9a87e41-7861-444f-a79c-3beb663dc243\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Real Estate Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834790706-image-0.webp\",\n        \"/listingMedia/1736834790708-image-1.webp\",\n        \"/listingMedia/1736834790708-image-2.webp\",\n        \"/listingMedia/1736834790709-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Real Estate.html (Real Estate Category)\",\n    \"harvest\": \"First Harvest\",\n    \"bedrooms\": \"3\",\n    \"category\": \"Land Plots\",\n    \"landSize\": \"1000m2\",\n    \"location\": \"Test\",\n    \"lotNumber\": \"337\",\n    \"totalPrice\": \"3,500,000PHP\",\n    \"description\": \"Test\",\n    \"interiorSize\": \"105 m2\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/490c69d1-df7c-4f38-bacf-f84c65346c0d\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/4ee20705-7b36-4acc-859c-aa3956dcb56f\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/d3d06a5f-6900-4cbb-8e3b-5b8c09c3d7ae\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/a3de72b2-ce98-4156-aa23-9a9577918005\",\n            \"type\": \"video\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Heavy Equipment Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834875144-image-0.jpeg\",\n        \"/listingMedia/1736834875149-image-1.jpeg\",\n        \"/listingMedia/1736834875154-image-2.jpeg\",\n        \"/listingMedia/1736834875156-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Heavy Equipment.html (Heavy Equipment)\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Tractors\",\n    \"location\": \"Test\",\n    \"horsepower\": \"140 PHP\",\n    \"totalPrice\": \"150,000 PHP\",\n    \"description\": \"Test\",\n    \"workingHours\": \"4,950\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/7bc1e7f2-ec20-4a20-b853-296e83ff9f08\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/4a68c15f-e795-490a-ad40-ccdbc39efe7c\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/e53ea1db-9cd4-4b9e-b23f-bce5402cabf4\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/ad2bbf34-d455-4f14-a092-1c3fa97bdb9f\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ],\n    \"fuelConsumption\": \"7.5 L/hr\",\n    \"manufacturingYear\": \"2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Basic Listing Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834922983-image-0.jpeg\",\n        \"/listingMedia/1736834922984-image-1.jpeg\",\n        \"/listingMedia/1736834922984-image-2.jpeg\",\n        \"/listingMedia/1736834922985-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Basic Listing.html (Aquaculture Category)\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Fish\",\n    \"location\": \"Test\",\n    \"totalPrice\": \"86,400 PHP\",\n    \"description\": \"Test\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/9eb9c4ec-996d-4104-94ff-952cd7e02624\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/731b02af-18d2-4634-af80-9b7728c6c88f\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/5c05744f-c765-46e3-9f53-20082a2f8411\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/22f90fa2-5502-4f60-9c39-5bf6fe642b4b\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Boats Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834970122-image-0.jpeg\",\n        \"/listingMedia/1736834970123-image-1.jpeg\",\n        \"/listingMedia/1736834970123-image-2.jpeg\",\n        \"/listingMedia/1736834970123-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Boats.html (Aquaculture Category Boats Subcategory)\",\n    \"harvest\": \"First Harvest\",\n    \"boatFuel\": \"Gasoline\",\n    \"category\": \"Boats (Bangka/Banca)\",\n    \"location\": \"Test\",\n    \"boatLength\": \"47ft\",\n    \"horsepower\": \"140 HP\",\n    \"totalPrice\": \"150,000PHP\",\n    \"description\": \"Test\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/f8d4ab55-ddf7-4bd4-89a3-0029a6892988\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/a0c6fa1d-c933-45eb-bad1-245e8c82dd17\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/134df1b1-5701-4e49-b317-21b27af0b3e3\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/44a6b205-98af-48c0-b988-92d0bb025007\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ],\n    \"manufacturingYear\": \"2020\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Standard Weight Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736835123076-image-0.jpeg\",\n        \"/listingMedia/1736835123077-image-1.jpeg\",\n        \"/listingMedia/1736835123078-image-2.jpeg\",\n        \"/listingMedia/1736835123078-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Standard Weight Listing.html (Hay & Silage Sub)\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Hay and Silage\",\n    \"location\": \"Test\",\n    \"pricePerKg\": \"180PHP\",\n    \"description\": \"Test\",\n    \"productPrice\": \"4500.00 PHP\",\n    \"productWeight\": \"25kg\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/2f5670f0-d569-41f0-be28-c1f28e47fecd\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/0a95038f-2b12-46fe-82e9-e58baa635e55\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/5fd5b2ed-41d0-4ef4-bd6a-771c9d5716af\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/059660d2-fcef-433f-a35a-69393b2d84e7\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Animal Feed Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736835183886-image-0.jpeg\",\n        \"/listingMedia/1736835183888-image-1.jpeg\",\n        \"/listingMedia/1736835183889-image-2.jpeg\",\n        \"/listingMedia/1736835183889-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Animal Feed.html (Animal Feed Category)\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Pig Feed\",\n    \"location\": \"Test\",\n    \"description\": \"Test\",\n    \"pricePerBag\": \"2,000PHP\",\n    \"feedBagWeight\": \"50kg\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/b9b14d60-e2a5-442e-8eff-454b31000879\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/78d364e2-efae-4210-a40b-7ea71cc89b41\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/60dc7507-5bf0-4028-9056-898f86bdcb7c\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/05f86895-89b5-46cb-ae05-39f5157133b2\",\n            \"type\": \"video\"\n        }\n    ],\n    \"animalFeedType\": \"Grower Feed\",\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mangoes Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736835306485-image-0.jpeg\",\n        \"/listingMedia/1736835306486-image-1.jpeg\",\n        \"/listingMedia/1736835306487-image-2.jpeg\",\n        \"/listingMedia/1736835306487-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Mangos.html (Mango Subcategory)\",\n    \"weight\": \"10kg\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Mango\",\n    \"location\": \"Test\",\n    \"pricePerKg\": \"180PHP\",\n    \"description\": \"Test\",\n    \"productPrice\": \"86,400PHP\",\n    \"qualityLevel\": \"D1 (Grade 1)\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/c28f9b4e-e32e-4376-89f5-5e2bfbfa7aa8\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/239b94dd-eda4-48a7-bc96-fc2971b47869\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/e296324a-b2b2-4a4f-a074-05f14571033a\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/4e3f3933-97fd-4ade-95bf-d401cec1b743\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bananas Payload",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736835356486-image-0.jpeg\",\n        \"/listingMedia/1736835356488-image-1.jpeg\",\n        \"/listingMedia/1736835356488-image-2.webp\",\n        \"/listingMedia/1736835356489-video-3.mp4\"\n    ],\n    \"title\": \"Fill in Form Bananas.html (Banana Subcategory)\",\n    \"weight\": \"10kg\",\n    \"harvest\": \"First Harvest\",\n    \"category\": \"Banana\",\n    \"location\": \"Test\",\n    \"pricePerKg\": \"180PHP\",\n    \"description\": \"Test\",\n    \"productPrice\": \"86,400PHP\",\n    \"qualityLevel\": \"Class B\",\n    \"uploadedFiles\": [\n        {\n            \"url\": \"blob:http://localhost:3000/7f28f086-a871-403a-a4b9-d8fdd8501f69\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/09a0ea40-8169-4f01-8300-920bdab42b97\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/c587468b-0e5e-4dc8-ba51-ca4dbf22ea2b\",\n            \"type\": \"image\"\n        },\n        {\n            \"url\": \"blob:http://localhost:3000/fa105d6c-d667-4b7a-a524-10e4cd70df97\",\n            \"type\": \"video\"\n        }\n    ],\n    \"paymentMethods\": [\n        \"cash\",\n        \"gcash\",\n        \"maya\",\n        \"creditCard\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Services Payload (Job Seeker)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"media\": [\n        \"/listingMedia/1736834694612-profilePicture.jpeg\"\n    ],\n    \"title\": \"Fill in Form Services & Jobs.html (Services & Jobs)\",\n    \"jobType\": \"Jobseeker\",\n    \"category\": \"Mechanic\",\n    \"location\": \"Test\",\n    \"profession\": \"Mechanic\",\n    \"profilePicture\": {\n        \"url\": \"blob:http://localhost:3000/c38034ce-f61a-452c-8658-c944f608126a\",\n        \"type\": \"image\"\n    },\n    \"selfDescription\": \"Test\",\n    \"preferredHourlyRate\": \"75-100\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
