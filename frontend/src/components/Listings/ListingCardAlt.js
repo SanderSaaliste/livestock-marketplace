@@ -138,61 +138,38 @@ const ListingCardAlt = ({ listing }) => {
                   </div>
                 )}
 
-                {listing.formData.xsPrice && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5 mr-2'
-                    />
-                    <span>XS:</span>
-                    <span className='font-bold text-black ml-1'>
-                      {listing.formData.xsPrice}
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.sPrice && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5 mr-2'
-                    />
-                    <span>S:</span>
-                    <span className='font-bold text-black ml-1'>
-                      {listing.formData.sPrice}
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.mPrice && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5 mr-2'
-                    />
-                    <span>M:</span>
-                    <span className='font-bold text-black ml-1'>
-                      {listing.formData.mPrice}
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.lPrice && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5 mr-2'
-                    />
-                    <span>L:</span>
-                    <span className='font-bold text-black ml-1'>
-                      {listing.formData.lPrice}
-                    </span>
-                  </div>
-                )}
+                <div className='flex items-center'>
+                  <img
+                    src='https://img.icons8.com/color/96/peso-symbol.png'
+                    alt='Price'
+                    className='h-5 w-5'
+                  />
+                  <select
+                    className='w-full md:[w-auto] rounded-md px-2 py-2 text-black font-bold'
+                    defaultValue=''
+                  >
+                    <option value='' disabled>
+                      Select size
+                    </option>
+                    {[
+                      { label: 'PW', value: listing.formData.pwPrice },
+                      { label: 'XS', value: listing.formData.xsPrice },
+                      { label: 'S', value: listing.formData.sPrice },
+                      { label: 'M', value: listing.formData.mPrice },
+                      { label: 'L', value: listing.formData.lPrice },
+                      { label: 'XL', value: listing.formData.xlPrice },
+                      { label: 'Jumbo', value: listing.formData.jumboPrice },
+                      { label: 'Dirty', value: listing.formData.dirtyPrice },
+                    ].map(
+                      (option) =>
+                        option.value && (
+                          <option key={option.label} value={option.value}>
+                            {option.label}: {option.value}
+                          </option>
+                        )
+                    )}
+                  </select>
+                </div>
               </div>
             </>
           )}
