@@ -114,7 +114,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                     className='h-12 w-12 mr-2'
                   />
                   <select
-                    className='w-full md:w-auto] rounded-md px-2 py-2 text-lg text-black font-bold'
+                    className='w-full md:[w-auto] rounded-md px-2 py-2 text-lg text-black font-bold'
                     defaultValue=''
                   >
                     <option value='' disabled>
@@ -129,13 +129,14 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                       { label: 'XL', value: listing.formData.xlPrice },
                       { label: 'Jumbo', value: listing.formData.jumboPrice },
                       { label: 'Dirty', value: listing.formData.dirtyPrice },
-                    ]
-                      .filter((option) => option.value)
-                      .map((option) => (
-                        <option key={option.label} value={option.value}>
-                          {option.label}: {option.value}
-                        </option>
-                      ))}
+                    ].map(
+                      (option) =>
+                        option.value && (
+                          <option key={option.label} value={option.value}>
+                            {option.label}: {option.value}
+                          </option>
+                        )
+                    )}
                   </select>
                 </div>
               )}
