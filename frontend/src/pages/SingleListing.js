@@ -42,6 +42,11 @@ const SingleListing = () => {
         listing.userId
       );
 
+      if (response.message || response.error) {
+        console.error(response.message || response.error);
+        return;
+      }
+
       setReviews(response || []);
     } catch (err) {
       console.error('Failed to fetch listing reviews:', err);

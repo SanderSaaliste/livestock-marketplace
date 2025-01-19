@@ -30,7 +30,10 @@ const Reviews = ({ listing, reviews }) => {
       return;
     }
 
-    if (reviews.some((review) => review.reviewerId === currentUser.id)) {
+    if (
+      reviews &&
+      reviews.some((review) => review.reviewerId === currentUser.id)
+    ) {
       setHasReviewed(true);
     } else {
       setHasReviewed(false);
