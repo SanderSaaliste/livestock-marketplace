@@ -150,7 +150,9 @@ const Reviews = ({ listing, reviews }) => {
                       {review.reviewer.firstName[0]}
                     </div>
                     <div>
-                      <p className='font-bold'>{review.user}</p>
+                      <p className='font-bold'>
+                        {review.reviewer.firstName} {review.reviewer.lastName}
+                      </p>
                       <div className='flex items-center text-md text-gray-500'>
                         <div className='flex items-center'>
                           {[...Array(5)].map((_, i) => (
