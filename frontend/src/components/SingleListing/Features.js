@@ -84,19 +84,71 @@ import bananaIcon from '../../assets/bananas/banana.svg';
 import bananaLocationIcon from '../../assets/bananas/location.svg';
 import bananaPesoIcon from '../../assets/bananas/peso.svg';
 import bananaWeightIcon from '../../assets/bananas/weight.svg';
+import { formatQuantity } from '../../utils/text';
 
 const Features = ({ listing }) => {
   const eggFeatures = [
-    { image: locationIcon, key: 'location', text: listing.formData.location },
-    { image: xsIcon, key: 'xsPrice', text: listing.formData.xsPrice },
-    { image: sIcon, key: 'sPrice', text: listing.formData.sPrice },
-    { image: moqIcon, key: 'minOrder', text: listing.formData.minOrder },
-    { image: mIcon, key: 'mPrice', text: listing.formData.mPrice },
-    { image: lIcon, key: 'lPrice', text: listing.formData.lPrice },
-    { image: xlIcon, key: 'xlPrice', text: listing.formData.xlPrice },
-    { image: jumboIcon, key: 'jumboPrice', text: listing.formData.jumboPrice },
-    { image: pwIcon, key: 'pwPrice', text: listing.formData.pwPrice },
-    { image: dirtyIcon, key: 'dirtyPrice', text: listing.formData.dirtyPrice },
+    {
+      image: locationIcon,
+      key: 'location',
+      text: `Location: ${listing.formData.location}`,
+    },
+    {
+      image: xsIcon,
+      key: 'xsPrice',
+      text: `XS: ${formatQuantity(listing.formData.xsPrice)}`,
+    },
+    {
+      image: sIcon,
+      key: 'sPrice',
+      text: `S: ${formatQuantity(listing.formData.sPrice)}`,
+    },
+    {
+      image: moqIcon,
+      key: 'minOrder',
+      text: `MOQ: ${(() => {
+        const quantity = listing.formData.minOrder;
+        const match = quantity?.toString().match(/^(\d+)/);
+
+        if (match) {
+          const number = parseInt(match[1], 10);
+          const formattedNumber = new Intl.NumberFormat('en-US').format(number);
+          return `${formattedNumber} ${number === 1 ? 'Tray' : 'Trays'}`;
+        }
+
+        return quantity;
+      })()}`,
+    },
+    {
+      image: mIcon,
+      key: 'mPrice',
+      text: `M: ${formatQuantity(listing.formData.mPrice)}`,
+    },
+    {
+      image: lIcon,
+      key: 'lPrice',
+      text: `L: ${formatQuantity(listing.formData.lPrice)}`,
+    },
+    {
+      image: xlIcon,
+      key: 'xlPrice',
+      text: `XL: ${formatQuantity(listing.formData.xlPrice)}`,
+    },
+    {
+      image: jumboIcon,
+      key: 'jumboPrice',
+      text: `Jumbo: ${formatQuantity(listing.formData.jumboPrice)}`,
+    },
+    {
+      image: pwIcon,
+      key: 'pwPrice',
+      text: `PW: ${formatQuantity(listing.formData.pwPrice)}`,
+    },
+    {
+      image: dirtyIcon,
+      key: 'dirtyPrice',
+      text: `Dirty: ${formatQuantity(listing.formData.dirtyPrice)}`,
+    },
   ];
 
   const livestockFeatures = [
@@ -124,12 +176,12 @@ const Features = ({ listing }) => {
     {
       image: quantityIcon,
       key: 'quantity',
-      text: `Quantity: ${listing.formData.quantity}`,
+      text: `Quantity: ${formatQuantity(listing.formData.quantity)}`,
     },
     {
       image: weightIcon,
       key: 'weight',
-      text: `Weight: ${listing.formData.avgWeightPerHead}`,
+      text: `Weight: ${formatQuantity(listing.formData.avgWeightPerHead)}kg`,
     },
     {
       image: healthIcon,
@@ -147,32 +199,32 @@ const Features = ({ listing }) => {
     {
       image: motoLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: speedIcon,
       key: 'mileage',
-      text: listing.formData.mileage,
+      text: `Mileage: ${formatQuantity(listing.formData.mileage)}km`,
     },
     {
       image: transmissionIcon,
       key: 'transmission',
-      text: listing.formData.transmission,
+      text: `Transmission: ${listing.formData.transmission}`,
     },
     {
       image: calendarIcon,
       key: 'manufacturingYear',
-      text: listing.formData.year,
+      text: `Manuafactoring Year: ${listing.formData.year}`,
     },
     {
       image: engineIcon,
       key: 'engineType',
-      text: listing.formData.engineType,
+      text: `Engine: ${formatQuantity(listing.formData.engineType)}cc`,
     },
     {
       image: pesoIcon,
       key: 'price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -180,32 +232,32 @@ const Features = ({ listing }) => {
     {
       image: vehiclesLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: vehiclesSpeedIcon,
       key: 'mileage',
-      text: listing.formData.mileage,
+      text: `Mileage: ${formatQuantity(listing.formData.mileage)}km`,
     },
     {
       image: vehiclesTransmissionIcon,
       key: 'transmission',
-      text: listing.formData.transmission,
+      text: `Transmission: ${listing.formData.transmission}`,
     },
     {
       image: vehiclesCalendarIcon,
       key: 'manufacturingYear',
-      text: listing.formData.year,
+      text: `Manuafactoring Year: ${listing.formData.year}`,
     },
     {
       image: vehiclesEngineIcon,
       key: 'engineType',
-      text: listing.formData.engineType,
+      text: `Engine: ${formatQuantity(listing.formData.engineType)}L`,
     },
     {
       image: vehiclesPesoIcon,
       key: 'price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -213,25 +265,30 @@ const Features = ({ listing }) => {
     {
       image: servicesLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: servicesPesoIcon,
       key: 'hourlyRate',
-      text:
+      text: `Hourly Rate: ${
         listing.formData.jobType === 'Offering'
-          ? listing.formData.hourlyRate
-          : listing.formData.preferredHourlyRate,
+          ? formatQuantity(listing.formData.hourlyRate)
+          : formatQuantity(listing.formData.preferredHourlyRate)
+      }`,
     },
     {
       image: companyIcon,
       key: 'position',
-      text: listing.formData.position || '',
+      text: listing?.formData?.position
+        ? `Position: ${listing.formData.position}`
+        : '',
     },
     {
       image: professionIcon,
       key: 'profession',
-      text: listing.formData.profession || '',
+      text: listing?.formData?.profession
+        ? `Profession: ${listing.formData.profession}`
+        : '',
     },
   ];
 
@@ -239,32 +296,32 @@ const Features = ({ listing }) => {
     {
       image: realEstateLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: interiorIcon,
       key: 'interior',
-      text: listing.formData.interiorSize,
+      text: `Interior: ${formatQuantity(listing.formData.interiorSize)} m2`,
     },
     {
       image: landIcon,
       key: 'land',
-      text: listing.formData.landSize,
+      text: `Land: ${formatQuantity(listing.formData.landSize)} m2`,
     },
     {
       image: bedroomIcon,
       key: 'bedrooms',
-      text: listing.formData.bedrooms,
+      text: `Bedrooms: ${formatQuantity(listing.formData.bedrooms)}`,
     },
     {
       image: lotNoIcon,
       key: 'lotNo',
-      text: listing.formData.lotNumber,
+      text: `Lot no: ${formatQuantity(listing.formData.lotNumber)}`,
     },
     {
       image: realEstatePesoIcon,
       key: 'price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -272,32 +329,34 @@ const Features = ({ listing }) => {
     {
       image: heavyEquipmentLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: clockIcon,
       key: 'workingHours',
-      text: listing.formData.workingHours,
+      text: `Working hours: ${formatQuantity(listing.formData.workingHours)}`,
     },
     {
       image: fuelIcon,
       key: 'fuelConsumption',
-      text: listing.formData.fuelConsumption,
+      text: `Fuel Consumption: ${formatQuantity(
+        listing.formData.fuelConsumption
+      )} L/hr`,
     },
     {
       image: heavyEquipmentCalendarIcon,
       key: 'manufacturingYear',
-      text: listing.formData.manufacturingYear,
+      text: `Manufacturing Year: ${listing.formData.manufacturingYear}`,
     },
     {
       image: horsePowerIcon,
       key: 'horsePower',
-      text: listing.formData.horsepower,
+      text: `Horsepowers: ${formatQuantity(listing.formData.horsepower)} HP`,
     },
     {
       image: heavyEquipmentPesoIcon,
       key: 'Price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -305,12 +364,12 @@ const Features = ({ listing }) => {
     {
       image: basicLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: basicPesoIcon,
       key: 'Price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -318,32 +377,32 @@ const Features = ({ listing }) => {
     {
       image: boatsLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: boatIcon,
       key: 'length',
-      text: listing.formData.boatLength,
+      text: `Length: ${formatQuantity(listing.formData.boatLength)}ft`,
     },
     {
       image: boatsFuelIcon,
       key: 'fuel',
-      text: listing.formData.boatFuel,
+      text: `Fuel Consumption: ${listing.formData.boatFuel}`,
     },
     {
       image: boatsCalendarIcon,
       key: 'manufacturingYear',
-      text: listing.formData.manufacturingYear,
+      text: `Manufacturing Year: ${listing.formData.manufacturingYear}`,
     },
     {
       image: boatsHorsePowerIcon,
       key: 'horsePower',
-      text: listing.formData.horsepower,
+      text: `Horsepowers: ${formatQuantity(listing.formData.horsepower)} HP`,
     },
     {
       image: boatsPesoIcon,
       key: 'Price',
-      text: listing.formData.totalPrice,
+      text: `Price: ${formatQuantity(listing.formData.totalPrice)}`,
     },
   ];
 
@@ -351,22 +410,22 @@ const Features = ({ listing }) => {
     {
       image: standardLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: standardPesoIcon,
       key: 'moqPrice',
-      text: listing.formData.productPrice,
+      text: `MOQ Price: ${formatQuantity(listing.formData.productPrice)}`,
     },
     {
       image: standardWeightIcon,
       key: 'moqWeight',
-      text: listing.formData.productWeight,
+      text: `MOQ Weight: ${formatQuantity(listing.formData.productWeight)}kg`,
     },
     {
       image: standardPesoIcon,
       key: 'perKg',
-      text: listing.formData.pricePerKg,
+      text: `Per kg: ${formatQuantity(listing.formData.pricePerKg)}`,
     },
   ];
 
@@ -374,22 +433,22 @@ const Features = ({ listing }) => {
     {
       image: animalFeedLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: feedIcon,
       key: 'feedType',
-      text: listing.formData.animalFeedType,
+      text: `Type: ${listing.formData.animalFeedType}`,
     },
     {
       image: animalFeedWeightIcon,
       key: 'bag',
-      text: listing.formData.feedBagWeight,
+      text: `Bag: ${formatQuantity(listing.formData.feedBagWeight)}kg`,
     },
     {
       image: animalFeedPesoIcon,
       key: 'perBag',
-      text: listing.formData.pricePerBag,
+      text: `Per bag: ${formatQuantity(listing.formData.pricePerBag)}`,
     },
   ];
 
@@ -397,27 +456,27 @@ const Features = ({ listing }) => {
     {
       image: mangoLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: mangoIcon,
       key: 'quality',
-      text: listing.formData.qualityLevel,
+      text: `Quality: ${listing.formData.qualityLevel}`,
     },
     {
       image: mangoPesoIcon,
       key: 'moqPrice',
-      text: listing.formData.productPrice,
+      text: `MOQ Price: ${formatQuantity(listing.formData.productPrice)}`,
     },
     {
       image: mangoWeightIcon,
       key: 'moqWeight',
-      text: listing.formData.weight,
+      text: `MOQ Weight: ${formatQuantity(listing.formData.weight)}kg`,
     },
     {
       image: mangoPesoIcon,
       key: 'perBag',
-      text: listing.formData.pricePerKg,
+      text: `Per kg: ${formatQuantity(listing.formData.pricePerKg)}`,
     },
   ];
 
@@ -425,27 +484,27 @@ const Features = ({ listing }) => {
     {
       image: bananaLocationIcon,
       key: 'location',
-      text: listing.formData.location,
+      text: `Location: ${listing.formData.location}`,
     },
     {
       image: bananaIcon,
       key: 'class',
-      text: listing.formData.qualityLevel,
+      text: `Class: ${listing.formData.qualityLevel}`,
     },
     {
       image: bananaPesoIcon,
       key: 'moqPrice',
-      text: listing.formData.productPrice,
+      text: `MOQ Price: ${formatQuantity(listing.formData.productPrice)}`,
     },
     {
       image: bananaWeightIcon,
       key: 'moqWeight',
-      text: listing.formData.weight,
+      text: `MOQ Weight: ${formatQuantity(listing.formData.weight)}kg`,
     },
     {
       image: bananaPesoIcon,
       key: 'perBag',
-      text: listing.formData.pricePerKg,
+      text: `Per kg: ${formatQuantity(listing.formData.pricePerKg)}`,
     },
   ];
 

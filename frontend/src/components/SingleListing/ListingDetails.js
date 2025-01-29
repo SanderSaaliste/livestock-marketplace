@@ -9,6 +9,7 @@ import { FcMoneyTransfer } from 'react-icons/fc';
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
 import { apiHost } from '../../constants';
+import { formatQuantity } from '../../utils/text';
 
 const ListingDetails = ({ listing, descriptionRef }) => {
   const [mainImage, setMainImage] = useState(
@@ -141,14 +142,38 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                       Select size
                     </option>
                     {[
-                      { label: 'PW', value: listing.formData.pwPrice },
-                      { label: 'XS', value: listing.formData.xsPrice },
-                      { label: 'S', value: listing.formData.sPrice },
-                      { label: 'M', value: listing.formData.mPrice },
-                      { label: 'L', value: listing.formData.lPrice },
-                      { label: 'XL', value: listing.formData.xlPrice },
-                      { label: 'Jumbo', value: listing.formData.jumboPrice },
-                      { label: 'Dirty', value: listing.formData.dirtyPrice },
+                      {
+                        label: 'PW',
+                        value: formatQuantity(listing.formData.pwPrice),
+                      },
+                      {
+                        label: 'XS',
+                        value: formatQuantity(listing.formData.xsPrice),
+                      },
+                      {
+                        label: 'S',
+                        value: formatQuantity(listing.formData.sPrice),
+                      },
+                      {
+                        label: 'M',
+                        value: formatQuantity(listing.formData.mPrice),
+                      },
+                      {
+                        label: 'L',
+                        value: formatQuantity(listing.formData.lPrice),
+                      },
+                      {
+                        label: 'XL',
+                        value: formatQuantity(listing.formData.xlPrice),
+                      },
+                      {
+                        label: 'Jumbo',
+                        value: formatQuantity(listing.formData.jumboPrice),
+                      },
+                      {
+                        label: 'Dirty',
+                        value: formatQuantity(listing.formData.dirtyPrice),
+                      },
                     ].map(
                       (option) =>
                         option.value && (
@@ -171,10 +196,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      Price: {listing.formData.avgPricePerHead}
+                      Price: {formatQuantity(listing.formData.avgPricePerHead)}
                     </p>
                     <p className='text-sm font-semibold text-gray-600'>
-                      Per/kg: {listing.formData.pricePerKg}
+                      Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                     </p>
                   </div>
 
@@ -185,10 +210,11 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      Avg head: {listing.formData.avgWeightPerHead}
+                      Avg head:{' '}
+                      {formatQuantity(listing.formData.avgWeightPerHead)}kg
                     </p>
                     <p className='text-sm font-semibold text-gray-600'>
-                      Total: {listing.formData.totalWeight}
+                      Total: {formatQuantity(listing.formData.totalWeight)}kg
                     </p>
                   </div>
                 </div>
@@ -203,7 +229,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                     className='h-12 w-12 mr-2'
                   />
                   <p className='text-lg font-bold text-gray-600'>
-                    Price: {listing.formData.totalPrice}
+                    Price: {formatQuantity(listing.formData.totalPrice)}
                   </p>
                 </div>
               )}
@@ -217,7 +243,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                     className='h-12 w-12 mr-2'
                   />
                   <p className='text-lg font-bold text-gray-600'>
-                    Price: {listing.formData.totalPrice}
+                    Price: {formatQuantity(listing.formData.totalPrice)}
                   </p>
                 </div>
               )}
@@ -231,8 +257,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                 />
                 <p className='text-lg font-bold text-gray-600'>
                   Hourly:{' '}
-                  {listing.formData.hourlyRate ||
-                    listing.formData.preferredHourlyRate}
+                  {formatQuantity(
+                    listing.formData.hourlyRate ||
+                      listing.formData.preferredHourlyRate
+                  )}
                 </p>
               </div>
             )}
@@ -245,7 +273,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
@@ -258,7 +286,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
@@ -272,7 +300,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                     className='h-12 w-12 mr-2'
                   />
                   <p className='text-lg font-bold text-gray-600'>
-                    Price: {listing.formData.totalPrice}
+                    Price: {formatQuantity(listing.formData.totalPrice)}
                   </p>
                 </div>
               )}
@@ -286,7 +314,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                     className='h-12 w-12 mr-2'
                   />
                   <p className='text-lg font-bold text-gray-600'>
-                    Price: {listing.formData.totalPrice}
+                    Price: {formatQuantity(listing.formData.totalPrice)}
                   </p>
                 </div>
               )}
@@ -299,7 +327,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
@@ -312,7 +340,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
@@ -329,10 +357,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ Price: {listing.formData.productPrice}
+                      MOQ Price: {formatQuantity(listing.formData.productPrice)}
                     </p>
                     <p className='text-sm font-semibold text-gray-600'>
-                      Per/kg: {listing.formData.pricePerKg}
+                      Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                     </p>
                   </div>
 
@@ -343,7 +371,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ: {listing.formData.productWeight}
+                      MOQ: {formatQuantity(listing.formData.productWeight)}kg
                     </p>
                   </div>
                 </div>
@@ -361,7 +389,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      Per bag: {listing.formData.pricePerBag}
+                      Per bag: {formatQuantity(listing.formData.pricePerBag)}
                     </p>
                   </div>
 
@@ -372,7 +400,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      Bag: {listing.formData.feedBagWeight}
+                      Bag: {formatQuantity(listing.formData.feedBagWeight)}kg
                     </p>
                   </div>
                 </div>
@@ -387,10 +415,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                 />
                 <div>
                   <p className='text-lg font-bold text-gray-600'>
-                    MOQ Price: {listing.formData.productPrice}
+                    MOQ Price: {formatQuantity(listing.formData.productPrice)}
                   </p>
                   <p className='text-sm font-semibold text-gray-600'>
-                    Per/kg: {listing.formData.pricePerKg}
+                    Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                   </p>
                 </div>
 
@@ -401,7 +429,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                 />
                 <div>
                   <p className='text-lg font-bold text-gray-600'>
-                    MOQ: {listing.formData.productWeight}
+                    MOQ: {formatQuantity(listing.formData.productWeight)}kg
                   </p>
                 </div>
               </div>
@@ -418,10 +446,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ Price: {listing.formData.productPrice}
+                      MOQ Price: {formatQuantity(listing.formData.productPrice)}
                     </p>
                     <p className='text-sm font-semibold text-gray-600'>
-                      Per/kg: {listing.formData.pricePerKg}
+                      Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                     </p>
                   </div>
 
@@ -432,7 +460,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ: {listing.formData.weight}
+                      MOQ: {formatQuantity(listing.formData.weight)}kg
                     </p>
                   </div>
                 </div>
@@ -449,10 +477,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ Price: {listing.formData.productPrice}
+                      MOQ Price: {formatQuantity(listing.formData.productPrice)}
                     </p>
                     <p className='text-sm font-semibold text-gray-600'>
-                      Per/kg: {listing.formData.pricePerKg}
+                      Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                     </p>
                   </div>
 
@@ -463,7 +491,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   />
                   <div>
                     <p className='text-lg font-bold text-gray-600'>
-                      MOQ: {listing.formData.productWeight}
+                      MOQ: {formatQuantity(listing.formData.productWeight)}kg
                     </p>
                   </div>
                 </div>
@@ -478,10 +506,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                 />
                 <div>
                   <p className='text-lg font-bold text-gray-600'>
-                    MOQ Price: {listing.formData.productPrice}
+                    MOQ Price: {formatQuantity(listing.formData.productPrice)}
                   </p>
                   <p className='text-sm font-semibold text-gray-600'>
-                    Per/kg: {listing.formData.pricePerKg}
+                    Per/kg: {formatQuantity(listing.formData.pricePerKg)}
                   </p>
                 </div>
 
@@ -492,7 +520,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                 />
                 <div>
                   <p className='text-lg font-bold text-gray-600'>
-                    MOQ: {listing.formData.productWeight}
+                    MOQ: {formatQuantity(listing.formData.productWeight)}kg
                   </p>
                 </div>
               </div>
@@ -506,7 +534,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
@@ -519,7 +547,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   className='h-12 w-12 mr-2'
                 />
                 <p className='text-lg font-bold text-gray-600'>
-                  Price: {listing.formData.totalPrice}
+                  Price: {formatQuantity(listing.formData.totalPrice)}
                 </p>
               </div>
             )}
