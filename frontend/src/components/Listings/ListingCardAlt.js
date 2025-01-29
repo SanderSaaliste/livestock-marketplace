@@ -69,11 +69,23 @@ const ListingCardAlt = ({ listing }) => {
 
       <div className='ml-4 flex-grow'>
         <h3 className='text-base font-bold mb-4'>
-          {listing.formData.jobType === 'Offering' && 'Offering: '}
-          {listing.formData.jobType === 'Jobseeker' && 'Wanted: '}
-          {listing.formData.title.length > 66
-            ? `${listing.formData.title.substring(0, 66)}...`
-            : listing.formData.title}
+          {(() => {
+            const prefix =
+              listing.formData.jobType === 'Offering'
+                ? 'Offering: '
+                : listing.formData.jobType === 'Jobseeker'
+                ? 'Wanted: '
+                : '';
+
+            const maxLength = 66;
+            const availableSpace = maxLength - prefix.length;
+            const trimmedTitle =
+              listing.formData.title.length > availableSpace
+                ? `${listing.formData.title.substring(0, availableSpace)}...`
+                : listing.formData.title;
+
+            return `${prefix}${trimmedTitle}`;
+          })()}
         </h3>
 
         {listing.selectedCategory === 'Livestock' &&

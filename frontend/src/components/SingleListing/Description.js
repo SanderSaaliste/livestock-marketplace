@@ -23,9 +23,26 @@ const Description = ({ listing }) => {
         <div className='w-full lg:w-2/3 flex flex-col justify-between'>
           <div>
             <h2 className='text-2xl font-bold mb-6 font-mochiy'>
-              {listing.formData.jobType === 'Offering' && 'Offering: '}
-              {listing.formData.jobType === 'Jobseeker' && 'Wanted: '}
-              {listing.formData.title}
+              {(() => {
+                const prefix =
+                  listing.formData.jobType === 'Offering'
+                    ? 'Offering: '
+                    : listing.formData.jobType === 'Jobseeker'
+                    ? 'Wanted: '
+                    : '';
+
+                const maxLength = 85;
+                const availableSpace = maxLength - prefix.length;
+                const trimmedTitle =
+                  listing.formData.title.length > availableSpace
+                    ? `${listing.formData.title.substring(
+                        0,
+                        availableSpace
+                      )}...`
+                    : listing.formData.title;
+
+                return `${prefix}${trimmedTitle}`;
+              })()}
             </h2>
 
             {listing.formData.description && (
