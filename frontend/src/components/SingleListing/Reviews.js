@@ -13,6 +13,7 @@ const Reviews = ({ listing, reviews }) => {
   const [filteredReviews, setFilteredReviews] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [hasReviewed, setHasReviewed] = useState(false);
 
@@ -30,14 +31,9 @@ const Reviews = ({ listing, reviews }) => {
       return;
     }
 
-    if (
-      reviews &&
+    setHasReviewed(
       reviews.some((review) => review.reviewerId === currentUser.id)
-    ) {
-      setHasReviewed(true);
-    } else {
-      setHasReviewed(false);
-    }
+    );
   }, [listing.userId, reviews]);
 
   const calculateAverageRating = () => {
@@ -55,11 +51,11 @@ const Reviews = ({ listing, reviews }) => {
   };
 
   const toggleExpand = (index) => {
-    if (expandedIndexes.includes(index)) {
-      setExpandedIndexes(expandedIndexes.filter((i) => i !== index));
-    } else {
-      setExpandedIndexes([...expandedIndexes, index]);
-    }
+    setExpandedIndexes(
+      expandedIndexes.includes(index)
+        ? expandedIndexes.filter((i) => i !== index)
+        : [...expandedIndexes, index]
+    );
   };
 
   const handleSortChange = (event) => {
@@ -79,36 +75,52 @@ const Reviews = ({ listing, reviews }) => {
     setFilteredReviews(sortedReviews);
   };
 
-  const handleSearch = () => {
-    if (!searchQuery.trim()) {
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+
+    if (!query.trim()) {
       setFilteredReviews(reviews);
       setSearchResults('');
+      setIsSearching(false);
       return;
     }
 
-    const filtered = reviews.filter((review) =>
-      review.comment.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredReviews(filtered);
+    let totalMatches = 0;
+    const filtered = reviews.filter((review) => {
+      const matchCount = (review.comment.match(new RegExp(query, 'gi')) || [])
+        .length;
+      totalMatches += matchCount;
+      return matchCount > 0;
+    });
 
-    setSearchResults(
-      filtered.length > 0
-        ? `Search results: "The word '${searchQuery}' was found ${filtered.length} times.`
-        : `Search results: "The word '${searchQuery}' was found 0 times."`
+    setFilteredReviews(filtered);
+    setSearchResults(`The word '${query}' was found ${totalMatches} times.`);
+    setIsSearching(true);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(searchQuery);
+    }
+  };
+
+  const highlightSearchTerm = (text) => {
+    if (!isSearching || !searchQuery.trim()) return text;
+    const regex = new RegExp(`(${searchQuery})`, 'gi');
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? (
+        <span key={index} className='bg-yellow-400'>
+          {part}
+        </span>
+      ) : (
+        part
+      )
     );
   };
 
   const filterByRating = (rating) => {
-    const isAlreadyFiltered =
-      filteredReviews.length ===
-      reviews.filter((review) => review.rating === rating).length;
-
-    if (isAlreadyFiltered) {
-      setFilteredReviews(reviews);
-    } else {
-      const filtered = reviews.filter((review) => review.rating === rating);
-      setFilteredReviews(filtered);
-    }
+    const filtered = reviews.filter((review) => review.rating === rating);
+    setFilteredReviews(filtered);
   };
 
   return (
@@ -139,12 +151,12 @@ const Reviews = ({ listing, reviews }) => {
       {reviews.length > 0 ? (
         <div className='flex'>
           <div
-            className='w-2/3 space-y-8 overflow-y-auto pr-4'
+            className='w-2/3 space-y-8 pr-4 scrollbar-visible'
             style={{ maxHeight: '400px' }}
           >
             {filteredReviews.length > 0 ? (
               filteredReviews.map((review, index) => (
-                <div key={index} className='border-b pb-8'>
+                <div key={index} className='border-b pb-10'>
                   <div className='flex items-center space-x-4'>
                     <div className='w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center text-lg font-bold'>
                       {review.reviewer.firstName[0]}
@@ -156,26 +168,35 @@ const Reviews = ({ listing, reviews }) => {
                       <div className='flex items-center text-md text-gray-500'>
                         <div className='flex items-center'>
                           {[...Array(5)].map((_, i) => (
-                            <span key={i} className='text-yellow-400'>
+                            <span key={i}>
                               {i < review.rating ? (
-                                <AiFillStar />
+                                <AiFillStar className='text-yellow-400' />
                               ) : (
-                                <AiOutlineStar />
+                                <AiFillStar className='text-gray-300' />
                               )}
                             </span>
                           ))}
+                          <span className='ml-2 text-black font-bold text-sm'>
+                            {review.rating}
+                          </span>
                         </div>
                         <span className='ml-2 text-sm'>
-                          | {moment(review.createdTimestamp).fromNow()}
+                          |{' '}
+                          {moment(review.createdTimestamp).fromNow(true) ===
+                          'a few seconds'
+                            ? 'just now'
+                            : moment(review.createdTimestamp).fromNow()}
                         </span>
                       </div>
                     </div>
                   </div>
-                  <p className='text-gray-700 mt-4'>
-                    {expandedIndexes.includes(index) ||
-                    review.comment.length <= 150
-                      ? review.comment
-                      : `${review.comment.slice(0, 150)}...`}
+                  <p className='text-gray-700 mt-6'>
+                    {highlightSearchTerm(
+                      expandedIndexes.includes(index) ||
+                        review.comment.length <= 150
+                        ? review.comment
+                        : `${review.comment.slice(0, 150)}...`
+                    )}
                     {review.comment.length > 150 &&
                       !expandedIndexes.includes(index) && (
                         <button
@@ -275,11 +296,12 @@ const Reviews = ({ listing, reviews }) => {
                   type='text'
                   placeholder='Search reviews...'
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => handleSearch(e.target.value)}
+                  onKeyDown={handleKeyDown}
                   className='flex-1 bg-transparent outline-none text-sm p-2'
                 />
                 <button
-                  onClick={handleSearch}
+                  onClick={() => handleSearch(searchQuery)}
                   className='bg-black text-white py-3 px-4 rounded-r-2xl flex items-center justify-center'
                   style={{ height: '100%' }}
                 >
@@ -287,7 +309,9 @@ const Reviews = ({ listing, reviews }) => {
                 </button>
               </div>
               {searchResults && (
-                <p className='mt-4 text-sm text-gray-700'>{searchResults}</p>
+                <p className='mt-4 text-sm text-gray-700'>
+                  Search Results: {searchResults}
+                </p>
               )}
             </div>
           </div>

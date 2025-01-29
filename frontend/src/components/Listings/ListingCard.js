@@ -22,6 +22,7 @@ import { HiOutlineArrowsExpand } from 'react-icons/hi';
 import { RxTransparencyGrid } from 'react-icons/rx';
 import { GrUserWorker } from 'react-icons/gr';
 import { TbEggs } from 'react-icons/tb';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
@@ -70,8 +71,8 @@ const ListingCard = ({ listing }) => {
         <h3 className='text-base font-bold mb-4'>
           {listing.formData.jobType === 'Offering' && 'Offering: '}
           {listing.formData.jobType === 'Jobseeker' && 'Wanted: '}
-          {listing.formData.title.length > 70
-            ? `${listing.formData.title.substring(0, 70)}...`
+          {listing.formData.title.length > 66
+            ? `${listing.formData.title.substring(0, 66)}...`
             : listing.formData.title}
         </h3>
 
@@ -88,11 +89,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -106,18 +103,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -187,11 +177,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -205,18 +191,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -299,11 +278,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -317,18 +292,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -401,11 +369,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -419,18 +383,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -562,7 +519,9 @@ const ListingCard = ({ listing }) => {
                         150
                       )}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -587,7 +546,9 @@ const ListingCard = ({ listing }) => {
                         150
                       )}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -667,7 +628,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -693,11 +656,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -711,18 +670,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -796,11 +748,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -814,18 +762,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -897,11 +838,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -915,18 +852,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -956,7 +886,9 @@ const ListingCard = ({ listing }) => {
                     <>
                       {`${listing.formData.description.substring(0, 150)}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -982,11 +914,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1000,18 +928,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -1041,7 +962,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -1067,11 +990,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1085,18 +1004,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -1126,7 +1038,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -1155,11 +1069,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -1173,18 +1083,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -1245,7 +1148,9 @@ const ListingCard = ({ listing }) => {
                     <>
                       {`${listing.formData.description.substring(0, 150)}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -1274,11 +1179,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -1292,18 +1193,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -1357,7 +1251,9 @@ const ListingCard = ({ listing }) => {
                     <>
                       {`${listing.formData.description.substring(0, 150)}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -1383,11 +1279,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1401,18 +1293,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -1471,7 +1356,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -1499,11 +1386,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -1517,18 +1400,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -1604,11 +1480,7 @@ const ListingCard = ({ listing }) => {
                     <div className='flex items-center space-x-1'>
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('cash') && (
-                          <img
-                            src='https://img.icons8.com/color/27/get-cash.png'
-                            alt='GCash'
-                            className='h-5 w-5'
-                          />
+                          <FcMoneyTransfer className='h-5 w-5' />
                         )}
                       {listing.formData.paymentMethods &&
                         listing.formData.paymentMethods.includes('gcash') && (
@@ -1622,18 +1494,11 @@ const ListingCard = ({ listing }) => {
                         listing.formData.paymentMethods.includes(
                           'creditCard'
                         ) && (
-                          <>
-                            <img
-                              src='https://img.icons8.com/color/48/visa.png'
-                              alt='Visa'
-                              className='h-5 w-5'
-                            />
-                            <img
-                              src='https://img.icons8.com/color/48/mastercard.png'
-                              alt='Mastercard'
-                              className='h-5 w-5'
-                            />
-                          </>
+                          <img
+                            src='https://img.icons8.com/color/48/visa.png'
+                            alt='Visa'
+                            className='h-5 w-5'
+                          />
                         )}
                     </div>
                   </>
@@ -1756,7 +1621,9 @@ const ListingCard = ({ listing }) => {
                     <>
                       {`${listing.formData.description.substring(0, 150)}... `}
                       <button
-                        onClick={() => navigate(`listing/${listing.id}`)}
+                        onClick={() =>
+                          navigate(`/listing/${listing.id}#description`)
+                        }
                         className='text-blue-500 underline'
                       >
                         Read more
@@ -1782,11 +1649,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1800,18 +1663,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -1870,7 +1726,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -1896,11 +1754,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1914,18 +1768,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -1955,7 +1802,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more
@@ -1981,11 +1830,7 @@ const ListingCard = ({ listing }) => {
                   <div className='flex items-center space-x-1'>
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('cash') && (
-                        <img
-                          src='https://img.icons8.com/color/27/get-cash.png'
-                          alt='GCash'
-                          className='h-5 w-5'
-                        />
+                        <FcMoneyTransfer className='h-5 w-5' />
                       )}
                     {listing.formData.paymentMethods &&
                       listing.formData.paymentMethods.includes('gcash') && (
@@ -1999,18 +1844,11 @@ const ListingCard = ({ listing }) => {
                       listing.formData.paymentMethods.includes(
                         'creditCard'
                       ) && (
-                        <>
-                          <img
-                            src='https://img.icons8.com/color/48/visa.png'
-                            alt='Visa'
-                            className='h-5 w-5'
-                          />
-                          <img
-                            src='https://img.icons8.com/color/48/mastercard.png'
-                            alt='Mastercard'
-                            className='h-5 w-5'
-                          />
-                        </>
+                        <img
+                          src='https://img.icons8.com/color/48/visa.png'
+                          alt='Visa'
+                          className='h-5 w-5'
+                        />
                       )}
                   </div>
                 </>
@@ -2040,7 +1878,9 @@ const ListingCard = ({ listing }) => {
                   <>
                     {`${listing.formData.description.substring(0, 150)}... `}
                     <button
-                      onClick={() => navigate(`listing/${listing.id}`)}
+                      onClick={() =>
+                        navigate(`/listing/${listing.id}#description`)
+                      }
                       className='text-blue-500 underline'
                     >
                       Read more

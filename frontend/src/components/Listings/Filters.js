@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BiSearch, BiMap, BiChevronDown } from 'react-icons/bi';
 import { GiWeight } from 'react-icons/gi';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
@@ -525,11 +526,7 @@ const Filters = ({ onSearch }) => {
                 }
                 className='mr-2 focus:ring-[#2F855A]'
               />
-              <img
-                src='https://img.icons8.com/color/27/get-cash.png'
-                alt='Cash'
-                className='mr-2 h-5 w-5'
-              />
+              <FcMoneyTransfer className='mr-2 h-5 w-5' />
               Cash
             </label>
             <label className='flex items-center'>

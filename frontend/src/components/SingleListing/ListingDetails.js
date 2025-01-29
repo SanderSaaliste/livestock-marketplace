@@ -4,6 +4,7 @@ import { BiSolidHeart } from 'react-icons/bi';
 import { BsFacebook, BsInstagram, BsStarFill } from 'react-icons/bs';
 import { FaSquareXTwitter } from 'react-icons/fa6';
 import { FaUserCircle } from 'react-icons/fa';
+import { FcMoneyTransfer } from 'react-icons/fc';
 
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
@@ -33,7 +34,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
         <span className='font-bold text-black'>{listing.formData.title}</span>
       </div>
 
-      <div className='flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-8'>
+      <div className='flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-5'>
         {listing.formData.media && listing.formData.media.length > 1 && (
           <div className='flex flex-col space-y-3'>
             {listing.formData.media.map((mediaUrl, index) =>
@@ -63,20 +64,20 @@ const ListingDetails = ({ listing, descriptionRef }) => {
               <video
                 src={`${apiHost}${mainImage}`}
                 controls
-                className='w-[450px] h-[456px] object-cover rounded-lg'
+                className='w-[416px] h-[459px] object-cover rounded-lg'
               />
             ) : (
               <img
                 src={`${apiHost}${mainImage}`}
                 alt='Main Product'
-                className='w-[450px] h-[456px] object-cover rounded-lg'
+                className='w-[416px] h-[459px] object-cover rounded-lg'
               />
             )}
           </div>
         )}
 
         <div className='flex-grow'>
-          <div className='flex items-center justify-between mb-4'>
+          <div className='flex items-center justify-between mb-2 ml-4'>
             {listing.formData.location && (
               <div className='flex items-center'>
                 <img
@@ -94,17 +95,21 @@ const ListingDetails = ({ listing, descriptionRef }) => {
               <span>Save</span>
             </button>
           </div>
-          <div className='flex justify-between items-start mb-4'>
+
+          <div
+            className='flex justify-between items-start mb-2 ml-4'
+            style={{ width: '642px', height: '87px', overflow: 'hidden' }}
+          >
             <h1 className='text-3xl font-bold font-mochiy'>
               {listing.formData.jobType === 'Offering' && 'Offering: '}
               {listing.formData.jobType === 'Jobseeker' && 'Wanted: '}
-              {listing.formData.title.length > 85
-                ? `${listing.formData.title.substring(0, 85)}...`
+              {listing.formData.title.length > 66
+                ? `${listing.formData.title.substring(0, 66)}...`
                 : listing.formData.title}
             </h1>
           </div>
 
-          <div className='flex items-center space-x-6 mb-6'>
+          <div className='flex items-center space-x-6 mb-4 ml-4'>
             {listing.selectedCategory === 'Livestock' &&
               listing.selectedSubcategory === 'Eggs' && (
                 <div className='flex items-center'>
@@ -505,7 +510,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
             )}
           </div>
 
-          <div className='flex items-center space-x-4 mb-6'>
+          <div className='flex items-center space-x-4 mb-4 ml-4'>
             <FaUserCircle className='w-12 h-12 text-gray-400 rounded-full' />
             <div>
               <h3 className='font-bold'>{`${listing.User.firstName} ${listing.User.lastName}`}</h3>
@@ -517,16 +522,12 @@ const ListingDetails = ({ listing, descriptionRef }) => {
           </div>
 
           {listing.formData.paymentMethods && (
-            <div className='mb-6 flex items-center'>
+            <div className='mb-4 ml-4 flex items-center'>
               <h4 className='font-bold text-gray-700 mr-2'>User Accepts:</h4>
               <div className='flex space-x-2'>
                 {listing.formData.paymentMethods &&
                   listing.formData.paymentMethods.includes('cash') && (
-                    <img
-                      src='https://img.icons8.com/color/27/get-cash.png'
-                      alt='Cash'
-                      className='h-6 w-6'
-                    />
+                    <FcMoneyTransfer className='h-6 w-6' />
                   )}
                 {listing.formData.paymentMethods &&
                   listing.formData.paymentMethods.includes('gcash') && (
@@ -538,25 +539,21 @@ const ListingDetails = ({ listing, descriptionRef }) => {
                   )}
                 {listing.formData.paymentMethods &&
                   listing.formData.paymentMethods.includes('creditCard') && (
-                    <>
-                      <img
-                        src='https://img.icons8.com/color/48/visa.png'
-                        alt='Visa'
-                        className='h-6 w-6'
-                      />
-                      <img
-                        src='https://img.icons8.com/color/48/mastercard.png'
-                        alt='Mastercard'
-                        className='h-6 w-6'
-                      />
-                    </>
+                    <img
+                      src='https://img.icons8.com/color/48/visa.png'
+                      alt='Visa'
+                      className='h-6 w-6'
+                    />
                   )}
               </div>
             </div>
           )}
 
           {listing.formData.description && (
-            <div className='mb-6'>
+            <div
+              className='mb-4 ml-4'
+              style={{ width: '642px', height: '96px', overflow: 'hidden' }}
+            >
               <p className='text-gray-600'>
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
@@ -583,7 +580,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
           )}
 
           {listing.formData.jobDescription && (
-            <div className='mb-6'>
+            <div
+              className='mb-4 ml-4'
+              style={{ width: '642px', height: '96px', overflow: 'hidden' }}
+            >
               <p className='text-gray-600'>
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
@@ -610,7 +610,10 @@ const ListingDetails = ({ listing, descriptionRef }) => {
           )}
 
           {listing.formData.selfDescription && (
-            <div className='mb-6'>
+            <div
+              className='mb-4 ml-4'
+              style={{ width: '642px', height: '96px', overflow: 'hidden' }}
+            >
               <p className='text-gray-600'>
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
@@ -639,7 +642,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
             </div>
           )}
 
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between ml-4'>
             <button className='bg-[#5EA91E] text-white py-2 px-6 rounded-full font-semibold hover:bg-[#639E3B] transition'>
               Make an Offer
             </button>

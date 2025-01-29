@@ -65,6 +65,21 @@ const SingleListing = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listing]);
 
+  useEffect(() => {
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+      const scrollToRef = {
+        features: featuresRef,
+        description: descriptionRef,
+        reviews: reviewsRef,
+      }[hash];
+
+      if (scrollToRef && scrollToRef.current) {
+        scrollToRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [loading]);
+
   if (loading) {
     return (
       <div className='flex justify-center items-center h-screen'>
