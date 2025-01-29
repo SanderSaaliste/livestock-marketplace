@@ -8,14 +8,18 @@ import mayaImg from '../../assets/maya icon.webp';
 import CustomDropdown from '../Listings/CustomDropdown';
 import { categories } from '../../constants';
 
-const Filters = ({ onSearch }) => {
+const Filters = ({
+  onSearch,
+  selectedCategory,
+  setSelectedCategory,
+  selectedSubCategory,
+  setSelectedSubCategory,
+}) => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [locationOpen, setLocationOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(false);
   const [weightOpen, setWeightOpen] = useState(false);
   const [paymentOpen, setPaymentOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('');
   const [searchText, setSearchText] = useState('');
   const [locationText, setLocationText] = useState('');
   const [priceOptions, setPriceOptions] = useState([]);
@@ -379,7 +383,7 @@ const Filters = ({ onSearch }) => {
         <hr className='mt-4' />
       </div>
 
-      {(selectedCategory === 'Livestock' ||
+      {((selectedCategory === 'Livestock' && selectedSubCategory !== 'Eggs') ||
         selectedCategory === 'Animal Feed' ||
         selectedCategory === 'Seeds' ||
         selectedCategory === 'Fruits, Vegetables & Growables' ||

@@ -46,7 +46,7 @@ const NavbarHero = () => {
 
   return (
     <div
-      className='min-h-screen bg-cover bg-center'
+      className='h-[75vh] bg-cover bg-center'
       style={{ backgroundImage: `url(${headerImage})` }}
     >
       <nav className='container mx-auto px-4 lg:px-40 py-6 lg:py-10 flex justify-between items-center'>

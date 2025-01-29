@@ -3,9 +3,13 @@ import { BiSearch, BiMap } from 'react-icons/bi';
 import { categories } from '../../constants';
 import CustomDropdown from './CustomDropdown';
 
-const SearchBar = ({ onSearch }) => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedSubCategory, setSelectedSubCategory] = useState('');
+const SearchBar = ({
+  onSearch,
+  selectedCategory,
+  setSelectedCategory,
+  selectedSubCategory,
+  setSelectedSubCategory,
+}) => {
   const [searchText, setSearchText] = useState('');
   const [locationText, setLocationText] = useState('');
 

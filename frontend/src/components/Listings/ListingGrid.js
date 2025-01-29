@@ -13,7 +13,14 @@ import toast from 'react-hot-toast';
 import ListingCardAlt from './ListingCardAlt';
 import Loader from '../Loader';
 
-const ListingsGrid = ({ searchParams, setSearchLength }) => {
+const ListingsGrid = ({
+  searchParams,
+  setSearchLength,
+  selectedCategory,
+  setSelectedCategory,
+  selectedSubCategory,
+  setSelectedSubCategory,
+}) => {
   const gridRef = useRef(null);
 
   const [layout, setLayout] = useState('list');
@@ -165,7 +172,13 @@ const ListingsGrid = ({ searchParams, setSearchLength }) => {
             <div className='flex flex-col lg:flex-row'>
               <div className='w-full lg:w-[30%] p-4 mb-6 lg:mb-0 lg:mr-6'>
                 <div className='sticky top-4'>
-                  <Filters onSearch={handleSearch} />
+                  <Filters
+                    onSearch={handleSearch}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    selectedSubCategory={selectedSubCategory}
+                    setSelectedSubCategory={setSelectedSubCategory}
+                  />
                 </div>
               </div>
 

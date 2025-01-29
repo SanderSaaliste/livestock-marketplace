@@ -7,22 +7,33 @@ import Header from '../components/Listings/Header';
 import ListingsGrid from '../components/Listings/ListingGrid';
 
 const Listings = () => {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedSubCategory, setSelectedSubCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchLength, setSearchLength] = useState(0);
 
   const handleSearch = (query) => {
-    console.log(query);
     setSearchQuery(query);
   };
 
   return (
     <div className='Home bg-[#F0F6F2]'>
       <NavbarHero />
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar
+        onSearch={handleSearch}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedSubCategory={selectedSubCategory}
+        setSelectedSubCategory={setSelectedSubCategory}
+      />
       <Header searchLength={searchLength} />
       <ListingsGrid
         searchParams={searchQuery}
         setSearchLength={setSearchLength}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedSubCategory={selectedSubCategory}
+        setSelectedSubCategory={setSelectedSubCategory}
       />
       <Footer />
     </div>

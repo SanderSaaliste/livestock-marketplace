@@ -108,26 +108,39 @@ const listingController = {
       if (category) whereClause.selectedCategory = category;
       if (subcategory) whereClause.selectedSubcategory = subcategory;
       if (searchText) {
+        const lowerSearchText = searchText.toLowerCase();
+
         whereClause[Op.and] = [
           ...(whereClause[Op.and] || []),
           {
             [Op.or]: [
-              Sequelize.where(Sequelize.json('formData.title'), {
-                [Op.like]: `%${searchText}%`,
-              }),
-              Sequelize.where(Sequelize.json('formData.description'), {
-                [Op.like]: `%${searchText}%`,
-              }),
-              Sequelize.where(Sequelize.json('formData.jobDescription'), {
-                [Op.like]: `%${searchText}%`,
-              }),
-              Sequelize.where(Sequelize.json('formData.selfDescription'), {
-                [Op.like]: `%${searchText}%`,
-              }),
+              Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.json('formData.title')),
+                { [Op.like]: `%${lowerSearchText}%` }
+              ),
+              Sequelize.where(
+                Sequelize.fn('LOWER', Sequelize.json('formData.description')),
+                { [Op.like]: `%${lowerSearchText}%` }
+              ),
+              Sequelize.where(
+                Sequelize.fn(
+                  'LOWER',
+                  Sequelize.json('formData.jobDescription')
+                ),
+                { [Op.like]: `%${lowerSearchText}%` }
+              ),
+              Sequelize.where(
+                Sequelize.fn(
+                  'LOWER',
+                  Sequelize.json('formData.selfDescription')
+                ),
+                { [Op.like]: `%${lowerSearchText}%` }
+              ),
             ],
           },
         ];
       }
+
       if (priceOptions) {
         const priceOptionsArray = priceOptions.split(',');
         whereClause[Op.and] = [
