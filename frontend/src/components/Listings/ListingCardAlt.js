@@ -21,12 +21,12 @@ import { IoBed, IoSpeedometer } from 'react-icons/io5';
 import { HiOutlineArrowsExpand } from 'react-icons/hi';
 import { RxTransparencyGrid } from 'react-icons/rx';
 import { GrUserWorker } from 'react-icons/gr';
-import { TbEggs } from 'react-icons/tb';
 import { FcMoneyTransfer } from 'react-icons/fc';
 
 import gcashImg from '../../assets/gcash icon appstore.webp';
 import mayaImg from '../../assets/maya icon.webp';
 import { apiHost } from '../../constants';
+import { formatQuantity } from '../../utils/text';
 
 const ListingCardAlt = ({ listing }) => {
   const navigate = useNavigate();
@@ -134,9 +134,30 @@ const ListingCardAlt = ({ listing }) => {
 
                 {listing.formData.minOrder && (
                   <div className='flex items-center'>
-                    <TbEggs className='mr-2 text-lg text-gray-500' />
+                    <img
+                      className='mr-2 w-[20px] h-[20px]'
+                      src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFAElEQVR4nO1dS4hcRRR9/jEi6sovGl25yE78YFyIG/+fQNSdrnSjENQICmoLYjTqLIZp6pzbMzA4iYI9oEs/IG6zcqExYjSCO4PJQozgzCIjd3gJmUdPd1X1vHk9vHPgwvCm6kz1OVVd9erdqVcUgiAIgiAIgiAIWwAhhFsAfADgMIB/yzhMcn+v17tZvBxLh2isrKycB+AtAEskV9aJ/0i+4WXFyyQdktDv9y8meXCIEWsCwAGvI15E6ZAEd5nkYqwZ58Rnw3qIeDNB8uUBI+Avki+Y2bUeAF4sr1XLvSReDtUhCSGEHQCWKyL/DGB7taxPZAB+qZRdNrNbq2X9Wtt4Qwg7inFB8ptKrz9hZjeuV94bCOBkpc7iAN7FFvJ+VYwDAHcM+AraFVFvV6XO6RDCbWd+7z/7tbbxklwxs9uLVHQ6nQvN7EEAhyqE38ZykPwuYfJvDS+AQ65tv9+/IJbgAf9uHNQQAPfGNiSEcF/sB2wp75EQwv3FiCXovurQPKcRv6Xe7JE8FvHhWssL4DSAdwbyAXhvRGM+jG3EOZwfRfS41vMCeHeNcCGERyKEezTDkMfFW0Tp4GVWRTOziwD8MapCzmaZb0KKt4jSAcDvvpjySfzpmIlsYWHhslRDvI54iygdPMzsSTfk05jC8/PzV2aMkKvEW0TpUI6SA0XMysIjhHBXqiFmdrd4iygdyvjVJ5xTkYXnUw0h+bF4i1gdfIScKiLNOPMd91qn0zl/lBFeBsDr4u0k6eCRZEgZPwLY6/tcMzMz101NTV3qAeB6M7uT5Kvl41zxIl2HHEMUrE8DGcLJ6mAyhM2bIEPYvPAyhM2LLUPYLkOOA3jOl74eJJ/3axvQqONt5s0yxJ8o+h+v3hDOzs5eDeCH3MZAvOmGAPiz2+1es95duv/Oy4i3m6VDjiEPjdo6MbOHxVtk6ZBkCIAvI/cVfdPya/EWSTrkGLIz1hAzu0e8RZIOqYYcTU2tXy+dSLzcEEP2pZgRmckiXmYaEjOZ50xq4mWeId1u96aMEbJdvEWUDsmGmNm2jBGyTbxFlA7JhszNzV2eYcgV4i2idEg2RFknrFWHnFXWwdSGROZ8iZd5hvg88mbMvYhnnZDsiLeTpEOyIR6eSWFmr/gw9JxVT5P0KA8T2OkZKSR/Ei+ydNAzdU5WyBA2b4IMYfPCyxA2L7YMYfMCyxC215AtkcXBLcarrBNMVpaMsk66k5Ulo6yTYrKyZJR1MkFZMjmGKOuE9emQaoiyTlirDsmGKOuEteqQZoiyQ1irDsmGKOuEteqQbIiyTlirDsmGKOuEteqQbIiyTlirDjmrLGWHsFYdkg1R1gnr1SHZEA9lnbBWHdyQf1IrKViXBn8X1TPKFWxMA99icUM+kQmclI644IY8NQENUXB1hOxePSbWz/qTKGy6Uxw7+yaeQaf4K7hpGpRvY3hszZrZ37omE9hIR/Tt+fVuYvbLFG7qyADw/tCDRc3sCc0p3AxDjp49730UyvPgd/u+Tfn4UTePHNsA1/CIn17t2rrGUWYIgiBsYfg28/T09CVNt2OrwzXckPfilsvhE2Ms7U4OWtaV72ZqPW8WAHwxxuric/FyqA45huwZY4TsES+H6pAM/x+I6ntgI81Y7vV6N4gXQ3XIAoC3Uw3xZ8/iZZQOWTCzZ0l+D2BpyKhYKss8I14m6SAIgiAIgiAIglA0gP8BY8wv8D44tNcAAAAASUVORK5CYII='
+                      alt='dozen-eggs'
+                    ></img>
                     <span>MOQ:</span>
-                    <span className='ml-1'>{listing.formData.minOrder}</span>
+                    <span className='ml-1'>
+                      {(() => {
+                        const quantity = listing.formData.minOrder;
+                        const match = quantity.toString().match(/^(\d+)/);
+                        const number = match ? parseInt(match[1], 10) : NaN;
+
+                        if (!isNaN(number)) {
+                          const formattedNumber = new Intl.NumberFormat(
+                            'en-US'
+                          ).format(number);
+                          return `${formattedNumber} ${
+                            number === 1 ? 'Tray' : 'Trays'
+                          }`;
+                        }
+
+                        return quantity;
+                      })()}
+                    </span>
                   </div>
                 )}
 
@@ -154,14 +175,38 @@ const ListingCardAlt = ({ listing }) => {
                       Select size
                     </option>
                     {[
-                      { label: 'PW', value: listing.formData.pwPrice },
-                      { label: 'XS', value: listing.formData.xsPrice },
-                      { label: 'S', value: listing.formData.sPrice },
-                      { label: 'M', value: listing.formData.mPrice },
-                      { label: 'L', value: listing.formData.lPrice },
-                      { label: 'XL', value: listing.formData.xlPrice },
-                      { label: 'Jumbo', value: listing.formData.jumboPrice },
-                      { label: 'Dirty', value: listing.formData.dirtyPrice },
+                      {
+                        label: 'PW',
+                        value: formatQuantity(listing.formData.pwPrice),
+                      },
+                      {
+                        label: 'XS',
+                        value: formatQuantity(listing.formData.xsPrice),
+                      },
+                      {
+                        label: 'S',
+                        value: formatQuantity(listing.formData.sPrice),
+                      },
+                      {
+                        label: 'M',
+                        value: formatQuantity(listing.formData.mPrice),
+                      },
+                      {
+                        label: 'L',
+                        value: formatQuantity(listing.formData.lPrice),
+                      },
+                      {
+                        label: 'XL',
+                        value: formatQuantity(listing.formData.xlPrice),
+                      },
+                      {
+                        label: 'Jumbo',
+                        value: formatQuantity(listing.formData.jumboPrice),
+                      },
+                      {
+                        label: 'Dirty',
+                        value: formatQuantity(listing.formData.dirtyPrice),
+                      },
                     ].map(
                       (option) =>
                         option.value && (
@@ -224,7 +269,9 @@ const ListingCardAlt = ({ listing }) => {
                   <div className='flex items-center'>
                     <PiCowLight className='mr-2 text-lg text-gray-500' />
                     <span>Quantity:</span>
-                    <span className='ml-1'>{listing.formData.quantity}</span>
+                    <span className='ml-1'>
+                      {formatQuantity(listing.formData.quantity)}
+                    </span>
                   </div>
                 )}
 
@@ -233,7 +280,7 @@ const ListingCardAlt = ({ listing }) => {
                     <GiWeight className='mr-2 text-lg text-gray-500' />
                     <span>Avg head:</span>
                     <span className='ml-1'>
-                      {listing.formData.avgWeightPerHead}
+                      {formatQuantity(listing.formData.avgWeightPerHead)}kg
                     </span>
                   </div>
                 )}
@@ -242,7 +289,9 @@ const ListingCardAlt = ({ listing }) => {
                   <div className='flex items-center'>
                     <GiWeight className='mr-2 text-lg text-gray-500' />
                     <span>Total:</span>
-                    <span className='ml-1'>{listing.formData.totalWeight}</span>
+                    <span className='ml-1'>
+                      {formatQuantity(listing.formData.totalWeight)}kg
+                    </span>
                   </div>
                 )}
 
@@ -255,7 +304,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Head:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.avgPricePerHead}
+                      {formatQuantity(listing.formData.avgPricePerHead)}
                     </span>
                   </div>
                 )}
@@ -269,7 +318,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Per/kg:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.pricePerKg}
+                      {formatQuantity(listing.formData.pricePerKg)}
                     </span>
                   </div>
                 )}
@@ -331,14 +380,14 @@ const ListingCardAlt = ({ listing }) => {
                 {listing.formData.mileage && (
                   <div className='flex items-center'>
                     <IoSpeedometer className='mr-2 text-lg text-gray-500' />
-                    <span>{listing.formData.mileage}</span>
+                    <span>{formatQuantity(listing.formData.mileage)}km</span>
                   </div>
                 )}
 
                 {listing.formData.engineType && (
                   <div className='flex items-center'>
                     <PiEngineFill className='mr-2 text-lg text-gray-500' />
-                    <span>{listing.formData.engineType}</span>
+                    <span>{formatQuantity(listing.formData.engineType)}cc</span>
                   </div>
                 )}
 
@@ -351,7 +400,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.totalPrice}
+                      {formatQuantity(listing.formData.totalPrice)}
                     </span>
                   </div>
                 )}
@@ -422,14 +471,14 @@ const ListingCardAlt = ({ listing }) => {
                 {listing.formData.mileage && (
                   <div className='flex items-center'>
                     <IoSpeedometer className='mr-2 text-lg text-gray-500' />
-                    <span>{listing.formData.mileage}</span>
+                    <span>{formatQuantity(listing.formData.mileage)}km</span>
                   </div>
                 )}
 
                 {listing.formData.engineType && (
                   <div className='flex items-center'>
                     <PiEngineFill className='mr-2 text-lg text-gray-500' />
-                    <span>{listing.formData.engineType}</span>
+                    <span>{formatQuantity(listing.formData.engineType)}L</span>
                   </div>
                 )}
 
@@ -442,7 +491,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.totalPrice}
+                      {formatQuantity(listing.formData.totalPrice)}
                     </span>
                   </div>
                 )}
@@ -497,7 +546,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Hourly:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.hourlyRate}
+                      {formatQuantity(listing.formData.hourlyRate)}
                     </span>
                   </div>
                 )}
@@ -512,7 +561,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Hourly:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.preferredHourlyRate}
+                      {formatQuantity(listing.formData.preferredHourlyRate)}
                     </span>
                   </div>
                 )}
@@ -520,7 +569,10 @@ const ListingCardAlt = ({ listing }) => {
 
             {listing.formData.jobType === 'Offering' &&
               listing.formData.jobDescription && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -547,7 +599,10 @@ const ListingCardAlt = ({ listing }) => {
 
             {listing.formData.jobType === 'Jobseeker' &&
               listing.formData.selfDescription && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -588,7 +643,9 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <IoBed className='mr-2 text-lg text-gray-500' />
                   <span>Bedroom:</span>
-                  <span className='ml-1'>{listing.formData.bedrooms}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.bedrooms)}
+                  </span>
                 </div>
               )}
 
@@ -596,7 +653,9 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <GiFamilyHouse className='mr-2 text-lg text-gray-500' />
                   <span>Interior:</span>
-                  <span className='ml-1'>{listing.formData.interiorSize}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.interiorSize)} m2
+                  </span>
                 </div>
               )}
 
@@ -604,7 +663,9 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <HiOutlineArrowsExpand className='mr-2 text-lg text-gray-500' />
                   <span>Land:</span>
-                  <span className='ml-1'>{listing.formData.landSize}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.landSize)} m2
+                  </span>
                 </div>
               )}
 
@@ -617,7 +678,7 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
@@ -626,13 +687,18 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <RxTransparencyGrid className='mr-2 text-lg text-gray-500' />
                   <span>Lot no:</span>
-                  <span className='ml-1'>{listing.formData.lotNumber}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.lotNumber)}
+                  </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -710,14 +776,16 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <FaClock className='mr-2 text-lg text-gray-500' />
                   <span>Hours:</span>
-                  <span className='ml-1'>{listing.formData.workingHours}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.workingHours)}
+                  </span>
                 </div>
               )}
 
               {listing.formData.horsepower && (
                 <div className='flex items-center'>
                   <BsFillLightningFill className='mr-2 text-lg text-gray-500' />
-                  <span>{listing.formData.horsepower}</span>
+                  <span>HP {formatQuantity(listing.formData.horsepower)}</span>
                 </div>
               )}
 
@@ -730,7 +798,7 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
@@ -739,7 +807,7 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <BsFillFuelPumpFill className='mr-2 text-lg text-gray-500' />
                   <span className='ml-1'>
-                    {listing.formData.fuelConsumption}
+                    ~{formatQuantity(listing.formData.fuelConsumption)} L/hr
                   </span>
                 </div>
               )}
@@ -802,14 +870,18 @@ const ListingCardAlt = ({ listing }) => {
                   <div className='flex items-center'>
                     <GiSailboat className='mr-2 text-lg text-gray-500' />
                     <span>Length:</span>
-                    <span className='ml-1'>{listing.formData.boatLength}</span>
+                    <span className='ml-1'>
+                      {formatQuantity(listing.formData.boatLength)}ft
+                    </span>
                   </div>
                 )}
 
                 {listing.formData.horsepower && (
                   <div className='flex items-center'>
                     <BsFillLightningFill className='mr-2 text-lg text-gray-500' />
-                    <span>{listing.formData.horsepower}</span>
+                    <span>
+                      HP {formatQuantity(listing.formData.horsepower)}
+                    </span>
                   </div>
                 )}
 
@@ -822,7 +894,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.totalPrice}
+                      {formatQuantity(listing.formData.totalPrice)}
                     </span>
                   </div>
                 )}
@@ -883,14 +955,24 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.totalPrice}
+                      {formatQuantity(listing.formData.totalPrice)}
                     </span>
+                  </div>
+                )}
+
+                {listing.formData.location && (
+                  <div className='flex items-center'>
+                    <FaLocationDot className='mr-2 text-lg text-gray-500' />
+                    <span>{listing.formData.location}</span>
                   </div>
                 )}
               </div>
 
               {listing.formData.description && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -959,14 +1041,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -1035,14 +1120,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -1117,7 +1205,7 @@ const ListingCardAlt = ({ listing }) => {
                     <GiCardboardBoxClosed className='mr-2 text-lg text-gray-500' />
                     <span>MOQ Weight:</span>
                     <span className='ml-1'>
-                      {listing.formData.productWeight}
+                      {formatQuantity(listing.formData.productWeight)}kg
                     </span>
                   </div>
                 )}
@@ -1131,7 +1219,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>MOQ Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.productPrice}
+                      {formatQuantity(listing.formData.productPrice)}
                     </span>
                   </div>
                 )}
@@ -1145,14 +1233,17 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Per kg:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.pricePerKg}
+                      {formatQuantity(listing.formData.pricePerKg)}
                     </span>
                   </div>
                 )}
               </div>
 
               {listing.formData.description && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -1227,7 +1318,7 @@ const ListingCardAlt = ({ listing }) => {
                     <GiWeight className='mr-2 text-lg text-gray-500' />
                     <span>Bag:</span>
                     <span className='ml-1'>
-                      {listing.formData.feedBagWeight}
+                      {formatQuantity(listing.formData.feedBagWeight)}kg
                     </span>
                   </div>
                 )}
@@ -1241,21 +1332,28 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Per bag:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.pricePerBag}
+                      {formatQuantity(listing.formData.pricePerBag)}
                     </span>
                   </div>
                 )}
 
                 {listing.formData.animalFeedType && (
                   <div className='flex items-center'>
-                    <PiCowLight className='mr-2 text-lg text-gray-700' />
+                    <img
+                      className='mr-2 w-[20px] h-[20px]'
+                      src='data:image/png;base64,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'
+                      alt='pig-food'
+                    ></img>
                     <span>{listing.formData.animalFeedType}</span>
                   </div>
                 )}
               </div>
 
               {listing.formData.description && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -1326,7 +1424,9 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <GiCardboardBoxClosed className='mr-2 text-lg text-gray-500' />
                   <span>MOQ Weight:</span>
-                  <span className='ml-1'>{listing.formData.productWeight}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.productWeight)}kg
+                  </span>
                 </div>
               )}
 
@@ -1339,7 +1439,7 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>MOQ Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.productPrice}
+                    {formatQuantity(listing.formData.productPrice)}
                   </span>
                 </div>
               )}
@@ -1353,14 +1453,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Per kg:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.pricePerKg}
+                    {formatQuantity(listing.formData.pricePerKg)}kg
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -1433,7 +1536,9 @@ const ListingCardAlt = ({ listing }) => {
                   <div className='flex items-center'>
                     <GiCardboardBoxClosed className='mr-2 text-lg text-gray-500' />
                     <span>MOQ Weight:</span>
-                    <span className='ml-1'>{listing.formData.weight}</span>
+                    <span className='ml-1'>
+                      {formatQuantity(listing.formData.weight)}kg
+                    </span>
                   </div>
                 )}
 
@@ -1446,7 +1551,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>Per kg:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.pricePerKg}
+                      {formatQuantity(listing.formData.pricePerKg)}
                     </span>
                   </div>
                 )}
@@ -1470,7 +1575,7 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>MOQ Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.productPrice}
+                      {formatQuantity(listing.formData.productPrice)}
                     </span>
                   </div>
                 )}
@@ -1523,34 +1628,12 @@ const ListingCardAlt = ({ listing }) => {
                   </div>
                 )}
 
-                {listing.formData.weight && (
+                {listing.formData.productWeight && (
                   <div className='flex items-center'>
                     <GiCardboardBoxClosed className='mr-2 text-lg text-gray-500' />
                     <span>MOQ Weight:</span>
-                    <span className='ml-1'>{listing.formData.weight}</span>
-                  </div>
-                )}
-
-                {listing.formData.pricePerKg && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5 mr-2'
-                    />
-                    <span>Per kg:</span>
-                    <span className='font-bold text-black ml-1'>
-                      {listing.formData.pricePerKg}
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.qualityLevel && (
-                  <div className='flex items-center'>
-                    <GiFruitBowl className='mr-2 text-lg text-gray-500' />
-                    <span>Quality:</span>
                     <span className='ml-1'>
-                      {listing.formData.qualityLevel}
+                      {formatQuantity(listing.formData.productWeight)}kg
                     </span>
                   </div>
                 )}
@@ -1564,68 +1647,31 @@ const ListingCardAlt = ({ listing }) => {
                     />
                     <span>MOQ Price:</span>
                     <span className='font-bold text-black ml-1'>
-                      {listing.formData.productPrice}
+                      {formatQuantity(listing.formData.productPrice)}
                     </span>
                   </div>
                 )}
 
-                {listing.formData.quantity && (
-                  <div className='flex items-center'>
-                    <PiCowLight className='mr-2 text-lg text-gray-700' />
-                    <span>Quantity:</span>
-                    <span className='ml-1'>{listing.formData.quantity}</span>
-                  </div>
-                )}
-
-                {listing.formData.avgHead && (
-                  <div className='flex items-center'>
-                    <GiWeight className='mr-2 text-lg text-gray-700' />
-                    <span>Avg head:</span>
-                    <span className='ml-2'>
-                      {listing.formData.paymentMethods}kg
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.total && (
-                  <div className='flex items-center'>
-                    <GiWeight className='mr-2 text-lg text-gray-700' />
-                    <span>Total:</span>
-                    <span className='ml-2'>{listing.formData.total}kg</span>
-                  </div>
-                )}
-
-                {listing.formData.totalPrice && (
+                {listing.formData.pricePerKg && (
                   <div className='flex items-center'>
                     <img
                       src='https://img.icons8.com/color/96/peso-symbol.png'
                       alt='Price'
-                      className='h-5 w-5'
+                      className='h-5 w-5 mr-2'
                     />
-                    <span className='text-gray-600 text-sm ml-1'>Price:</span>
-                    <span className='text-lg font-bold text-gray-800 ml-1'>
-                      {listing.formData.totalPrice.toLocaleString()}
-                    </span>
-                  </div>
-                )}
-
-                {listing.formData.perKg && (
-                  <div className='flex items-center'>
-                    <img
-                      src='https://img.icons8.com/color/96/peso-symbol.png'
-                      alt='Price'
-                      className='h-5 w-5'
-                    />
-                    <span className='text-gray-600 text-sm ml-1'>Per/kg:</span>
-                    <span className='text-lg font-bold text-gray-800 ml-1'>
-                      {listing.formData.perKg.toLocaleString()}
+                    <span>Per kg:</span>
+                    <span className='font-bold text-black ml-1'>
+                      {formatQuantity(listing.formData.pricePerKg)}
                     </span>
                   </div>
                 )}
               </div>
 
               {listing.formData.description && (
-                <div className='text-gray-600 text-sm mt-4'>
+                <div
+                  className='text-gray-600 text-sm mt-4'
+                  style={{ width: '429px', overflow: 'hidden' }}
+                >
                   <span className='font-bold text-gray-700 mr-1'>
                     Description:
                   </span>
@@ -1696,7 +1742,9 @@ const ListingCardAlt = ({ listing }) => {
                 <div className='flex items-center'>
                   <GiCardboardBoxClosed className='mr-2 text-lg text-gray-500' />
                   <span>MOQ Weight:</span>
-                  <span className='ml-1'>{listing.formData.productWeight}</span>
+                  <span className='ml-1'>
+                    {formatQuantity(listing.formData.productWeight)}kg
+                  </span>
                 </div>
               )}
 
@@ -1709,7 +1757,7 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>MOQ Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.productPrice}
+                    {formatQuantity(listing.formData.productPrice)}
                   </span>
                 </div>
               )}
@@ -1723,14 +1771,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Per kg:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.pricePerKg}
+                    {formatQuantity(listing.formData.pricePerKg)}
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -1799,14 +1850,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
@@ -1875,14 +1929,17 @@ const ListingCardAlt = ({ listing }) => {
                   />
                   <span>Price:</span>
                   <span className='font-bold text-black ml-1'>
-                    {listing.formData.totalPrice}
+                    {formatQuantity(listing.formData.totalPrice)}
                   </span>
                 </div>
               )}
             </div>
 
             {listing.formData.description && (
-              <div className='text-gray-600 text-sm mt-4'>
+              <div
+                className='text-gray-600 text-sm mt-4'
+                style={{ width: '429px', overflow: 'hidden' }}
+              >
                 <span className='font-bold text-gray-700 mr-1'>
                   Description:
                 </span>
