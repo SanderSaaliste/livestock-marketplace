@@ -539,7 +539,7 @@ const ListingDetails = ({ listing, descriptionRef }) => {
               </div>
             )}
 
-            {listing.selectedCategory === 'Others' && (
+            {listing.selectedCategory === 'Other' && (
               <div className='flex items-center'>
                 <img
                   src='https://img.icons8.com/color/96/peso-symbol.png'

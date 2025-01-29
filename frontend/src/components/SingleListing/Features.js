@@ -3,15 +3,7 @@ import React from 'react';
 import FeatureCard from './FeatureCard';
 
 import locationIcon from '../../assets/eggs/location.svg';
-import moqIcon from '../../assets/eggs/moq.svg';
-import xsIcon from '../../assets/eggs/xs.svg';
-import sIcon from '../../assets/eggs/s.svg';
-import mIcon from '../../assets/eggs/m.svg';
-import lIcon from '../../assets/eggs/l.svg';
-import xlIcon from '../../assets/eggs/xl.svg';
-import pwIcon from '../../assets/eggs/pw.svg';
-import jumboIcon from '../../assets/eggs/jumbo.svg';
-import dirtyIcon from '../../assets/eggs/dirty.svg';
+import eggsIcon from '../../assets/eggs/eggs.svg';
 
 import ageIcon from '../../assets/livestock/age.png';
 import vitaminsIcon from '../../assets/livestock/vitamins.png';
@@ -94,17 +86,17 @@ const Features = ({ listing }) => {
       text: `Location: ${listing.formData.location}`,
     },
     {
-      image: xsIcon,
+      image: pesoIcon,
       key: 'xsPrice',
       text: `XS: ${formatQuantity(listing.formData.xsPrice)}`,
     },
     {
-      image: sIcon,
+      image: pesoIcon,
       key: 'sPrice',
       text: `S: ${formatQuantity(listing.formData.sPrice)}`,
     },
     {
-      image: moqIcon,
+      image: eggsIcon,
       key: 'minOrder',
       text: `MOQ: ${(() => {
         const quantity = listing.formData.minOrder;
@@ -120,39 +112,39 @@ const Features = ({ listing }) => {
       })()}`,
     },
     {
-      image: mIcon,
+      image: pesoIcon,
       key: 'mPrice',
       text: `M: ${formatQuantity(listing.formData.mPrice)}`,
     },
     {
-      image: lIcon,
+      image: pesoIcon,
       key: 'lPrice',
       text: `L: ${formatQuantity(listing.formData.lPrice)}`,
     },
     {
-      image: xlIcon,
+      image: pesoIcon,
       key: 'xlPrice',
       text: `XL: ${formatQuantity(listing.formData.xlPrice)}`,
     },
     {
-      image: jumboIcon,
+      image: pesoIcon,
       key: 'jumboPrice',
       text: `Jumbo: ${formatQuantity(listing.formData.jumboPrice)}`,
     },
     {
-      image: pwIcon,
+      image: pesoIcon,
       key: 'pwPrice',
       text: `PW: ${formatQuantity(listing.formData.pwPrice)}`,
     },
     {
-      image: dirtyIcon,
+      image: pesoIcon,
       key: 'dirtyPrice',
       text: `Dirty: ${formatQuantity(listing.formData.dirtyPrice)}`,
     },
   ];
 
   const livestockFeatures = [
-    { image: ageIcon, key: 'age', text: `Age: ${listing.formData.age}` },
+    { image: ageIcon, key: 'age', text: `Age: ${listing.formData.age} Weeks` },
     {
       image: vitaminsIcon,
       key: 'vitamins',
@@ -190,8 +182,8 @@ const Features = ({ listing }) => {
     },
     {
       image: dietIcon,
-      key: 'dietAndFreedom',
-      text: `Diet & Freedom: ${listing.formData.feedingBrand}`,
+      key: 'feedingBrand',
+      text: `Feeding Brand: ${listing.formData.feedingBrand}`,
     },
   ];
 
@@ -277,7 +269,7 @@ const Features = ({ listing }) => {
       }`,
     },
     {
-      image: companyIcon,
+      image: professionIcon,
       key: 'position',
       text: listing?.formData?.position
         ? `Position: ${listing.formData.position}`
@@ -301,12 +293,12 @@ const Features = ({ listing }) => {
     {
       image: interiorIcon,
       key: 'interior',
-      text: `Interior: ${formatQuantity(listing.formData.interiorSize)} m2`,
+      text: `Interior: ${formatQuantity(listing.formData.interiorSize)} m²`,
     },
     {
       image: landIcon,
       key: 'land',
-      text: `Land: ${formatQuantity(listing.formData.landSize)} m2`,
+      text: `Land: ${formatQuantity(listing.formData.landSize)} m²`,
     },
     {
       image: bedroomIcon,
@@ -552,9 +544,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -583,9 +575,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -598,9 +590,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -613,9 +605,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -693,9 +685,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -726,9 +718,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -775,9 +767,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -790,9 +782,9 @@ const Features = ({ listing }) => {
                 <FeatureCard
                   key={feature.key}
                   image={feature.image}
-                  bgColor='#fefcfb'
+                  bgColor='#fcfcfc'
                   iconBgColor='#e4e4e4'
-                  borderColor='#f3e6e3'
+                  borderColor='#797979'
                   text={feature.text}
                 />
               )
@@ -813,7 +805,7 @@ const Features = ({ listing }) => {
               )
           )}
 
-        {listing.selectedCategory === 'Others' &&
+        {listing.selectedCategory === 'Other' &&
           basicListingFeatures.map(
             (feature) =>
               feature.text && (

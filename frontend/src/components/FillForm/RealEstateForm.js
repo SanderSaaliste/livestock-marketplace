@@ -41,14 +41,14 @@ const RealEstateForm = ({ onChange, formData }) => {
       />
       <InputField
         label='What is the interior size of the house in square meters?'
-        placeholder='Example: 105 m2'
+        placeholder='Example: 105 m²'
         helpingText='If you are selling a land plot, you can skip this field.'
         value={formData?.interiorSize || ''}
         onChange={(value) => handleInputChange('interiorSize', value)}
       />
       <InputField
         label='How many square meters is the land?'
-        placeholder='Example: 1,000 m2'
+        placeholder='Example: 1,000 m²'
         value={formData?.landSize || ''}
         onChange={(value) => handleInputChange('landSize', value)}
       />

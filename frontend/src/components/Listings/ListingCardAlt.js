@@ -654,7 +654,7 @@ const ListingCardAlt = ({ listing }) => {
                   <GiFamilyHouse className='mr-2 text-lg text-gray-500' />
                   <span>Interior:</span>
                   <span className='ml-1'>
-                    {formatQuantity(listing.formData.interiorSize)} m2
+                    {formatQuantity(listing.formData.interiorSize)} m²
                   </span>
                 </div>
               )}
@@ -664,7 +664,7 @@ const ListingCardAlt = ({ listing }) => {
                   <HiOutlineArrowsExpand className='mr-2 text-lg text-gray-500' />
                   <span>Land:</span>
                   <span className='ml-1'>
-                    {formatQuantity(listing.formData.landSize)} m2
+                    {formatQuantity(listing.formData.landSize)} m²
                   </span>
                 </div>
               )}
