@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BiSearch, BiMap, BiChevronDown } from 'react-icons/bi';
 import { GiWeight } from 'react-icons/gi';
 import { FcMoneyTransfer } from 'react-icons/fc';
@@ -14,28 +14,50 @@ const Filters = ({
   setSelectedCategory,
   selectedSubCategory,
   setSelectedSubCategory,
+  categoriesOpen,
+  setCategoriesOpen,
+  locationOpen,
+  setLocationOpen,
+  priceOpen,
+  setPriceOpen,
+  weightOpen,
+  setWeightOpen,
+  paymentOpen,
+  setPaymentOpen,
+  searchText,
+  setSearchText,
+  locationText,
+  setLocationText,
+  priceOptions,
+  setPriceOptions,
+  weightOptions,
+  setWeightOptions,
+  paymentOptions,
+  setPaymentOptions,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  minWeight,
+  setMinWeight,
+  maxWeight,
+  setMaxWeight,
 }) => {
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const [locationOpen, setLocationOpen] = useState(false);
-  const [priceOpen, setPriceOpen] = useState(false);
-  const [weightOpen, setWeightOpen] = useState(false);
-  const [paymentOpen, setPaymentOpen] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [locationText, setLocationText] = useState('');
-  const [priceOptions, setPriceOptions] = useState([]);
-  const [weightOptions, setWeightOptions] = useState([]);
-  const [paymentOptions, setPaymentOptions] = useState([]);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [minWeight, setMinWeight] = useState('');
-  const [maxWeight, setMaxWeight] = useState('');
+  const handleCheckboxChange = (optionOrArray, setState, state) => {
+    const updatedState = new Set(state);
+    const options = Array.isArray(optionOrArray)
+      ? optionOrArray
+      : [optionOrArray];
 
-  const handleCheckboxChange = (option, setState, state) => {
-    if (state.includes(option)) {
-      setState(state.filter((item) => item !== option));
-    } else {
-      setState([...state, option]);
-    }
+    options.forEach((option) => {
+      if (updatedState.has(option)) {
+        updatedState.delete(option);
+      } else {
+        updatedState.add(option);
+      }
+    });
+
+    setState([...updatedState]);
   };
 
   const handleSearch = () => {
@@ -330,12 +352,7 @@ const Filters = ({
                         checked={priceOptions.includes('pricePerKg')}
                         onChange={() => {
                           handleCheckboxChange(
-                            'pricePerKg',
-                            setPriceOptions,
-                            priceOptions
-                          );
-                          handleCheckboxChange(
-                            'pricePerBag',
+                            ['pricePerKg', 'pricePerBag'],
                             setPriceOptions,
                             priceOptions
                           );
@@ -355,12 +372,7 @@ const Filters = ({
                         checked={priceOptions.includes('totalPrice')}
                         onChange={() => {
                           handleCheckboxChange(
-                            'totalPrice',
-                            setPriceOptions,
-                            priceOptions
-                          );
-                          handleCheckboxChange(
-                            'productPrice',
+                            ['totalPrice', 'productPrice'],
                             setPriceOptions,
                             priceOptions
                           );
@@ -454,12 +466,7 @@ const Filters = ({
                       checked={weightOptions.includes('totalWeight')}
                       onChange={() => {
                         handleCheckboxChange(
-                          'totalWeight',
-                          setWeightOptions,
-                          weightOptions
-                        );
-                        handleCheckboxChange(
-                          'productWeight',
+                          ['totalWeight', 'productWeight'],
                           setWeightOptions,
                           weightOptions
                         );
@@ -475,17 +482,7 @@ const Filters = ({
                       checked={weightOptions.includes('weight')}
                       onChange={() => {
                         handleCheckboxChange(
-                          'weight',
-                          setWeightOptions,
-                          weightOptions
-                        );
-                        handleCheckboxChange(
-                          'minOrder',
-                          setWeightOptions,
-                          weightOptions
-                        );
-                        handleCheckboxChange(
-                          'feedBagWeight',
+                          ['weight', 'minOrder', 'feedBagWeight'],
                           setWeightOptions,
                           weightOptions
                         );

@@ -29,7 +29,6 @@ import vehiclesPesoIcon from '../../assets/vehicles/peso.svg';
 import vehiclesSpeedIcon from '../../assets/vehicles/speed.svg';
 import vehiclesTransmissionIcon from '../../assets/vehicles/transmission.svg';
 
-import companyIcon from '../../assets/services/company.svg';
 import servicesLocationIcon from '../../assets/services/location.svg';
 import professionIcon from '../../assets/services/profession.svg';
 import servicesPesoIcon from '../../assets/services/peso.svg';

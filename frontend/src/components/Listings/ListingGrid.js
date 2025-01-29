@@ -20,6 +20,36 @@ const ListingsGrid = ({
   setSelectedCategory,
   selectedSubCategory,
   setSelectedSubCategory,
+  categoriesOpen,
+  setCategoriesOpen,
+  locationOpen,
+  setLocationOpen,
+  priceOpen,
+  setPriceOpen,
+  weightOpen,
+  setWeightOpen,
+  paymentOpen,
+  setPaymentOpen,
+  searchText,
+  setSearchText,
+  locationText,
+  setLocationText,
+  priceOptions,
+  setPriceOptions,
+  weightOptions,
+  setWeightOptions,
+  paymentOptions,
+  setPaymentOptions,
+  minPrice,
+  setMinPrice,
+  maxPrice,
+  setMaxPrice,
+  minWeight,
+  setMinWeight,
+  maxWeight,
+  setMaxWeight,
+  sortOption,
+  setSortOption,
 }) => {
   const gridRef = useRef(null);
 
@@ -48,7 +78,7 @@ const ListingsGrid = ({
     return merged;
   };
 
-  const fetchListings = async (page = 1) => {
+  const fetchListings = async (page = 1, sortBy = 'newest') => {
     setLoading(true);
 
     const finalSearchParams = mergeSearchParams(searchParams, searchQuery);
@@ -58,6 +88,7 @@ const ListingsGrid = ({
         ...finalSearchParams,
         page,
         numItems: listingsPerPage,
+        sortBy,
       });
 
       if (response.error) {
@@ -70,7 +101,7 @@ const ListingsGrid = ({
       }
 
       setListings(response.listings);
-      setSearchLength(response.listings.length);
+      setSearchLength(response.pagination.totalItems);
       setCurrentPage(response.pagination.currentPage);
       setTotalPages(response.pagination.totalPages);
     } catch (err) {
@@ -126,6 +157,12 @@ const ListingsGrid = ({
     setSearchQuery(query);
   };
 
+  const handleSortChange = (e) => {
+    const selectedSort = e.target.value;
+    setSortOption(selectedSort);
+    fetchListings(1, selectedSort);
+  };
+
   return (
     <div className='py-8' ref={gridRef}>
       <div className='max-w-7xl mx-auto px-4'>
@@ -158,10 +195,18 @@ const ListingsGrid = ({
                   <span>Grid</span>
                 </button>
                 <div className='text-sm font-bold text-gray-600'>
-                  <select className='ml-2 rounded-md py-1 px-3 focus:outline-none bg-[#F0F6F2]'>
-                    <option value='price-asc'>Sort by</option>
-                    <option value='price-asc'>Price: Low to High</option>
-                    <option value='price-desc'>Price: High to Low</option>
+                  <select
+                    className='ml-2 rounded-md py-1 px-3 focus:outline-none bg-[#F0F6F2]'
+                    value={sortOption}
+                    onChange={handleSortChange}
+                  >
+                    <option value=''>Sort by</option>
+                    <option value='price-asc' disabled>
+                      Price: Low to High
+                    </option>
+                    <option value='price-desc' disabled>
+                      Price: High to Low
+                    </option>
                     <option value='newest'>Newest Listings</option>
                     <option value='oldest'>Oldest Listings</option>
                   </select>
@@ -178,6 +223,34 @@ const ListingsGrid = ({
                     setSelectedCategory={setSelectedCategory}
                     selectedSubCategory={selectedSubCategory}
                     setSelectedSubCategory={setSelectedSubCategory}
+                    categoriesOpen={categoriesOpen}
+                    setCategoriesOpen={setCategoriesOpen}
+                    locationOpen={locationOpen}
+                    setLocationOpen={setLocationOpen}
+                    priceOpen={priceOpen}
+                    setPriceOpen={setPriceOpen}
+                    weightOpen={weightOpen}
+                    setWeightOpen={setWeightOpen}
+                    paymentOpen={paymentOpen}
+                    setPaymentOpen={setPaymentOpen}
+                    searchText={searchText}
+                    setSearchText={setSearchText}
+                    locationText={locationText}
+                    setLocationText={setLocationText}
+                    priceOptions={priceOptions}
+                    setPriceOptions={setPriceOptions}
+                    weightOptions={weightOptions}
+                    setWeightOptions={setWeightOptions}
+                    paymentOptions={paymentOptions}
+                    setPaymentOptions={setPaymentOptions}
+                    minPrice={minPrice}
+                    setMinPrice={setMinPrice}
+                    maxPrice={maxPrice}
+                    setMaxPrice={setMaxPrice}
+                    minWeight={minWeight}
+                    setMinWeight={setMinWeight}
+                    maxWeight={maxWeight}
+                    setMaxWeight={setMaxWeight}
                   />
                 </div>
               </div>

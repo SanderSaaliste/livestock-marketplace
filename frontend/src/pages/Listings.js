@@ -9,6 +9,24 @@ import ListingsGrid from '../components/Listings/ListingGrid';
 const Listings = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedSubCategory, setSelectedSubCategory] = useState('');
+
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [locationOpen, setLocationOpen] = useState(false);
+  const [priceOpen, setPriceOpen] = useState(false);
+  const [weightOpen, setWeightOpen] = useState(false);
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [locationText, setLocationText] = useState('');
+  const [priceOptions, setPriceOptions] = useState([]);
+  const [weightOptions, setWeightOptions] = useState([]);
+  const [paymentOptions, setPaymentOptions] = useState([]);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [minWeight, setMinWeight] = useState('');
+  const [maxWeight, setMaxWeight] = useState('');
+
+  const [sortOption, setSortOption] = useState('');
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchLength, setSearchLength] = useState(0);
 
@@ -34,6 +52,36 @@ const Listings = () => {
         setSelectedCategory={setSelectedCategory}
         selectedSubCategory={selectedSubCategory}
         setSelectedSubCategory={setSelectedSubCategory}
+        categoriesOpen={categoriesOpen}
+        setCategoriesOpen={setCategoriesOpen}
+        locationOpen={locationOpen}
+        setLocationOpen={setLocationOpen}
+        priceOpen={priceOpen}
+        setPriceOpen={setPriceOpen}
+        weightOpen={weightOpen}
+        setWeightOpen={setWeightOpen}
+        paymentOpen={paymentOpen}
+        setPaymentOpen={setPaymentOpen}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        locationText={locationText}
+        setLocationText={setLocationText}
+        priceOptions={priceOptions}
+        setPriceOptions={setPriceOptions}
+        weightOptions={weightOptions}
+        setWeightOptions={setWeightOptions}
+        paymentOptions={paymentOptions}
+        setPaymentOptions={setPaymentOptions}
+        minPrice={minPrice}
+        setMinPrice={setMinPrice}
+        maxPrice={maxPrice}
+        setMaxPrice={setMaxPrice}
+        minWeight={minWeight}
+        setMinWeight={setMinWeight}
+        maxWeight={maxWeight}
+        setMaxWeight={setMaxWeight}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
       />
       <Footer />
     </div>

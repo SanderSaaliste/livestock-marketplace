@@ -90,6 +90,7 @@ const listingController = {
       category,
       subcategory,
       searchText,
+      location,
       minPrice,
       maxPrice,
       priceOptions,
@@ -99,6 +100,7 @@ const listingController = {
       paymentOptions,
       page = 1,
       numItems = 6,
+      sortBy = 'newest',
     } = req.query;
 
     try {
@@ -140,7 +142,16 @@ const listingController = {
           },
         ];
       }
-
+      if (location) {
+        const lowerLocationText = location.toLowerCase();
+        whereClause[Op.and] = [
+          ...(whereClause[Op.and] || []),
+          Sequelize.where(
+            Sequelize.fn('LOWER', Sequelize.json('formData.location')),
+            { [Op.like]: `%${lowerLocationText}%` }
+          ),
+        ];
+      }
       if (priceOptions) {
         const priceOptionsArray = priceOptions.split(',');
         whereClause[Op.and] = [
@@ -194,13 +205,18 @@ const listingController = {
         ];
       }
 
+      let order = [['createdTimestamp', 'DESC']];
+      if (sortBy === 'oldest') {
+        order = [['createdTimestamp', 'ASC']];
+      }
+
       const limit = parseInt(numItems, 10);
       const offset = (parseInt(page, 10) - 1) * limit;
 
       const { rows: listings, count: totalItems } =
         await Listing.findAndCountAll({
           where: whereClause,
-          order: [['createdTimestamp', 'DESC']],
+          order,
           limit,
           offset,
         });
