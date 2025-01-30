@@ -1,6 +1,7 @@
 import React from 'react';
 import InputField from './InputField';
 import TextAreaField from './TextAreaField';
+import { cleanNumber } from '../../utils/text';
 
 const priceInputs = [
   {
@@ -23,36 +24,44 @@ const StandardWeightListingForm = ({ onChange, formData }) => {
 
     onChange(field, value);
 
-    if (field === 'pricePerKg' || field === 'productWeight') {
-      const pricePerKg = parseFloat(
-        field === 'pricePerKg' ? value : formData?.pricePerKg || 0
-      );
-      const productWeight = parseFloat(
-        field === 'productWeight' ? value : formData?.productWeight || 0
-      );
+    const productWeight = cleanNumber(
+      field === 'productWeight' ? value : formData?.productWeight
+    );
+    const pricePerKg = cleanNumber(
+      field === 'pricePerKg' ? value : formData?.pricePerKg
+    );
+    const productPrice = cleanNumber(
+      field === 'productPrice' ? value : formData?.productPrice
+    );
 
-      if (pricePerKg > 0 && productWeight > 0) {
-        const productPrice = `${(pricePerKg * productWeight).toFixed(2)} PHP`;
-        onChange('productPrice', productPrice);
-      } else {
-        onChange('productPrice', '');
-      }
+    function updateProductPrice() {
+      const totalPrice = productWeight * pricePerKg;
+      onChange(
+        'productPrice',
+        isNaN(totalPrice) || totalPrice === 0
+          ? ''
+          : `${totalPrice.toLocaleString()} PHP`
+      );
     }
 
-    if (field === 'productPrice' || field === 'productWeight') {
-      const productPrice = parseFloat(
-        field === 'productPrice' ? value : formData?.productPrice || 0
+    function updatePricePerKg() {
+      const pricePerKg = productWeight > 0 ? productPrice / productWeight : 0;
+      onChange(
+        'pricePerKg',
+        isNaN(pricePerKg) || pricePerKg === 0 ? '' : `${pricePerKg.toFixed(3)}`
       );
-      const productWeight = parseFloat(
-        field === 'productWeight' ? value : formData?.productWeight || 0
-      );
+    }
 
-      if (productPrice > 0 && productWeight > 0) {
-        const pricePerKg = `${(productPrice / productWeight).toFixed(2)} PHP`;
-        onChange('pricePerKg', pricePerKg);
-      } else {
-        onChange('pricePerKg', '');
-      }
+    if (field === 'productWeight') {
+      updateProductPrice();
+    }
+
+    if (field === 'pricePerKg') {
+      updateProductPrice();
+    }
+
+    if (field === 'productPrice') {
+      updatePricePerKg();
     }
   };
 

@@ -79,6 +79,10 @@ const Filters = ({
     }
   };
 
+  const handleResetFilters = () => {
+    window.location.reload();
+  };
+
   return (
     <div className='p-4 rounded-lg max-w-sm w-full'>
       <h2 className='text-lg font-bold'>Filter & Refine</h2>
@@ -607,12 +611,20 @@ const Filters = ({
         <hr className='mt-4' />
       </div>
 
-      <button
-        onClick={handleSearch}
-        className='w-full bg-[#53AE66] text-white py-3 rounded-md hover:bg-[#4C905A]'
-      >
-        Filter
-      </button>
+      <div className='flex flex-col items-center mt-4'>
+        <button
+          onClick={handleSearch}
+          className='w-full bg-[#53AE66] text-white py-3 rounded-md hover:bg-[#4C905A]'
+        >
+          Filter
+        </button>
+        <span
+          onClick={handleResetFilters}
+          className='mt-2 text-sm text-gray-500 cursor-pointer hover:underline'
+        >
+          Reset Filters
+        </span>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import InputField from './InputField';
 import TextAreaField from './TextAreaField';
 import Dropdown from './Dropdown';
+import { cleanNumber } from '../../utils/text';
 
 const priceInputs = [
   {
@@ -47,8 +48,48 @@ const MangoesForm = ({ onChange, formData }) => {
   };
 
   const handleInputChange = (field, value) => {
-    if (onChange) {
-      onChange(field, value);
+    if (!onChange) return;
+
+    onChange(field, value);
+
+    const productWeight = cleanNumber(
+      field === 'weight' ? value : formData?.weight
+    );
+    const pricePerKg = cleanNumber(
+      field === 'pricePerKg' ? value : formData?.pricePerKg
+    );
+    const productPrice = cleanNumber(
+      field === 'productPrice' ? value : formData?.productPrice
+    );
+
+    function updateProductPrice() {
+      const totalPrice = productWeight * pricePerKg;
+      onChange(
+        'productPrice',
+        isNaN(totalPrice) || totalPrice === 0
+          ? ''
+          : `${totalPrice.toLocaleString()} PHP`
+      );
+    }
+
+    function updatePricePerKg() {
+      const pricePerKg = productWeight > 0 ? productPrice / productWeight : 0;
+      onChange(
+        'pricePerKg',
+        isNaN(pricePerKg) || pricePerKg === 0 ? '' : `${pricePerKg.toFixed(3)}`
+      );
+    }
+
+    if (field === 'weight') {
+      updateProductPrice();
+    }
+
+    if (field === 'pricePerKg') {
+      updateProductPrice();
+    }
+
+    if (field === 'productPrice') {
+      updatePricePerKg();
     }
   };
 

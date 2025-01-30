@@ -28,3 +28,6 @@ export const formatQuantity = (value) => {
 
   return value;
 };
+
+export const cleanNumber = (input) =>
+  parseFloat((input || '0').toString().replace(/[^0-9.]/g, ''));

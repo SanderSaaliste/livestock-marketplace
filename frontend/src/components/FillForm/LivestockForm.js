@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from './InputField';
 import TextAreaField from './TextAreaField';
 import Dropdown from './Dropdown';
+import { cleanNumber } from '../../utils/text';
 
 const LivestockForm = ({ onChange, formData }) => {
   const [dropdownState, setDropdownState] = useState({});
@@ -28,26 +29,28 @@ const LivestockForm = ({ onChange, formData }) => {
 
     onChange(field, value);
 
-    const quantity = parseFloat(
-      field === 'quantity' ? value : formData?.quantity || 0
+    const quantity = cleanNumber(
+      field === 'quantity' ? value : formData?.quantity
     );
-    const estimatedWeight = parseFloat(
-      field === 'estimatedWeight' ? value : formData?.estimatedWeight || 0
+    const estimatedWeight = cleanNumber(
+      field === 'estimatedWeight' ? value : formData?.estimatedWeight
     );
-    const pricePerKgInput = parseFloat(
-      field === 'pricePerKgInput' ? value : formData?.pricePerKgInput || 0
+    const pricePerKgInput = cleanNumber(
+      field === 'pricePerKgInput' ? value : formData?.pricePerKgInput
     );
-    const totalPrice = parseFloat(
-      field === 'totalPrice' ? value : formData?.totalPrice || 0
+    const totalPrice = cleanNumber(
+      field === 'totalPrice' ? value : formData?.totalPrice
     );
 
     function updateTotalPrice() {
       const totalPrice = estimatedWeight * pricePerKgInput;
       onChange(
         'totalPrice',
-        isNaN(totalPrice) ? '' : `${totalPrice.toFixed(3)} PHP`
+        isNaN(totalPrice) || totalPrice === 0
+          ? ''
+          : `${totalPrice.toLocaleString()} PHP`
       );
-      updateAvgHead();
+      updateAvgHead(undefined, totalPrice);
       updateAvgWeight();
     }
 
@@ -55,27 +58,38 @@ const LivestockForm = ({ onChange, formData }) => {
       const pricePerKg = estimatedWeight > 0 ? totalPrice / estimatedWeight : 0;
       onChange(
         'pricePerKgInput',
-        isNaN(pricePerKg) ? '' : `${pricePerKg.toFixed(3)}`
+        isNaN(pricePerKg) || pricePerKg === 0 ? '' : `${pricePerKg.toFixed(3)}`
       );
       onChange(
         'pricePerKg',
-        isNaN(pricePerKg) ? '' : `${pricePerKg.toFixed(3)} PHP`
+        isNaN(pricePerKg) || pricePerKg === 0
+          ? ''
+          : `${pricePerKg.toFixed(3)} PHP`
       );
     }
 
-    function updateAvgHead() {
-      const avgHead = quantity > 0 ? totalPrice / quantity : 0;
+    function updateAvgHead(quantityArg, totalPriceArg) {
+      const quantityValue = quantityArg !== undefined ? quantityArg : quantity;
+      const totalPriceValue =
+        totalPriceArg !== undefined ? totalPriceArg : totalPrice;
+
+      const avgHead = quantityValue > 0 ? totalPriceValue / quantityValue : 0;
       onChange(
         'avgPricePerHead',
-        isNaN(avgHead) ? '' : `${avgHead.toFixed(3)} PHP`
+        isNaN(avgHead) || avgHead === 0 ? '' : `${avgHead.toLocaleString()} PHP`
       );
     }
 
-    function updateAvgWeight() {
-      const avgWeight = quantity > 0 ? estimatedWeight / quantity : 0;
+    function updateAvgWeight(quantityArg, estimatedWeightArg) {
+      const quantityValue = quantityArg !== undefined ? quantityArg : quantity;
+      const estimatedWeightValue =
+        estimatedWeightArg !== undefined ? estimatedWeightArg : estimatedWeight;
+
+      const avgWeight =
+        quantityValue > 0 ? estimatedWeightValue / quantityValue : 0;
       onChange(
         'avgWeightPerHead',
-        isNaN(avgWeight) ? '' : `${avgWeight.toFixed(3)} kg`
+        isNaN(avgWeight) || avgWeight === 0 ? '' : `${avgWeight.toFixed(2)} kg`
       );
     }
 
