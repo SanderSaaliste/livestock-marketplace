@@ -1045,6 +1045,13 @@ const ListingCard = ({ listing }) => {
                   </span>
                 </div>
               )}
+
+              {listing.formData.location && (
+                <div className='flex items-center'>
+                  <FaLocationDot className='mr-2 text-lg text-gray-500' />
+                  <span>{listing.formData.location}</span>
+                </div>
+              )}
             </div>
 
             {listing.formData.description && (
@@ -1122,6 +1129,13 @@ const ListingCard = ({ listing }) => {
                   <span className='font-bold text-black ml-1'>
                     {formatQuantity(listing.formData.totalPrice)}
                   </span>
+                </div>
+              )}
+
+              {listing.formData.location && (
+                <div className='flex items-center'>
+                  <FaLocationDot className='mr-2 text-lg text-gray-500' />
+                  <span>{listing.formData.location}</span>
                 </div>
               )}
             </div>
@@ -1854,6 +1868,13 @@ const ListingCard = ({ listing }) => {
                   </span>
                 </div>
               )}
+
+              {listing.formData.location && (
+                <div className='flex items-center'>
+                  <FaLocationDot className='mr-2 text-lg text-gray-500' />
+                  <span>{listing.formData.location}</span>
+                </div>
+              )}
             </div>
 
             {listing.formData.description && (
@@ -1931,6 +1952,13 @@ const ListingCard = ({ listing }) => {
                   <span className='font-bold text-black ml-1'>
                     {formatQuantity(listing.formData.totalPrice)}
                   </span>
+                </div>
+              )}
+
+              {listing.formData.location && (
+                <div className='flex items-center'>
+                  <FaLocationDot className='mr-2 text-lg text-gray-500' />
+                  <span>{listing.formData.location}</span>
                 </div>
               )}
             </div>

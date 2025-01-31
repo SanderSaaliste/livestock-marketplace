@@ -182,9 +182,26 @@ const Reviews = ({ listing, reviews }) => {
                         </div>
                         <span className='ml-2 text-sm'>
                           |{' '}
-                          {moment(review.createdTimestamp).fromNow(true) ===
-                          'a few seconds'
+                          {moment
+                            .duration(
+                              moment().diff(moment(review.createdTimestamp))
+                            )
+                            .asSeconds() < 60
                             ? 'just now'
+                            : moment
+                                .duration(
+                                  moment().diff(moment(review.createdTimestamp))
+                                )
+                                .asMinutes() < 60
+                            ? `${Math.floor(
+                                moment
+                                  .duration(
+                                    moment().diff(
+                                      moment(review.createdTimestamp)
+                                    )
+                                  )
+                                  .asMinutes()
+                              )} min ago`
                             : moment(review.createdTimestamp).fromNow()}
                         </span>
                       </div>

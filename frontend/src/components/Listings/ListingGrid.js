@@ -113,13 +113,13 @@ const ListingsGrid = ({
   };
 
   useEffect(() => {
-    fetchListings(1);
+    fetchListings(1, sortOption);
     scrollToTop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, searchQuery]);
+  }, [searchParams, searchQuery, sortOption]);
 
   const paginate = (pageNumber) => {
-    fetchListings(pageNumber);
+    fetchListings(pageNumber, sortOption);
     scrollToTop();
   };
 
@@ -130,12 +130,12 @@ const ListingsGrid = ({
     ) {
       setCurrentRange(currentRange + 1);
       setCurrentPage(currentRange * maxPagesToShow + 1);
-      fetchListings(currentRange * maxPagesToShow + 1);
+      fetchListings(currentRange * maxPagesToShow + 1, sortOption);
       scrollToTop();
     } else if (direction === 'previous' && currentRange > 1) {
       setCurrentRange(currentRange - 1);
       setCurrentPage((currentRange - 1) * maxPagesToShow);
-      fetchListings((currentRange - 1) * maxPagesToShow);
+      fetchListings((currentRange - 1) * maxPagesToShow, sortOption);
       scrollToTop();
     }
   };
@@ -153,14 +153,45 @@ const ListingsGrid = ({
     (_, idx) => startPage + idx
   );
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
+  const handleSearch = (newParams) => {
+    setSearchQuery((prevParams) => ({
+      ...prevParams,
+      ...newParams,
+    }));
   };
 
   const handleSortChange = (e) => {
     const selectedSort = e.target.value;
     setSortOption(selectedSort);
-    fetchListings(1, selectedSort);
+
+    if (
+      (selectedSort === 'price-asc' || selectedSort === 'price-desc') &&
+      priceOptions.length === 0
+    ) {
+      setPriceOptions([
+        'mPrice',
+        'avgPricePerHead',
+        'totalPrice',
+        'productPrice',
+        'pricePerBag',
+        'preferredHourlyRate',
+        'hourlyRate',
+      ]);
+
+      const newSearchParams = {
+        priceOptions: [
+          'mPrice',
+          'avgPricePerHead',
+          'totalPrice',
+          'productPrice',
+          'pricePerBag',
+          'preferredHourlyRate',
+          'hourlyRate',
+        ],
+      };
+
+      handleSearch(newSearchParams);
+    }
   };
 
   return (
@@ -201,12 +232,8 @@ const ListingsGrid = ({
                     onChange={handleSortChange}
                   >
                     <option value=''>Sort by</option>
-                    <option value='price-asc' disabled>
-                      Price: Low to High
-                    </option>
-                    <option value='price-desc' disabled>
-                      Price: High to Low
-                    </option>
+                    <option value='price-asc'>Price: Low to High</option>
+                    <option value='price-desc'>Price: High to Low</option>
                     <option value='newest'>Newest Listings</option>
                     <option value='oldest'>Oldest Listings</option>
                   </select>

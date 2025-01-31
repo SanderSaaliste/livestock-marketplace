@@ -154,19 +154,27 @@ const listingController = {
       }
       if (priceOptions) {
         const priceOptionsArray = priceOptions.split(',');
+
+        const caseWhenQuery = priceOptionsArray
+          .map(
+            (option, index) =>
+              `WHEN JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')) IS NOT NULL THEN CAST(REPLACE(JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')), 'PHP', '') AS DECIMAL)`
+          )
+          .join(' ');
+
         whereClause[Op.and] = [
           ...(whereClause[Op.and] || []),
           {
-            [Op.or]: priceOptionsArray.map((option) =>
+            [Op.or]: [
               Sequelize.where(
-                Sequelize.literal(
-                  `CAST(REPLACE(JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')), 'PHP', '') AS DECIMAL)`
-                ),
+                Sequelize.literal(`
+                  CASE ${caseWhenQuery} ELSE NULL END
+                `),
                 {
                   [Op.between]: [minPrice || 0, maxPrice || Number.MAX_VALUE],
                 }
-              )
-            ),
+              ),
+            ],
           },
         ];
       }
@@ -208,6 +216,28 @@ const listingController = {
       let order = [['createdTimestamp', 'DESC']];
       if (sortBy === 'oldest') {
         order = [['createdTimestamp', 'ASC']];
+      }
+      if (sortBy === 'price-asc' || sortBy === 'price-desc') {
+        if (priceOptions) {
+          const priceOptionsArray = priceOptions.split(',');
+
+          const caseWhenQuery = priceOptionsArray
+            .map(
+              (option) =>
+                `WHEN JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')) IS NOT NULL 
+                         THEN CAST(REPLACE(JSON_UNQUOTE(JSON_EXTRACT(formData, '$.${option}')), 'PHP', '') AS DECIMAL)`
+            )
+            .join(' ');
+
+          order = [
+            [
+              Sequelize.literal(`
+                        CASE ${caseWhenQuery} ELSE NULL END
+                    `),
+              sortBy === 'price-asc' ? 'ASC' : 'DESC',
+            ],
+          ];
+        }
       }
 
       const limit = parseInt(numItems, 10);

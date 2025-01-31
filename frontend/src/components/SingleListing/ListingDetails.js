@@ -32,7 +32,11 @@ const ListingDetails = ({ listing, descriptionRef }) => {
           Listings
         </Link>{' '}
         / <span>Search Results / </span>
-        <span className='font-bold text-black'>{listing.formData.title}</span>
+        <span className='font-bold text-black'>
+          {listing.formData.title.length > 85
+            ? `${listing.formData.title.substring(0, 85)}...`
+            : listing.formData.title}
+        </span>
       </div>
 
       <div className='flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-5'>
