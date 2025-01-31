@@ -50,20 +50,26 @@ const ListingCardAlt = ({ listing }) => {
         )}
         <span
           className={`absolute top-3 left-3 text-sm font-bold px-3 py-2 rounded-md shadow-md text-black ${
-            listing.formData.salesStatus === 'For Sale'
+            (listing.formData.salesStatus ||
+              (listing.selectedCategory === 'Services / Jobs'
+                ? 'Active'
+                : 'For Sale')) === 'For Sale'
               ? 'bg-[#DDECCB]'
-              : listing.formData.salesStatus === 'Active'
+              : (listing.formData.salesStatus || 'For Sale') === 'Active'
               ? 'bg-[#DDECCB]'
-              : listing.formData.salesStatus === 'Pending'
+              : (listing.formData.salesStatus || 'For Sale') === 'Pending'
               ? 'bg-[#FFE06F]'
-              : listing.formData.salesStatus === 'Sold'
+              : (listing.formData.salesStatus || 'For Sale') === 'Sold'
               ? 'bg-[#F88F86] text-white'
-              : listing.formData.salesStatus === 'Inactive'
+              : (listing.formData.salesStatus || 'For Sale') === 'Inactive'
               ? 'bg-[#F88F86] text-white'
               : 'bg-[#DDECCB]'
           }`}
         >
-          {listing.formData.salesStatus || 'For Sale'}
+          {listing.formData.salesStatus ||
+            (listing.selectedCategory === 'Services / Jobs'
+              ? 'Active'
+              : 'For Sale')}
         </span>
       </div>
 

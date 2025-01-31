@@ -377,7 +377,7 @@ const Filters = ({
         <hr className='mt-4' />
       </div>
 
-      {((selectedCategory === 'Livestock' && selectedSubCategory !== 'Eggs') ||
+      {(selectedCategory === 'Livestock' ||
         selectedCategory === 'Animal Feed' ||
         selectedCategory === 'Seeds' ||
         selectedCategory === 'Fruits, Vegetables & Growables' ||

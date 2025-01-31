@@ -129,6 +129,13 @@ const FillForm = () => {
       return;
     }
 
+    const sanitizeValue = (value) => {
+      if (typeof value === 'string') {
+        return value.replace(/\s*(PHP|kg)$/, '').trim();
+      }
+      return value;
+    };
+
     const listingData = {
       selectedCategory,
       selectedSubcategory,
@@ -138,6 +145,12 @@ const FillForm = () => {
       salesStatus:
         selectedCategory === 'Services / Jobs' ? 'Active' : 'For Sale',
     };
+
+    Object.entries(listingData.formData).forEach(([key, value]) => {
+      if (typeof value === 'string') {
+        listingData.formData[key] = sanitizeValue(value);
+      }
+    });
 
     const formDataToSend = new FormData();
 

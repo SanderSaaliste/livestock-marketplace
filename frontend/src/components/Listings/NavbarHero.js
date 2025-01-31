@@ -7,17 +7,14 @@ import {
   BiHeart,
   BiBell,
   BiEnvelope,
-  BiSearch,
 } from 'react-icons/bi';
 import { FaTimes } from 'react-icons/fa';
 
 import logo from '../../assets/farmifyLogoWhite.png';
 import headerImage from '../../assets/listingHeader.png';
-import CustomDropdown from '../Home/CustomDropdown';
 import SignUpDialog from '../SignUpDialog';
 import LoginDialog from '../LoginDialog';
 import authService from '../../services/auth-service';
-import { categories, groups } from '../../constants';
 
 const NavbarHero = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -168,8 +165,14 @@ const NavbarHero = () => {
         )}
       </nav>
 
-      <div className='container mx-auto px-4 lg:px-40 py-32 flex items-center justify-center text-center'>
-        <h1 className='text-white text-2xl lg:text-5xl font-bold mb-4 font-mochiy leading-snug lg:leading-normal'>
+      <div className='container mx-auto px-4 lg:px-40 py-16 flex items-center justify-center text-center'>
+        <h1
+          className='text-white text-2xl lg:text-5xl font-bold mb-4 font-mochiy leading-snug lg:leading-normal'
+          style={{
+            '--tw-text-shadow': '0px 4px 10.4px rgba(0, 0, 0, 0.4)',
+            textShadow: 'var(--tw-text-shadow)',
+          }}
+        >
           Find Your Perfect Product
         </h1>
       </div>
