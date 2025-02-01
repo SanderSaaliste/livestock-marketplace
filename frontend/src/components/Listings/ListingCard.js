@@ -1473,7 +1473,7 @@ const ListingCard = ({ listing }) => {
                   />
                   <span>Per kg:</span>
                   <span className='font-bold text-black ml-1'>
-                    {formatQuantity(listing.formData.pricePerKg)}kg
+                    {formatQuantity(listing.formData.pricePerKg)}
                   </span>
                 </div>
               )}
