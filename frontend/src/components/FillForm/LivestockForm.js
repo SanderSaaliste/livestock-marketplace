@@ -58,13 +58,15 @@ const LivestockForm = ({ onChange, formData }) => {
       const pricePerKg = estimatedWeight > 0 ? totalPrice / estimatedWeight : 0;
       onChange(
         'pricePerKgInput',
-        isNaN(pricePerKg) || pricePerKg === 0 ? '' : `${pricePerKg.toFixed(3)}`
+        isNaN(pricePerKg) || pricePerKg === 0
+          ? ''
+          : `${pricePerKg.toLocaleString()}`
       );
       onChange(
         'pricePerKg',
         isNaN(pricePerKg) || pricePerKg === 0
           ? ''
-          : `${pricePerKg.toFixed(3)} PHP`
+          : `${pricePerKg.toLocaleString()} PHP`
       );
     }
 
@@ -89,7 +91,12 @@ const LivestockForm = ({ onChange, formData }) => {
         quantityValue > 0 ? estimatedWeightValue / quantityValue : 0;
       onChange(
         'avgWeightPerHead',
-        isNaN(avgWeight) || avgWeight === 0 ? '' : `${avgWeight.toFixed(2)} kg`
+        isNaN(avgWeight) || avgWeight === 0
+          ? ''
+          : `${avgWeight.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })} kg`
       );
     }
 
@@ -111,7 +118,7 @@ const LivestockForm = ({ onChange, formData }) => {
       updateTotalPrice();
       onChange(
         'pricePerKg',
-        isNaN(pricePerKgInput) ? '' : `${pricePerKgInput.toFixed(2)} PHP`
+        isNaN(pricePerKgInput) ? '' : `${pricePerKgInput.toLocaleString()} PHP`
       );
     }
 

@@ -12,7 +12,10 @@ const FeatureCard = ({ image, bgColor, iconBgColor, borderColor, text }) => {
       >
         <img src={image} alt={text} />
       </div>
-      <span className='ml-5 text-lg font-bold text-black'>{text}</span>
+      <span className='ml-5 text-md font-[900] text-black'>
+        {text.split(':')[0]}:
+        <span className='text-[#4f4f4f]'> {text.split(':')[1]}</span>
+      </span>
     </div>
   );
 };

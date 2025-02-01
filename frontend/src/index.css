@@ -37,3 +37,29 @@ code {
 .scrollbar-visible::-webkit-scrollbar-track {
   background: #f0f0f0;
 }
+
+input[type='checkbox'] {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  border: 1px solid #888888;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+input[type='checkbox']:checked::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #4d4d4d;
+  position: absolute;
+  top: 52%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+}

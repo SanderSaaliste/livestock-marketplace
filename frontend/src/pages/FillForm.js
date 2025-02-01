@@ -131,7 +131,12 @@ const FillForm = () => {
 
     const sanitizeValue = (value) => {
       if (typeof value === 'string') {
-        return value.replace(/\s*(PHP|kg)$/, '').trim();
+        if (/^\d{1,3}(,\d{3})*(\.\d+)?\s*(PHP|kg)?$/.test(value)) {
+          return value
+            .replace(/,/g, '')
+            .replace(/\s*(PHP|kg)$/, '')
+            .trim();
+        }
       }
       return value;
     };

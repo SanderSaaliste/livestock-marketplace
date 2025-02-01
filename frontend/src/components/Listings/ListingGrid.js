@@ -164,22 +164,11 @@ const ListingsGrid = ({
     const selectedSort = e.target.value;
     setSortOption(selectedSort);
 
-    if (
-      (selectedSort === 'price-asc' || selectedSort === 'price-desc') &&
-      priceOptions.length === 0
-    ) {
-      setPriceOptions([
-        'mPrice',
-        'avgPricePerHead',
-        'totalPrice',
-        'productPrice',
-        'pricePerBag',
-        'preferredHourlyRate',
-        'hourlyRate',
-      ]);
+    let newSearchParams;
 
-      const newSearchParams = {
-        priceOptions: [
+    if (selectedSort === 'price-asc' || selectedSort === 'price-desc') {
+      if (priceOptions.length === 0) {
+        setPriceOptions([
           'mPrice',
           'avgPricePerHead',
           'totalPrice',
@@ -187,8 +176,24 @@ const ListingsGrid = ({
           'pricePerBag',
           'preferredHourlyRate',
           'hourlyRate',
-        ],
-      };
+        ]);
+
+        newSearchParams = {
+          priceOptions: [
+            'mPrice',
+            'avgPricePerHead',
+            'totalPrice',
+            'productPrice',
+            'pricePerBag',
+            'preferredHourlyRate',
+            'hourlyRate',
+          ],
+        };
+      } else {
+        newSearchParams = {
+          priceOptions: priceOptions,
+        };
+      }
 
       handleSearch(newSearchParams);
     }

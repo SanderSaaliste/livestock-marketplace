@@ -34,7 +34,7 @@ const CustomDropdown = ({
       >
         <div className='flex items-center'>
           <BiFilter className='text-gray-500 text-xl mr-2' />
-          <span className='text-gray-400 font-semibold text-sm sm:text-base'>
+          <span className='text-gray-400 font-semibold text-sm sm:text-base truncate'>
             {selectedSubCategory || placeholder}
           </span>
         </div>

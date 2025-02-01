@@ -75,7 +75,9 @@ const BananasForm = ({ onChange, formData }) => {
       const pricePerKg = productWeight > 0 ? productPrice / productWeight : 0;
       onChange(
         'pricePerKg',
-        isNaN(pricePerKg) || pricePerKg === 0 ? '' : `${pricePerKg.toFixed(3)}`
+        isNaN(pricePerKg) || pricePerKg === 0
+          ? ''
+          : `${pricePerKg.toLocaleString()}`
       );
     }
 

@@ -60,12 +60,20 @@ const Filters = ({
     setState([...updatedState]);
   };
 
-  const handleRadioChange = (optionOrArray, setState) => {
+  const handleRadioChange = (optionOrArray, setState, state) => {
     const options = Array.isArray(optionOrArray)
       ? optionOrArray
       : [optionOrArray];
 
-    setState([...options]);
+    setState((prevState) => {
+      const allExist = options.every((opt) => prevState.includes(opt));
+
+      if (allExist) {
+        return prevState.filter((opt) => !options.includes(opt));
+      }
+
+      return [...options];
+    });
   };
 
   const handleSearch = () => {
@@ -195,10 +203,14 @@ const Filters = ({
                   <>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('pwPrice')}
                         onChange={() =>
-                          handleRadioChange('pwPrice', setPriceOptions)
+                          handleRadioChange(
+                            'pwPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -211,10 +223,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('xsPrice')}
                         onChange={() =>
-                          handleRadioChange('xsPrice', setPriceOptions)
+                          handleRadioChange(
+                            'xsPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -227,10 +243,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('sPrice')}
                         onChange={() =>
-                          handleRadioChange('sPrice', setPriceOptions)
+                          handleRadioChange(
+                            'sPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -243,10 +263,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('mPrice')}
                         onChange={() =>
-                          handleRadioChange('mPrice', setPriceOptions)
+                          handleRadioChange(
+                            'mPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -259,10 +283,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('lPrice')}
                         onChange={() =>
-                          handleRadioChange('lPrice', setPriceOptions)
+                          handleRadioChange(
+                            'lPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -278,7 +306,11 @@ const Filters = ({
                         type='checkbox'
                         checked={priceOptions.includes('xlPrice')}
                         onChange={() =>
-                          handleRadioChange('xlPrice', setPriceOptions)
+                          handleRadioChange(
+                            'xlPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -291,10 +323,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('jumboPrice')}
                         onChange={() =>
-                          handleRadioChange('jumboPrice', setPriceOptions)
+                          handleRadioChange(
+                            'jumboPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -307,10 +343,14 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('dirtyPrice')}
                         onChange={() =>
-                          handleRadioChange('dirtyPrice', setPriceOptions)
+                          handleRadioChange(
+                            'dirtyPrice',
+                            setPriceOptions,
+                            priceOptions
+                          )
                         }
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -328,10 +368,14 @@ const Filters = ({
                   <>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('pricePerKg')}
                         onChange={() => {
-                          handleRadioChange('pricePerKg', setPriceOptions);
+                          handleRadioChange(
+                            'pricePerKg',
+                            setPriceOptions,
+                            priceOptions
+                          );
                         }}
                         className='mr-2 focus:ring-[#2F855A]'
                       />
@@ -344,7 +388,7 @@ const Filters = ({
                     </label>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         checked={priceOptions.includes('avgPricePerHead')}
                         onChange={() => {
                           handleRadioChange(
@@ -356,7 +400,8 @@ const Filters = ({
                               'preferredHourlyRate',
                               'hourlyRate',
                             ],
-                            setPriceOptions
+                            setPriceOptions,
+                            priceOptions
                           );
                         }}
                         className='mr-2 focus:ring-[#2F855A]'
@@ -377,7 +422,7 @@ const Filters = ({
         <hr className='mt-4' />
       </div>
 
-      {(selectedCategory === 'Livestock' ||
+      {((selectedCategory === 'Livestock' && selectedSubCategory !== 'Eggs') ||
         selectedCategory === 'Animal Feed' ||
         selectedCategory === 'Seeds' ||
         selectedCategory === 'Fruits, Vegetables & Growables' ||
@@ -428,10 +473,14 @@ const Filters = ({
                 <div className='mt-4 flex flex-col space-y-4 text-gray-400 font-semibold'>
                   <label className='flex items-center'>
                     <input
-                      type='radio'
+                      type='checkbox'
                       checked={weightOptions.includes('avgWeightPerHead')}
                       onChange={() => {
-                        handleRadioChange('avgWeightPerHead', setWeightOptions);
+                        handleRadioChange(
+                          'avgWeightPerHead',
+                          setWeightOptions,
+                          weightOptions
+                        );
                       }}
                       className='mr-2 focus:ring-[#2F855A]'
                     />
@@ -440,12 +489,13 @@ const Filters = ({
                   </label>
                   <label className='flex items-center'>
                     <input
-                      type='radio'
+                      type='checkbox'
                       checked={weightOptions.includes('totalWeight')}
                       onChange={() => {
                         handleRadioChange(
                           ['totalWeight', 'productWeight'],
-                          setWeightOptions
+                          setWeightOptions,
+                          weightOptions
                         );
                       }}
                       className='mr-2 focus:ring-[#2F855A]'
@@ -455,12 +505,13 @@ const Filters = ({
                   </label>
                   <label className='flex items-center'>
                     <input
-                      type='radio'
+                      type='checkbox'
                       checked={weightOptions.includes('weight')}
                       onChange={() => {
                         handleRadioChange(
                           ['weight', 'minOrder', 'feedBagWeight'],
-                          setWeightOptions
+                          setWeightOptions,
+                          weightOptions
                         );
                       }}
                       className='mr-2 focus:ring-[#2F855A]'

@@ -201,7 +201,7 @@ const Reviews = ({ listing, reviews }) => {
                                     )
                                   )
                                   .asMinutes()
-                              )} min ago`
+                              )} mins ago`
                             : moment(review.createdTimestamp).fromNow()}
                         </span>
                       </div>
