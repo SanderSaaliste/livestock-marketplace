@@ -48,7 +48,10 @@ const LivestockForm = ({ onChange, formData }) => {
         'totalPrice',
         isNaN(totalPrice) || totalPrice === 0
           ? ''
-          : `${totalPrice.toLocaleString()} PHP`
+          : `${totalPrice.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} PHP`
       );
       updateAvgHead(undefined, totalPrice);
       updateAvgWeight();
@@ -60,13 +63,19 @@ const LivestockForm = ({ onChange, formData }) => {
         'pricePerKgInput',
         isNaN(pricePerKg) || pricePerKg === 0
           ? ''
-          : `${pricePerKg.toLocaleString()}`
+          : `${pricePerKg.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}`
       );
       onChange(
         'pricePerKg',
         isNaN(pricePerKg) || pricePerKg === 0
           ? ''
-          : `${pricePerKg.toLocaleString()} PHP`
+          : `${pricePerKg.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} PHP`
       );
     }
 
@@ -78,7 +87,12 @@ const LivestockForm = ({ onChange, formData }) => {
       const avgHead = quantityValue > 0 ? totalPriceValue / quantityValue : 0;
       onChange(
         'avgPricePerHead',
-        isNaN(avgHead) || avgHead === 0 ? '' : `${avgHead.toLocaleString()} PHP`
+        isNaN(avgHead) || avgHead === 0
+          ? ''
+          : `${avgHead.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} PHP`
       );
     }
 
@@ -110,7 +124,12 @@ const LivestockForm = ({ onChange, formData }) => {
       updateAvgWeight();
       onChange(
         'totalWeight',
-        estimatedWeight > 0 ? `${estimatedWeight} kg` : ''
+        estimatedWeight > 0
+          ? `${estimatedWeight.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} kg`
+          : ''
       );
     }
 
@@ -118,7 +137,12 @@ const LivestockForm = ({ onChange, formData }) => {
       updateTotalPrice();
       onChange(
         'pricePerKg',
-        isNaN(pricePerKgInput) ? '' : `${pricePerKgInput.toLocaleString()} PHP`
+        isNaN(pricePerKgInput)
+          ? ''
+          : `${pricePerKgInput.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} PHP`
       );
     }
 

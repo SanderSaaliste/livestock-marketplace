@@ -132,10 +132,16 @@ const FillForm = () => {
     const sanitizeValue = (value) => {
       if (typeof value === 'string') {
         if (/^\d{1,3}(,\d{3})*(\.\d+)?\s*(PHP|kg)?$/.test(value)) {
-          return value
+          let sanitized = value
             .replace(/,/g, '')
             .replace(/\s*(PHP|kg)$/, '')
             .trim();
+
+          if (sanitized.includes('.')) {
+            sanitized = parseFloat(sanitized).toFixed(2);
+          }
+
+          return sanitized;
         }
       }
       return value;

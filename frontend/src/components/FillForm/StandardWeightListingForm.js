@@ -40,7 +40,10 @@ const StandardWeightListingForm = ({ onChange, formData }) => {
         'productPrice',
         isNaN(totalPrice) || totalPrice === 0
           ? ''
-          : `${totalPrice.toLocaleString()} PHP`
+          : `${totalPrice.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })} PHP`
       );
     }
 
@@ -50,7 +53,10 @@ const StandardWeightListingForm = ({ onChange, formData }) => {
         'pricePerKg',
         isNaN(pricePerKg) || pricePerKg === 0
           ? ''
-          : `${pricePerKg.toLocaleString()}`
+          : `${pricePerKg.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}`
       );
     }
 
