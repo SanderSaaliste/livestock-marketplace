@@ -493,7 +493,7 @@ const Filters = ({
                       checked={weightOptions.includes('totalWeight')}
                       onChange={() => {
                         handleRadioChange(
-                          ['totalWeight', 'productWeight'],
+                          ['totalWeight'],
                           setWeightOptions,
                           weightOptions
                         );
@@ -509,7 +509,12 @@ const Filters = ({
                       checked={weightOptions.includes('weight')}
                       onChange={() => {
                         handleRadioChange(
-                          ['weight', 'minOrder', 'feedBagWeight'],
+                          [
+                            'weight',
+                            'productWeight',
+                            'minOrder',
+                            'feedBagWeight',
+                          ],
                           setWeightOptions,
                           weightOptions
                         );
