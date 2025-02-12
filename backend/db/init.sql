@@ -46,13 +46,13 @@ INSERT INTO `listings` VALUES (1,1,'Livestock','Eggs','{\"media\": [\"/listingMe
 UNLOCK TABLES;
 
 --
--- Table structure for table `refreshtokens`
+-- Table structure for table `refreshTokens`
 --
 
-DROP TABLE IF EXISTS `refreshtokens`;
+DROP TABLE IF EXISTS `refreshTokens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `refreshtokens` (
+CREATE TABLE `refreshTokens` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
   `token` text NOT NULL,
@@ -60,18 +60,18 @@ CREATE TABLE `refreshtokens` (
   `isValid` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `userId` (`userId`),
-  CONSTRAINT `refreshtokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `refreshTokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `refreshtokens`
+-- Dumping data for table `refreshTokens`
 --
 
-LOCK TABLES `refreshtokens` WRITE;
-/*!40000 ALTER TABLE `refreshtokens` DISABLE KEYS */;
-INSERT INTO `refreshtokens` VALUES (1,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM3Mjg0MjU2LCJleHAiOjE3Mzk4NzYyNTZ9.EovXjNiK7zZc8FYq3rxoVz570ksEhszNsc6iZTpd824','2025-02-18 10:57:36',1),(16,2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM3Mjc5MzQ3LCJleHAiOjE3Mzk4NzEzNDd9.2T6CCxSyIH8IYez4awVIwZiEv8U7cvdHtB45XlpvDlU','2025-02-18 09:35:47',0),(36,3,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzM3MjA1NzM0LCJleHAiOjE3Mzk3OTc3MzR9.ugkszpBYwJV7gaHLui-AfrsuHgBTD8w5WmJTDCxdPzs','2025-02-17 13:08:54',0);
-/*!40000 ALTER TABLE `refreshtokens` ENABLE KEYS */;
+LOCK TABLES `refreshTokens` WRITE;
+/*!40000 ALTER TABLE `refreshTokens` DISABLE KEYS */;
+INSERT INTO `refreshTokens` VALUES (1,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM3Mjg0MjU2LCJleHAiOjE3Mzk4NzYyNTZ9.EovXjNiK7zZc8FYq3rxoVz570ksEhszNsc6iZTpd824','2025-02-18 10:57:36',1),(16,2,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzM3Mjc5MzQ3LCJleHAiOjE3Mzk4NzEzNDd9.2T6CCxSyIH8IYez4awVIwZiEv8U7cvdHtB45XlpvDlU','2025-02-18 09:35:47',0),(36,3,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzM3MjA1NzM0LCJleHAiOjE3Mzk3OTc3MzR9.ugkszpBYwJV7gaHLui-AfrsuHgBTD8w5WmJTDCxdPzs','2025-02-17 13:08:54',0);
+/*!40000 ALTER TABLE `refreshTokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
